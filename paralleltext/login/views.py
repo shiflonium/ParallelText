@@ -6,7 +6,7 @@ def user_auth(request):
     status = "Please login:"
     username = password = ''
 
-    if request.POST:
+    if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
