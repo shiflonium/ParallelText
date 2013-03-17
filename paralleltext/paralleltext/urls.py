@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     # url(r'^paralleltext/', include('paralleltext.foo.urls')),
     url(r'^$', 'paralleltext.views.index'),
     url(r'^login/', 'login.views.user_auth'),
-    url(r'^register/', 'register.views.register'),
+    url(r'^register/', 'register.views.user_reg'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -4,8 +4,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-def register(request):
-    if request.POST:
+def user_reg(request):
+    if request.method == 'POST':
         form = UserCreationForm(request.POST)
 
         if form.is_valid():
