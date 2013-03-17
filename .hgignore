@@ -1,4 +1,8 @@
-# use glob syntax.
+# use glob syntax
 syntax: glob
-	  *.pyc
-	  *~
+
+*.db
+*.log
+*.pyc
+*~
+

@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'paralleltext.views.home', name='home'),
     # url(r'^paralleltext/', include('paralleltext.foo.urls')),
+    url(r'^$', 'paralleltext.views.index'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
