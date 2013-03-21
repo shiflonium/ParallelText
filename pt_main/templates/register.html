@@ -4,22 +4,71 @@
     <h2>Account Registration</h2>
     <form action="" method="POST">
         {% csrf_token %}
-        <p>Username: <input type="text" name="username" value="{{ username }}" /><br>
-		Password: <input type="password" name="password1" value="" /><br>
-        Password (again, for verification): <input type="password" name="password2" value="" /></p>
-        
-        <p>First Name: <input type="text" name="first_name" value="{{ first_name }}" /><br>
-        Last Name: <input type="text" name="last_name" value="{{ last_name }}" /><br>
-        Email Address: <input type="text" name="email" value="{{ email }}" /></p>
-        
-        <p>Gender: <input type="text" name="gender" value="{{ gender }}" /><br>
-        Age: <input type="text" name="age" value="{{ age }}" /><br>
-        Home Country: <input type="text" name="home_country" value="{{ home_country }}" /><br>
-        Native Language: <input type="text" name="native_lang" value="{{ native_lang }}" /><br>
-        Languages You Want to Learn: <input type="text" name="lang_to_learn" value="{{ lang_to_learn }}" /><br>
-        Profession: <input type="text" name="profession" value="{{ profession }}" /><br>
-        Income: <input type="text" name="income" value="{{ income }}" /></p>
-        <input type="submit" value="Register"><br>
+        <table>
+            <tr>
+                <td>Username:</td>
+                <td><input type="text" name="username" value="{{ username }}" /></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password1" value="" /></td>
+            </tr>
+            <tr>
+                <td>Retype Password:</td>
+                <td><input type="password" name="password2" value="" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><br></td>
+            </tr>
+            <tr>
+                <td>First Name:</td>
+                <td><input type="text" name="first_name" value="{{ first_name }}" /></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td><input type="text" name="last_name" value="{{ last_name }}" /></td>
+            </tr>
+            <tr>
+                <td>Email Address:</td>
+                <td><input type="text" name="email" value="{{ email }}" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><br></td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td><input type="text" name="gender" value="{{ gender }}" /></td>
+            </tr>
+            <tr>
+                <td>Age:</td>
+                <td><input type="text" name="age" value="{{ age }}" /></td>
+            </tr>
+            <tr>
+                <td>Home Country:</td>
+                <td><input type="text" name="home_country" value="{{ home_country }}" /></td>
+            </tr>
+            <tr>
+                <td>Native Language:</td>
+                <td><input type="text" name="native_lang" value="{{ native_lang }}" /></td>
+            </tr>
+            <tr>
+                <td>Languages You Want to Learn:</td>
+                <td><input type="text" name="lang_to_learn" value="{{ lang_to_learn }}" /></td>
+            </tr>
+                <td>Profession:</td>
+                <td><input type="text" name="profession" value="{{ profession }}" /></td>
+            </tr>
+            <tr>
+                <td>Income:</td>
+                <td><input type="text" name="income" value="{{ income }}" /></td>
+            </tr>
+            <tr>
+                <td><br></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Register"></tr>
+            </tr>
+        </table>
     </form>
     <p>Already have an account? <a href="/login/">Login</a> with your account.</p>
 {% endblock %}
