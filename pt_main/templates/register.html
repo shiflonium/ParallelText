@@ -4,7 +4,21 @@
     <h2>Account Registration</h2>
     <form action="" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        <p>Username: <input type="text" name="username" value="{{ username }}" /><br>
+		Password: <input type="password" name="password1" value="" /><br>
+        Password (again, for verification): <input type="password" name="password2" value="" /></p>
+        
+        <p>First Name: <input type="text" name="first_name" value="{{ first_name }}" /><br>
+        Last Name: <input type="text" name="last_name" value="{{ last_name }}" /><br>
+        Email Address: <input type="text" name="email" value="{{ email }}" /></p>
+        
+        <p>Gender: <input type="text" name="gender" value="{{ gender }}" /><br>
+        Age: <input type="text" name="age" value="{{ age }}" /><br>
+        Home Country: <input type="text" name="home_country" value="{{ home_country }}" /><br>
+        Native Language: <input type="text" name="native_lang" value="{{ native_lang }}" /><br>
+        Languages You Want to Learn: <input type="text" name="lang_to_learn" value="{{ lang_to_learn }}" /><br>
+        Profession: <input type="text" name="profession" value="{{ profession }}" /><br>
+        Income: <input type="text" name="income" value="{{ income }}" /></p>
         <input type="submit" value="Register"><br>
     </form>
     <p>Already have an account? <a href="/login/">Login</a> with your account.</p>
