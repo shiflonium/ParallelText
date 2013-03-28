@@ -133,6 +133,8 @@ INSTALLED_APPS = (
     #'django.contrib.admindocs',
     'login',
     'register',
+    'bs4',
+    'ptext',
 )
 
 # A sample logging configuration. The only tangible logging
