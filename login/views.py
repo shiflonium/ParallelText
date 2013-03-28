@@ -21,5 +21,5 @@ def user_auth(request):
         else:
             status = "Your username and/or password were incorrect."
 
-    return render_to_response('login.html', {'status': status, 'username': username}, context_instance=RequestContext(request))
+    return render_to_response('login/login.html', {'status': status, 'username': username}, context_instance=RequestContext(request))
 
