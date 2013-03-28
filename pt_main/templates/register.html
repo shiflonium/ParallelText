@@ -4,6 +4,8 @@
     <h2>Account Registration</h2>
     <form action="" method="POST">
         {% csrf_token %}
+        {{ form.as_p }}
+        <!--
         <table>
             <tr>
                 <td>Username:</td>
@@ -69,6 +71,8 @@
                 <td colspan="2"><input type="submit" value="Register"></tr>
             </tr>
         </table>
+        -->
+        <input type="submit" value="Register">
     </form>
     <p>Already have an account? <a href="/login/">Login</a> with your account.</p>
 {% endblock %}
