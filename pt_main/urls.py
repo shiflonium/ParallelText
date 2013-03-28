@@ -7,7 +7,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'paralleltext.views.home', name='home'),
     # url(r'^paralleltext/', include('paralleltext.foo.urls')),
-    url(r'^$', 'pt_main.views.index'),
+    url(r'^$', 'home.views.index'),
     url(r'^login/', 'login.views.user_auth'),
     url(r'^register/', 'register.views.user_reg'),
 
