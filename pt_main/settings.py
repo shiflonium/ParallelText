@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     #'django.contrib.admindocs',
     'login',
     'register',
+    'parallel_display',
 )
 
 # A sample logging configuration. The only tangible logging
