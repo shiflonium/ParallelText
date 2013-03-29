@@ -4,11 +4,9 @@
     <h2>Welcome to ParallelText!</h2>
 
     <div id="slideshow">
-        <img name="slideImg" src="{{ STATIC_URL }}slideshow_01.gif" width=600 height=480 border=0>
-        <a href="#" onClick="switchImage('slideImg')">play slide show</a>
-        <a href="#" onClick="clearTimeout(timerID)">pause</a>
         <a href="#" onClick="prevImage('slideImg'); clearTimeout(timerID)">&lt;&lt;</a>
-        <a href="#" onClick="switchImage('slideImg'); clearTimeout(timerID)">&gt;&gt;</a>
+        <img name="slideImg" src="{{ STATIC_URL }}slideshow_01.gif" width=900 height=480 border=0>
+        <a href="#" onClick="nextImage('slideImg'); clearTimeout(timerID)">&gt;&gt;</a>
     </div>
 
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent volutpat, odio ut molestie convallis, nunc purus lacinia elit, ut rutrum eros urna eu eros. Maecenas sed quam eros. Maecenas eros purus, viverra sit amet posuere eget, tincidunt ac sem. Curabitur sollicitudin mi sit amet ipsum tempor luctus hendrerit leo pretium. In hac habitasse platea dictumst. Vestibulum scelerisque erat ut ipsum convallis non ultrices odio bibendum. Nam ullamcorper tincidunt leo vitae aliquet. Curabitur ut mattis elit.</p>

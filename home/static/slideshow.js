@@ -1,46 +1,51 @@
 var interval = 5000;
-var imageDir = "../static/";
-var imageNum = 0;
+var imgDir = "../static/";
+var imgNum = 0;
 
-imageArray = new Array();
-imageArray[imageNum++] = new imageItem(imageDir + "slideshow_01.gif");
-imageArray[imageNum++] = new imageItem(imageDir + "slideshow_02.gif");
-imageArray[imageNum++] = new imageItem(imageDir + "slideshow_03.gif");
-imageArray[imageNum++] = new imageItem(imageDir + "slideshow_04.gif");
-imageArray[imageNum++] = new imageItem(imageDir + "slideshow_05.gif");
+imgArray = new Array();
+imgArray[imgNum++] = new imageItem(imgDir + "slideshow_01.gif");
+imgArray[imgNum++] = new imageItem(imgDir + "slideshow_02.gif");
+imgArray[imgNum++] = new imageItem(imgDir + "slideshow_03.gif");
+imgArray[imgNum++] = new imageItem(imgDir + "slideshow_04.gif");
+imgArray[imgNum++] = new imageItem(imgDir + "slideshow_05.gif");
 
-var totalImages = imageArray.length;
+var totalimg = imgArray.length;
 
-function imageItem(image_location) {
-	this.image_item = new Image();
-	this.image_item.src = image_location;
+function imageItem(img_loc) {
+	this.img_item = new Image();
+	this.img_item.src = img_loc;
 }
 
-function get_ImageItemLocation(imageObj) {
-	return(imageObj.image_item.src)
+function get_imgItemLoc(imgObj) {
+	return(imgObj.img_item.src)
 }
 
 function getNextImage() {
-    imageNum = (imageNum+1) % totalImages;
-    var new_image = get_ImageItemLocation(imageArray[imageNum]);
-    return(new_image);
+    imgNum = (imgNum+1) % totalimg;
+    var new_img = get_imgItemLoc(imgArray[imgNum]);
+    return(new_img);
 }
 
 function getPrevImage() {
-	imageNum = (imageNum-1) % totalImages;
-	var new_image = get_ImageItemLocation(imageArray[imageNum]);
-	return(new_image);
+	imgNum = (imgNum-1) % totalimg;
+	var new_img = get_imgItemLoc(imgArray[imgNum]);
+	return(new_img);
 }
 
 function prevImage(place) {
-	var new_image = getPrevImage();
-	document[place].src = new_image;
+	var new_img = getPrevImage();
+	document[place].src = new_img;
 }
 
-function switchImage(place) {
-	var new_image = getNextImage();
-	document[place].src = new_image;
-	var recur_call = "switchImage('"+place+"')";
+function nextImage(place) {
+	var new_img = getNextImage();
+	document[place].src = new_img;
+	var recur_call = "nextImage('"+place+"')";
+	timerID = setTimeout(recur_call, interval);
+}
+
+function playImage(place) {
+	var recur_call = "nextImage('"+place+"')";
 	timerID = setTimeout(recur_call, interval);
 }
 
