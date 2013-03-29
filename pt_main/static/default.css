@@ -1,6 +1,5 @@
 body {
 	font-family: Arial, sans-serif;
-	font-size: small;
 }
 
 img {
@@ -20,7 +19,6 @@ img {
 #logo {
 	float: left;
 	height: 100px;
-	margin-left: 20px;
 	width: 200px;
 }
 
@@ -30,27 +28,42 @@ img {
 
 #sysnav {
     font-size: 12px;
+    margin-right: -20px;
 	text-align: right;
 }
 
-#mainnav {
-	clear: both;
-    margin-left: -40px;
-	padding-top: 5px;
-	width: 100%;
-}
-
-#navlist li {
+#sysnavlist li {
     display: inline;
     list-style-type: none;
     padding-right: 20px;
 }
 
+#mainnav {
+    background-color: #353535;
+	clear: both;
+    font-size: large;
+    margin-left: 0px;
+    margin-right: -20px;
+	margin-top: 40px;
+	width: 100%;
+}
+
+#mainnavlist li {
+    display: inline;
+    list-style-type: none;
+    padding-right: 60px;
+}
+
+#mainnav a { text-decoration: none; }
+#mainnav a:active { color: #FFFFFF; }
+#mainnav a:hover { color: #FFFFFF; }
+#mainnav a:link { color: #FFFFFF; }
+#mainnav a:visited { color: #FFFFFF; }
+
 footer {
 	font-size: 12px;
 	overflow: hidden;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-bottom: 40px;
 	text-align: center;
 }
 
