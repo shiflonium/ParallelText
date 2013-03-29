@@ -1,4 +1,4 @@
-var interval = 4000;
+var interval = 5000;
 var imageDir = "../static/";
 var imageNum = 0;
 
