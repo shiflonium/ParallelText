@@ -6,15 +6,22 @@
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}default.css">
     </head>
     <body>
-        {% include 'header.html' %}
+        <div id="container">
+            <header>
+                {% include 'header.html' %}
+            </header>
 
-        {% include 'mainnav.html' %}
+            <div id="mainnav">
+                {% include 'mainnav.html' %}
+            </div>
 
-        {% block bodycontent %}
-        {% endblock %}
+            {% block bodycontent %}
+            {% endblock %}
 
-        {% include 'footer.html' %}
-
+            <footer>
+                {% include 'footer.html' %}
+            </footer>
+        </div>
     </body>
 </html>
 
