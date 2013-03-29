@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <title>ParallelText</title>
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}default.css">
+        {% if include_css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{{ include_css }}">{% endif %}
         {% if include_js %}<script type="text/javascript" src="{{ STATIC_URL }}{{ include_js }}"></script>{% endif %}
     </head>
     <body{% if onload %} onLoad="{{ onload }}"{% endif %}>
