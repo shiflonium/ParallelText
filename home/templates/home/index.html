@@ -2,6 +2,15 @@
 
 {% block bodycontent %}
     <h2>Welcome to ParallelText!</h2>
+
+    <div id="slideshow">
+        <img name="slideImg" src="{{ STATIC_URL }}slideshow_01.gif" width=600 height=480 border=0>
+        <a href="#" onClick="switchImage('slideImg')">play slide show</a>
+        <a href="#" onClick="clearTimeout(timerID)">pause</a>
+        <a href="#" onClick="prevImage('slideImg'); clearTimeout(timerID)"> previous</a>
+        <a href="#" onClick="switchImage('slideImg'); clearTimeout(timerID)">next </a>
+    </div>
+
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent volutpat, odio ut molestie convallis, nunc purus lacinia elit, ut rutrum eros urna eu eros. Maecenas sed quam eros. Maecenas eros purus, viverra sit amet posuere eget, tincidunt ac sem. Curabitur sollicitudin mi sit amet ipsum tempor luctus hendrerit leo pretium. In hac habitasse platea dictumst. Vestibulum scelerisque erat ut ipsum convallis non ultrices odio bibendum. Nam ullamcorper tincidunt leo vitae aliquet. Curabitur ut mattis elit.</p>
     
     <p>Integer ut tristique nisl. Nunc magna risus, mattis et dapibus in, commodo ut mauris. Nam ipsum libero, semper vel tincidunt quis, suscipit vestibulum odio. Aenean posuere arcu id mauris placerat vel pulvinar velit congue. Fusce vitae quam vitae ante rutrum cursus. Fusce in malesuada ligula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis urna sem, bibendum ac euismod ut, facilisis at urna. Sed ac nisl risus. Vivamus in nisl augue. In velit tortor, ornare et scelerisque ac, viverra id augue.</p>
