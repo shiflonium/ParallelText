@@ -5,9 +5,9 @@
     {{ status }}
     <form action="" method="POST">
         {% csrf_token %}
-		Username: <input type="text" name="username" value="{{ username }}" /><br>
-		Password: <input type="password" name="password" value="" /><br>
-        <input type="submit" value="Login" />
+        <p>Username: <input type="text" name="username" value="{{ username }}" /></p>
+        <p>Password: <input type="password" name="password" value="" /></p>
+        <p><input type="submit" value="Login" /></p>
     </form>
     <p>Don't have an account? <a href="/register/">Register</a> for one today!</p>
 {% endblock %}
