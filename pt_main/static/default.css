@@ -1,10 +1,6 @@
 body {
-	background-color: #CCCCCC;
-	color: #000000;
 	font-family: Arial, sans-serif;
 	font-size: small;
-	margin: 0px;
-	padding: 0px;
 }
 
 img {
@@ -25,19 +21,15 @@ img {
 	float: left;
 	height: 100px;
 	margin-left: 20px;
-	margin-top: 10px;
 	width: 200px;
 }
 
 #theme {
-    margin-top: 0px;
+    font-family: times, serif;
 }
 
 #sysnav {
     font-size: 12px;
-	height: 0px;
-    padding-top: 10px;
-    padding-right: 20px;
 	text-align: right;
 }
 
@@ -56,9 +48,9 @@ img {
 
 footer {
 	font-size: 12px;
-	margin: 0px;
 	overflow: hidden;
 	padding-top: 20px;
 	padding-bottom: 20px;
 	text-align: center;
 }
+
