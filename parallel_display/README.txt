@@ -1,0 +1,1 @@
+Contains the functionality to display html texts in different languages parallel to each other
