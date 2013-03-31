@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block bodycontent %}
+    <style>
+        div.scroll
+    {
+
+        height:1550px;
+        overflow:auto;
+    }
+    </style>        
+    </head>
+    {% autoescape off %}
+    <body>
+    <h1 align="center">Genesis English/Hebrew</h1>
+    <table border="2" width="100%">
+        <tr>
+        <td dir="ltr" style="vertical-align: top;"><div class="scroll">{{eng_text}}</div></td>
+        <td dir="rtl" style="vertical-align: top;"><div class="scroll">{{heb_text}}</div></td>
+            </tr>
+    </table>
+</body>
+{% endautoescape %}
+{% endblock %}
