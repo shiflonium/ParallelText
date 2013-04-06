@@ -1,24 +1,30 @@
 body {
 	font-family: Arial, sans-serif;
-	background-color: gray;
+	background-color:gray;
+	
 }
 
 img {
 	border: 0px;
 }
 
+h1 { 
+	color:black; 
+	font-size:40px; 
+	font-family:cursive;
+}
+
+h2 { 
+	text-align:center;
+	font-family:cursive;
+}
+
+	
 #container {
 	margin: 0px auto;
 	padding: 0px;
 	width: 90%;
 }
-
-h1{ color:blue; 
-	font-size:40px; 
-	font-family:cursive;}
-//header
-//{
-//}
 
 #logo {
 	float: left;
@@ -28,13 +34,13 @@ h1{ color:blue;
 
 #theme {
     font-family: times, serif;
-    margin-left:400px;
+    margin-left: 400px;
 }
 
 #sysnav {
-    font-size: 12px;
+    font-size: 15px;
     margin-right: -20px;
-	text-align: right;
+    text-align: right;
 }
 
 #sysnavlist li {
@@ -44,13 +50,12 @@ h1{ color:blue;
 }
 
 #mainnav {
-    background-color: #353535;
-	clear: both;
+    background-color: black;
+    clear: both;
     font-size: large;
-    margin-left: 0px;
-    margin-right: -20px;
-	margin-top: 40px;
-	width: 100%;
+    text-align:center;
+    padding:1px;
+    width: 100%;
 }
 
 #mainnavlist li {
@@ -61,7 +66,7 @@ h1{ color:blue;
 
 #mainnav a { text-decoration: none; }
 #mainnav a:active { color: #FFFFFF; }
-#mainnav a:hover { color: #FFFFFF; }
+#mainnav a:hover { color: #FFFFFE; }
 #mainnav a:link { color: #FFFFFF; }
 #mainnav a:visited { color: #FFFFFF; }
 
