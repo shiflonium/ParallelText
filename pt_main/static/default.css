@@ -12,6 +12,9 @@ img {
 	width: 90%;
 }
 
+h1{ color:blue; 
+	font-size:40px; 
+	font-family:cursive;}
 //header
 //{
 //}
@@ -24,6 +27,7 @@ img {
 
 #theme {
     font-family: times, serif;
+    margin-left:400px;
 }
 
 #sysnav {
@@ -61,9 +65,10 @@ img {
 #mainnav a:visited { color: #FFFFFF; }
 
 footer {
-	font-size: 12px;
+	font-size: 18px;
 	overflow: hidden;
 	padding-bottom: 40px;
-	text-align: center;
+	text-align: right;
+	font-family:cursive;
 }
 
