@@ -17,6 +17,8 @@ h1 {
 h2 { 
 	text-align:center;
 	font-family:cursive;
+	letter-spacing:20px;
+	word-spacing:30px;
 }
 
 	
@@ -41,12 +43,15 @@ h2 {
     font-size: 15px;
     margin-right: -20px;
     text-align: right;
+    text-decoration:none;
 }
 
 #sysnavlist li {
     display: inline;
     list-style-type: none;
     padding-right: 20px;
+    font-family:cursive;
+    
 }
 
 #mainnav {
