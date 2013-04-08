@@ -1,7 +1,14 @@
+"""
+This file implements the login feature 
+"""
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render
 
 def user_auth(request):
+    """
+    This function authenticates a user on her login,
+    either approving or rejecting the login/password
+    """
     status = ""
     username = password = ''
 
@@ -16,9 +23,11 @@ def user_auth(request):
                 login(request, user)
                 status = "You have successfully logged in!"
             else:
-                status = "You have logged in but your account is inactive. Please contact an administrator."
+                status = "You have logged in but your account is inactive.\
+                  Please contact an administrator."
         else:
             status = "Your username and/or password were incorrect."
 
-    return render(request, 'login/login.html', {'status': status, 'username': username})
+    return render(request, 'login/login.html', 
+                  {'status': status, 'username': username})
 
