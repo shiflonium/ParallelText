@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+"""
+Main driver for the paralleltext application
+"""
 import os
 import sys
 
