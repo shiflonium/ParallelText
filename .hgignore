@@ -6,5 +6,8 @@ syntax: glob
 *.pyc
 *~
 .git*
+*orig
+.metadata/*
+.metadata*
 Procfile
 hero_deploy
