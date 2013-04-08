@@ -1,9 +1,19 @@
+"""
+There are the models for registering users.
+There seems to be a lot of functionality in these files
+should there be?  Or are these just database proxies?
+"""
 #from django.db import models
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 class UserCreationForm(UserCreationForm):
+    """
+    This class is used for the User Creation form
+    I don't think this is a model, though.
+    
+    """
     email = forms.EmailField(
         label = 'Email Address',
         required = False,
@@ -32,6 +42,9 @@ class UserCreationForm(UserCreationForm):
     #)
 
     class Meta:
+        """
+        This class seems unnecessary
+        """
         model = User
         fields = (
             'username',
@@ -44,6 +57,11 @@ class UserCreationForm(UserCreationForm):
         )
 
     def save(self, commit=True):
+        """
+        function for saving the user data
+        Why do we need this?  
+        Doesn't django take care of saving to the db?
+        """
         user = super(UserCreationForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['first_name']

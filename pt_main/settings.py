@@ -1,4 +1,6 @@
-# Django settings for paralleltext project.
+"""
+ Django settings for paralleltext project.
+"""
 import os
 
 dirname = os.path.dirname
