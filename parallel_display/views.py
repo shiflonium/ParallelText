@@ -18,7 +18,7 @@ localhost/parallel_display/Bible_Genesis/ch_1/ENHE/
 import re
 from django.shortcuts import render
 from bs4 import BeautifulSoup
-from ptext.views import stripPage
+from ptext.views import strip_page
 page = ""
 def get_page(page):
     """
@@ -31,10 +31,10 @@ def get_page(page):
     soup = BeautifulSoup(open(page))
     return soup
 
-def parseHtml(filepath):
-    """parseHtml takes an html file path and strips
+def parse_html(filepath):
+    """parse_html takes an html file path and strips
     all tags from it besides <p> tags. the <p> tags are added
-    to a list. parseHtml returns a joined list as a string"""
+    to a list. parse_html returns a joined list as a string"""
     page = str(get_page(filepath))
     p_tag_list = re.findall('<p.*?</p>' , page , re.DOTALL)
     p_tag_string = "" . join(p_tag_list)
@@ -51,11 +51,15 @@ def pdisplay(request):
     Importantly, we must pass along information here about  
     whether the text flows Right To Left or Left To Right
     """
-    patheng="texts/Bible_Genesis/EN/ch_1.html"
-    pathheb="texts/Bible_Genesis/HE/ch_1.html"
+    patheng = "texts/Bible_Genesis/EN/ch_1.html"
+    pathheb = "texts/Bible_Genesis/HE/ch_1.html"
 
-    page1 = stripPage(parseHtml(patheng))
-    page2 = stripPage(parseHtml(pathheb))
+    page1 = strip_page(parse_html(patheng))
+    page2 = strip_page(parse_html(pathheb))
     
-    return render (request, "ptext/popupDemo.html",{'myTitle':'Demo', 'css_url':'popup.css', 
-        'text1':page1, 'text2':page2, 'img_url':'Info.png', 'text1Dir':'left', 'text2Dir':'right'})
+    return render (request, 
+                   "ptext/popupDemo.html",
+                   {'myTitle':'Demo', 'css_url':'popup.css', 
+                    'text1':page1, 'text2':page2, 
+                    'img_url':'Info.png', 
+                    'text1Dir':'left',  'text2Dir':'right'})

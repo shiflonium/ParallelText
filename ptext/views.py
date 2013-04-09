@@ -1,68 +1,71 @@
+'''
+this module controls the popups for the applicaiton
+'''
 #from django.http import HttpResponse
 
-from django.shortcuts import render
+#from django.shortcuts import render
 #from bs4 import BeautifulSoup
-import string
 import re
 
 #def getPage(htmlPage):
-#	soup = BeautifulSoup(open(htmlPage));
-#	return soup
+#    soup = BeautifulSoup(open(htmlPage));
+#    return soup
 
-def removeCommas(myList, val):
-	return [value for value in myList if value!=val]
-
-
-def stripPage(page):
-	#page = getPage('texts/Bible_Genesis/EN/ch_1.html')	#Get html source
-	#page = getPage(html)	#Get html source
-
-	#STRIP TEXT
-	plist = re.findall(r'<p.*?</p>',str(page),re.DOTALL)
-	strippedParList = re.findall(r'>.*?</p>',str(plist),re.DOTALL)
-	strippedParList = re.sub(r'\\\\n',' ',str(strippedParList))
-	strippedParList = re.sub(r'\\\\r','',str(strippedParList))
-	strippedParList = re.sub(r'</p>', '|',str(strippedParList))
-	strippedParList = re.sub(r'>', ' <p> ',str(strippedParList))
-	strippedParList = re.sub("\|", ' </p> ',str(strippedParList))
-	strippedParList = re.sub(r'\[', '',str(strippedParList))
-	strippedParList = re.sub(r'\]', '',str(strippedParList))
-	
-	#While loop to create a clean list
-	pos=0
-	text=list()
-	text.append('')
-	i=0
-	
-	while (i<len(strippedParList)):
-		if (strippedParList[i]!=' '):
-			text[pos] = text[pos]+strippedParList[i]
-		
-		else:
-			pos = pos+1
-			text.append('')
-		i=i+1
-
-	#Clean text
-	text = removeCommas(text,'\'')
-	text = removeCommas(text,'')
-	text = removeCommas(text,'\',')
-	text = removeCommas(text,'"')
-	text = removeCommas(text,'",')
+def remove_commas(my_list, val):
+    return [value for value in my_list if value != val]
 
 
-	#Enocde text to html
-	for i in range (0,len(text)):
-		text[i]=text[i].decode('string_escape')
-		text[i]=text[i].decode('string_escape')
-		
+def strip_page(page):
+    #page = getPage('texts/Bible_Genesis/EN/ch_1.html')    #Get html source
+    #page = getPage(html)    #Get html source
 
-	
-	return text
+    #STRIP TEXT
+    plist = re.findall(r'<p.*?</p>', str(page), re.DOTALL)
+    stripped_para_list = re.findall(r'>.*?</p>', str(plist), re.DOTALL)
+    stripped_para_list = re.sub(r'\\\\n', ' ', str(stripped_para_list))
+    stripped_para_list = re.sub(r'\\\\r', '', str(stripped_para_list))
+    stripped_para_list = re.sub(r'</p>',  '|', str(stripped_para_list))
+    stripped_para_list = re.sub(r'>',  ' <p> ', str(stripped_para_list))
+    stripped_para_list = re.sub("\|",  ' </p> ', str(stripped_para_list))
+    stripped_para_list = re.sub(r'\[',  '', str(stripped_para_list))
+    stripped_para_list = re.sub(r'\]',  '', str(stripped_para_list))
+    
+    #While loop to create a clean list
+    pos = 0
+    text = list()
+    text.append('')
+    i = 0
+    
+    while (i<len(stripped_para_list)):
+        if (stripped_para_list[i] != ' '):
+            text[pos] = text[pos]+stripped_para_list[i]
+        
+        else:
+            pos = pos+1
+            text.append('')
+        i = i+1
+
+    #Clean text
+    text = remove_commas(text, '\'')
+    text = remove_commas(text, '')
+    text = remove_commas(text, '\', ')
+    text = remove_commas(text, '"')
+    text = remove_commas(text, '", ')
+
+
+    #Enocde text to html
+    for i in range (0, len(text)):
+        text[i] = text[i].decode('string_escape')
+        text[i] = text[i].decode('string_escape')
+        
+
+    
+    return text
 
 #def popupDemo(request):
-#	page1 = stripPage('texts/Bible_Genesis/EN/ch_1.html')
-#	page2 = stripPage('texts/Bible_Genesis/HE/ch_1.html')
-	
-#	return render(request, 'ptext/popupDemo.html',{'myTitle':'Demo', 'css_url':'popup.css',
-#		'text1':page1, 'text2':page2, 'img_url':'Info.png'}) 
+#    page1 = strip_page('texts/Bible_Genesis/EN/ch_1.html')
+#    page2 = strip_page('texts/Bible_Genesis/HE/ch_1.html')
+    
+#    return render(request, 'ptext/popupDemo.html',{
+#    'myTitle':'Demo', 'css_url':'popup.css',
+#        'text1':page1, 'text2':page2,n 'img_url':'Info.png'}) 
