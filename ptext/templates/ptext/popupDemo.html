@@ -1,34 +1,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-        <head>
-                <meta charset="utf-8">
-                <link rel="stylesheet" type="text/css" href={{STATIC_URL}}{{css_url}} />
-                <title>{{myTitle}}</title>
-        </head>
-        {% autoescape off %}
-        <body>
-                <h1 style="color:DarkMagenta;"><u><em> {{myTitle}} </em></u></h1>
-                 {% for word in text %}
-                 <a class="tooltip">
-                        {{word}}
-                        {% if word != "<p>" and word != "</p>" %} 
-                        <span class="custom info"><img src={{STATIC_URL}}{{img_url}} alt="Information" height="48" width="48" />
-                                <em>                    
-                                        
-                                        {{word}}<br>
-                                        _dictionary
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href={{STATIC_URL}}{{css_url}} />
+		<title>{{myTitle}}</title>
+	</head>
+	{% autoescape off %}
+	<body>
+		<h1 style="color:DarkMagenta;"><u><em> {{myTitle}} </em></u></h1>
+		 {% for word in text %}
+		 <a class="tooltip">
+		 	{{word}}
+		 	{% if word != "<p>" and word != "</p>" %} 
+		 	<span class="custom info"><img src={{STATIC_URL}}{{img_url}} alt="Information" height="48" width="48" />
+				<em>			
+					
+					{{word}}<br>
+					_dictionary
 
 
-                                </em>
-                        </span></a>
-                        {% endif %}
-                        
+				</em>
+			</span></a>
+			{% endif %}
+		 	
 
 
 
-                 {% endfor %}
-                 <!-- {{text}} -->
-        
-        </body>
-        {% endautoescape %}
+		 {% endfor %}
+		 <!-- {{text}} -->
+	
+	</body>
+	{% endautoescape %}
 </html>
