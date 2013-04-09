@@ -1,24 +1,43 @@
-{% extends 'base.html' %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
-{% block bodycontent %}
     <style>
         div.scroll
-    {
+        {
+            height:1550px;
+            overflow:auto;
+        }
+    </style>
 
-        height:1550px;
-        overflow:auto;
-    }
-    </style>        
+    <head>
+        
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href={{STATIC_URL}}{{css_url}} />
+        <title>{{myTitle}}</title>
+    
     </head>
+    
     {% autoescape off %}
+    
     <body>
-    <h1 align="center">Genesis English/Hebrew</h1>
-    <table border="2" width="100%">
-        <tr>
-        <td dir="ltr" style="vertical-align: top;"><div class="scroll">{{eng_text}}</div></td>
-        <td dir="rtl" style="vertical-align: top;"><div class="scroll">{{heb_text}}</div></td>
+        <h1 style="color:DarkMagenta;"><u><em> {{myTitle}} </em></u></h1>    
+        <table border="2" width="100%">
+            <tr>
+                <td "{{ text1Dir }}" style="vertical-align: top;">
+                    <div class="scroll">
+                        {% block page1 %}
+                        {% endblock %}
+                    </div>
+                </td>
+                
+                <td align="{{ text2Dir }}" style="vertical-align: top; ">
+                    <div class="scroll">
+                        {% block page2 %}
+                        {% endblock %}
+                    </div>
+                </td>
             </tr>
-    </table>
-</body>
-{% endautoescape %}
-{% endblock %}
+        </table>    
+    </body>
+    {% endautoescape %}
+</html>

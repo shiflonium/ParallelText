@@ -81,10 +81,3 @@ def popup_demo(request):
     return render(request, 'ptext/popupDemo.html',
                 {'myTitle':'Popup Demo', 'css_url':'popup.css',
                 'text':test, 'img_url':'Info.png'}) 
-
-
-
-
-
-
-
