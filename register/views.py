@@ -1,11 +1,12 @@
 """
-This displays the web registration webpage
+views.py decides what to display on webpage based on current conditions.
+The register views checks if the user has submitted information and displays
+the corresponding page after processing the information.
 """
 
-from django import forms
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from models import UserAccountCreate
+from register.forms import AccountCreateForm
 
 def user_reg(request):
     """
@@ -13,14 +14,14 @@ def user_reg(request):
     Perhaps you need to rethink the relationship
     between this page and the models.py
     """
-    if request.method == 'POST':
-        form = UserAccountCreate(request.POST)
+    form = AccountCreateForm(request.POST)
 
+    if request.method == 'POST':
         if form.is_valid():
-            new_user = form.save()
+            form.save()
             return HttpResponseRedirect('/')
     else:
-        form = UserAccountCreate()
+        form = AccountCreateForm()
 
     return render(request, 'register/register.html', {'form': form})
 

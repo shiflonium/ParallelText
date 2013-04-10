@@ -1,47 +1,30 @@
 """
-There are the models for registering users.
-There seems to be a lot of functionality in these files
-should there be?  Or are these just database proxies?
+models.py defines the data and behavior that is being stored in the database.
+The register models contains how the user account information should be stored.
 """
 from django.db import models
 
-class UserAccountCreate(models.Model):
-    username = models.CharField(
-        max_length = 30,
+class UserAccount(models.Model):
+    """
+    UserAccount stores the account settings for the user.
+    This is an extension of the user_auth table in the database.
+    """
+    user = models.OneToOneField('auth.User', primary_key=True)
+
+    # Language Codes
+    # http://msdn.microsoft.com/en-us/library/ms533052%28v=vs.85%29.aspx
+    # http://www.lingoes.net/en/translator/langcode.htm
+    native_lang_choices = (
+        ('en',  'English'),
+        ('he',  'Hebrew'),
+        ('es',  'Spanish'),
     )
-    password1 = models.CharField(
-        max_length = 128,
+
+    native_lang = models.CharField(
+        blank=False,
+        max_length = 2,
+        choices = native_lang_choices,
+        default = 'es',
     )
-    password2 = models.CharField(
-        max_length = 128,
-    )
-    email = models.EmailField(
-        max_length = 75,
-        #label = 'Email Address',
-        #required = False,
-        #help_text = "Optional. Enter a valid email address.",
-    )
-    first_name = models.CharField(
-        max_length = 30,
-        #label = 'First Name',
-        #required = False,
-        #help_text = "Optional. Enter your first name.",
-    )
-    last_name = models.CharField(
-        max_length = 30,
-        #label = 'First Name',
-        #required = False,
-        #help_text = "Optional. Enter your last name.",
-    )
-    #native_lang = forms.ChoiceField(
-        #label = 'Native Language',
-        #choices = (
-            # Language Codes
-            # http://msdn.microsoft.com/en-us/library/ms533052%28v=vs.85%29.aspx
-            # http://www.lingoes.net/en/translator/langcode.htm
-            #('en',  'English'),
-            #('he',  'Hebrew'),
-            #('es',  'Spanish'),
-        #)
-    #)
+
 
