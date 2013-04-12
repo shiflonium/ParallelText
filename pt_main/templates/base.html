@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}default.css">
     {% if include_css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{{ include_css }}">{% endif %}
     {% if include_js %}<script type="text/javascript" src="{{ STATIC_URL }}{{ include_js }}"></script>{% endif %}
+     <link rel="stylesheet" type="text/css" href={{STATIC_URL}}{{css_url}} />
 </head>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
