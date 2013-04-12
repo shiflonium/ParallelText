@@ -1,27 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    {% extends 'base.html' %}
 
-    <style>
-        div.scroll
-        {
-            height:1550px;
-            overflow:auto;
-        }
-    </style>
-
-    <head>
-        
-        <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href={{STATIC_URL}}{{css_url}} />
-        <title>{{myTitle}}</title>
-    
-    </head>
-    
     {% autoescape off %}
-    
-    <body>
-        <h1 style="color:DarkMagenta;"><u><em> {{myTitle}} </em></u></h1>    
+    {% block bodycontent %}
+        <h3 style="color:DarkMagenta;">Reading Books</h3>   
+	<div>
+		<label> Book</label>
+		<select name="book">
+		  <option name="Bible_Genesis" value="Bible_Genesis"> Bible: Genesis </option>
+		</select>
+		<label> Chapter </label>
+		<select name="chapter">
+		  <option name="ch_1" value="ch_1"> Chapter 1 </option>
+		</select>
+		<label> My Language</label>
+		<select name="from_language">
+		  <option name="EN" value="EN"> English </option>
+		  <option name="EN" value="EN"> English </option>
+		  <option name="AR" value="AR"> Arabic </option>
+		  <option name="EL" value="EL"> Greek </option>
+		  <option name="ES" value="ES"> Spanish </option>
+		  <option name="HE" value="HE"> Hebrew </option>
+		  <option name="PT" value="PT"> Portuguese </option>
+		  <option name="RU" value="RU"> Russian </option>
+
+		</select>
+		<label> Other Language</label>
+		<select name="from_language">
+		<option name="EN" value="EN"> English </option>
+		  <option name="AR" value="AR"> Arabic </option>
+		  <option name="EL" value="EL"> Greek </option>
+		  <option name="ES" value="ES"> Spanish </option>
+		  <option name="HE" value="HE"> Hebrew </option>
+		  <option name="PT" value="PT"> Portuguese </option>
+		  <option name="RU" value="RU"> Russian </option>
+
+		</select>
+		<input type="select" value="Choose Texts">
+		<input type="submit" value="submit">
+	</div> 
+	<div>
         <table border="2" width="100%">
+			
             <tr>
                 <td align="{{ text1Dir }}" style="vertical-align: top;">
                     <div class="scroll">
@@ -37,7 +56,7 @@
                     </div>
                 </td>
             </tr>
-        </table>    
-    </body>
+        </table>  
+	</div>  
+    {% endblock %}
     {% endautoescape %}
-</html>
