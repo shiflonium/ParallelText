@@ -1,7 +1,7 @@
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -70,6 +70,8 @@ day, and the lesser light to rule the night; and the stars.
 
 17 And God
 set them in the firmament of the heaven to give light upon the earth,
+
+
 18 and to rule over the day and over the night, and to divide the light
 from the darkness; and God saw that it was good. 
 
@@ -125,7 +127,7 @@ yielding seed--to you it shall be for food;
 
 30 and to every beast of
 the earth, and to every fowl of the air, and to every thing that
-creepeth upon the earth, wherein there is a living soul, [I have given]
+creepeth upon the earth, wherein there is a living soul,[I have given]
 every green herb for food.' And it was so. 
 
 31 And God saw every thing
@@ -134,7 +136,7 @@ and there was morning, the sixth day.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -243,7 +245,7 @@ his mother, and shall cleave unto his wife, and they shall be one flesh.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -352,7 +354,7 @@ the way to the tree of life.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -468,7 +470,7 @@ upon the name of the LORD.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -588,7 +590,7 @@ and Noah begot Shem , Ham
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -687,7 +689,7 @@ that God commanded him, so did he.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -696,7 +698,7 @@ ark; for thee have I seen righteous before Me in this generation.
 
 2 Of
 every clean beast thou shalt take to thee seven and seven, each with his
-mate; and of the beasts that are not clean two [and two], each with his
+mate; and of the beasts that are not clean two[and two], each with his
 mate; 
 
 3 of the fowl also of the air, seven and seven, male and female;
@@ -786,7 +788,7 @@ prevailed upon the earth a hundred and fifty days.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -882,7 +884,7 @@ winter, and day and night shall not cease.'
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -997,7 +999,7 @@ and he died.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -1175,7 +1177,7 @@ the earth after the flood.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -1359,7 +1361,7 @@ were two hundred and five years; and Terah died in Haran.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -1486,7 +1488,7 @@ him on the way, and his wife, and all that he had.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -1598,7 +1600,7 @@ the LORD.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -1745,7 +1747,7 @@ take their portion.'
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -1871,7 +1873,7 @@ Amorite, and the Canaanite, and the Girgashite, and the Jebusite.'
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -1973,7 +1975,7 @@ to Abram.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -2140,7 +2142,7 @@ foreigner, were circumcised with him.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -2343,7 +2345,7 @@ had left off speaking to Abraham; and Abraham returned unto his place.
 
 
     
-    [Chapter]
+[Chapter]
 
  
 
@@ -2526,7 +2528,7 @@ had left off speaking to Abraham; and Abraham returned unto his place.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -2642,7 +2644,7 @@ the house of Abimelech, because of Sarah Abraham's wife.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -2844,7 +2846,7 @@ Abraham sojourned in the land of the Philistines many days.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -2995,7 +2997,7 @@ was Reumah, she also bore Tebah, and Gaham, and Tahash, and Maacah.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -3121,7 +3123,7 @@ Abraham for a possession of a burying-place by the children of Heth.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -3532,7 +3534,7 @@ comforted for his mother.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -3733,7 +3735,7 @@ went his way. So Esau despised his birthright.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -3947,7 +3949,7 @@ of Beeri the Hittite, and Basemath the daughter of Elon the Hittite.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -4230,7 +4232,7 @@ the land, what good shall my life do me?'
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -4369,7 +4371,7 @@ Thou shalt give me I will surely give the tenth unto Thee.'
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -4579,7 +4581,7 @@ she left off bearing.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -4837,7 +4839,7 @@ and camels and asses.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -5165,7 +5167,7 @@ the mountain.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -5367,7 +5369,7 @@ the sinew of the thigh-vein.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -5492,7 +5494,7 @@ El-elohe-Israel.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -5683,7 +5685,7 @@ harlot?'
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -5857,7 +5859,7 @@ and Jacob his sons buried him.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -6108,7 +6110,7 @@ Esau the father of the Edomites.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -6329,7 +6331,7 @@ Egypt unto Potiphar, an officer of Pharaoh's, the captain of the guard.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -6516,7 +6518,7 @@ scarlet thread upon his hand; and his name was called Zerah.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -6662,7 +6664,7 @@ that which he did, the LORD made it to prosper.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -6805,7 +6807,7 @@ him.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -7146,7 +7148,7 @@ the famine was sore in all the earth.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -7377,7 +7379,7 @@ down my gray hairs with sorrow to the grave.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -7590,7 +7592,7 @@ theirs. And they drank, and were merry with him.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -7796,7 +7798,7 @@ shall come on my father.'
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -7969,7 +7971,7 @@ see him before I die.'
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -8171,7 +8173,7 @@ unto the Egyptians.'
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -8272,7 +8274,7 @@ for why should we die in thy presence? for our money faileth.'
 
 
 47,16 And
-Joseph said: 'Give your cattle, and I will give you [bread] for your
+Joseph said: 'Give your cattle, and I will give you[bread] for your
 cattle, if money fail.' 
 
 
@@ -8375,7 +8377,7 @@ he swore unto him. And Israel bowed down upon the bed's head.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -8518,7 +8520,7 @@ Amorite with my sword and with my bow.'
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
@@ -8667,7 +8669,7 @@ expired, and was gathered unto his people.
 
 
     
-    [Chapter]
+[Chapter]
 
 
 
