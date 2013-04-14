@@ -5,9 +5,10 @@ the input fields presented to the user.
 """
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from users.models import UserAccount
 
-class AccountCreateForm(forms.ModelForm):
+class AccountCreateForm(UserCreationForm):
     """
     UserAccountCreate creates the user account based on provided credentials.
     Required: Username, Password, Password Confirmation, and Native Language.
@@ -16,25 +17,25 @@ class AccountCreateForm(forms.ModelForm):
     #def __init__(self):
         #pass
 
-    username = forms.CharField(
-        max_length = 30,
-        required = True,
-        label = 'Username',
-    )
+    #username = forms.CharField(
+        #max_length = 30,
+        #required = True,
+        #label = 'Username',
+    #)
 
-    password1 = forms.CharField(
-        widget=forms.PasswordInput,
-        max_length = 30,
-        required = True,
-        label = 'Password',
-    )
+    #password1 = forms.CharField(
+        #widget=forms.PasswordInput,
+        #max_length = 30,
+        #required = True,
+        #label = 'Password',
+    #)
 
-    password2 = forms.CharField(
-        widget = forms.PasswordInput,
-        max_length = 30,
-        required = True,
-        label = 'Password (again)',
-    )
+    #password2 = forms.CharField(
+        #widget = forms.PasswordInput,
+        #max_length = 30,
+        #required = True,
+        #label = 'Password (again)',
+    #)
 
     email = forms.EmailField(
         max_length = 75,
