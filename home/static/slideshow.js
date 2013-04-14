@@ -1,4 +1,4 @@
-var interval = 5000;
+var interval = 1000;
 var imgDir = "../static/";
 var imgNum = 0;
 
@@ -27,7 +27,11 @@ function getNextImage() {
 }
 
 function getPrevImage() {
-	imgNum = (imgNum-1) % totalimg;
+    if(imgNum == 0)
+        imgNum = totalimg-1;
+    else
+	    imgNum = (imgNum-1) % totalimg;
+
 	var new_img = get_imgItemLoc(imgArray[imgNum]);
 	return(new_img);
 }
