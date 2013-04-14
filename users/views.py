@@ -3,9 +3,9 @@ views.py decides what to display on webpage based on current conditions.
 """
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from users.forms import AccountCreateForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 def user_reg(request):
     """
@@ -51,4 +51,12 @@ def user_auth(request):
 
     return render(request, 'users/login.html',
                   {'status': status, 'username': username})
+
+
+
+def user_logout(request):
+    logout(request)
+    response = redirect('home.views.index')
+    response.delete_cookie('user_location')
+    return response
 

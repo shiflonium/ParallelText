@@ -6,7 +6,7 @@
         {% if user.is_authenticated %}
             <li>Welcome, {{ username }}</li>
             <li><a href="">Account</a></li>
-            <li><a href="">Logout</a></li>
+            <li><a href="/logout/">Logout</a></li>
         {% else %}
             <li><a href="/login/">Login</a></li>
             <li><a href="/register/">Register</a></li>
