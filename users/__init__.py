@@ -1,0 +1,3 @@
+"""
+file for initializing register
+"""

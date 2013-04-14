@@ -134,9 +134,9 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     #'django.contrib.admindocs',
     'pt_main',
+    'users',
     'home',
     'login',
-    'register',
     'bs4',
     'ptext',
     'parallel_display'
