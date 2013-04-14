@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from users.forms import AccountCreateForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 
 def user_reg(request):
     """
@@ -28,8 +28,8 @@ def user_reg(request):
 
 def user_auth(request):
     """
-    This function authenticates a user on her login,
-    either approving or rejecting the login/password
+    This function authenticates a user on login, either approving or rejecting
+    the provided credentials.
     """
     status = ""
     username = password = ''
@@ -56,6 +56,9 @@ def user_auth(request):
 
 
 def user_logout(request):
+    """
+    This function deauthenticates the current user from the system.
+    """
     logout(request)
     response = redirect('home.views.index')
     response.delete_cookie('user_location')
@@ -64,5 +67,9 @@ def user_logout(request):
 
 
 def user_acct(request):
+    """
+    This function allows the current user to view their account information
+    and perform any changes to them, if necessary.
+    """
     return render(request, 'users/account.html')
 
