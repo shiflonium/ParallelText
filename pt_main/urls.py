@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^login/', 'users.views.user_auth'),
     url(r'^logout/', 'users.views.user_logout'),
     url(r'^register/', 'users.views.user_reg'),
-    url(r'^ptext/', 'ptext.views.popup_demo'),
+    #url(r'^ptext/', 'ptext.views.popup_demo'),
     url(r'^parallel_display/', 'parallel_display.views.pdisplay'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
