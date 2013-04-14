@@ -8,16 +8,21 @@ Replace this with more appropriate tests for your application.
 #from django.test import TestCase
 from django.test.client import RequestFactory
 import unittest
-import users
+from users.views import user_reg, user_auth
 #from mock import patch
 
 class TestRegister(unittest.TestCase):
     """
     This class is used to test the register module
     """
-    def setup(self):
+    def setUp(self):
         """
-        this function prepares the module for testing
+        Every test needs access to the request factory.
+
+        Pylint error: Invalid name "setUp" for type method
+                      (should match [a-z_][a-z0-9_]{2,30}$)
+        Comment: Do not change "setUp"; it will break testing otherwise
+                 with test error: ...object has no attribute 'factory'
         """
         self.factory = RequestFactory()
 
@@ -27,7 +32,7 @@ class TestRegister(unittest.TestCase):
         that it receives a successful url request
         """
         request = self.factory.get('/register/')
-        response = users.views.user_reg(request)
+        response = user_reg(request)
         self.assertEqual(response.status_code, 200)
 
     def test_new_user(self):
@@ -40,8 +45,23 @@ class TestRegister(unittest.TestCase):
             'password1': 'dummypass',
             'password2': 'dummypass',
             })
-        response = users.views.user_reg(request)
+        response = user_reg(request)
         self.assertEqual(response.status_code, 200)
+
+class TestLogin(unittest.TestCase):
+    """
+    This class is used to test the login module
+    """
+    def setUp(self):
+        """
+        Every test needs access to the request factory.
+
+        Pylint error: Invalid name "setUp" for type method
+                      (should match [a-z_][a-z0-9_]{2,30}$)
+        Comment: Do not change "setUp"; it will break testing otherwise
+                 with test error: ...object has no attribute 'factory'
+        """
+        self.factory = RequestFactory()
 
     def test_login_response(self):
         """
@@ -49,7 +69,7 @@ class TestRegister(unittest.TestCase):
         that it receives a successful url request
         """
         request = self.factory.get('/login/')
-        response = users.views.user_auth(request)
+        response = user_auth(request)
         self.assertEqual(response.status_code, 200)
 
     def test_existing_user(self):
@@ -59,9 +79,8 @@ class TestRegister(unittest.TestCase):
         """
         request = self.factory.post('/login/', POST={
             'username': 'dummyuser',
-            'password1': 'dummypass',
-            'password2': 'dummypass',
+            'password': 'dummypass',
             })
-        response = users.views.user_auth(request)
+        response = user_auth(request)
         self.assertEqual(response.status_code, 200)
 
