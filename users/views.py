@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from users.forms import AccountCreateForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 def user_reg(request):
     """
@@ -59,4 +60,9 @@ def user_logout(request):
     response = redirect('home.views.index')
     response.delete_cookie('user_location')
     return response
+
+
+
+def user_acct(request):
+    return render(request, 'users/account.html')
 
