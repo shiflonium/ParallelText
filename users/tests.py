@@ -43,3 +43,25 @@ class TestRegister(unittest.TestCase):
         response = users.views.user_reg(request)
         self.assertEqual(response.status_code, 200)
 
+    def test_login_response(self):
+        """
+        This simulates a login and verifies
+        that it receives a successful url request
+        """
+        request = self.factory.get('/login/')
+        response = users.views.user_auth(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_existing_user(self):
+        """
+        This simulates the login of an existing user and
+        verifies that it receives a successful url request
+        """
+        request = self.factory.post('/login/', POST={
+            'username': 'dummyuser',
+            'password1': 'dummypass',
+            'password2': 'dummypass',
+            })
+        response = users.views.user_auth(request)
+        self.assertEqual(response.status_code, 200)
+
