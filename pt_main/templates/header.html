@@ -3,9 +3,14 @@
 </div>
 <div id="sysnav">
     <ul id="sysnavlist">
-        <li><a href="/login/">Login</a></li>
-        <li><a href="/register/">Register</a></li>
-        <li><a href="">Account</a></li>
+        {% if user.is_authenticated %}
+            <li>Welcome, {{ username }}</li>
+            <li><a href="">Account</a></li>
+            <li><a href="">Logout</a></li>
+        {% else %}
+            <li><a href="/login/">Login</a></li>
+            <li><a href="/register/">Register</a></li>
+        {% endif %}
     </ul>
 </div>
 <div id="theme">
