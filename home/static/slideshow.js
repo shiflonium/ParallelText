@@ -1,4 +1,4 @@
-var interval = 1000;
+var interval = 5000;
 var imgDir = "../static/";
 var imgNum = 0;
 
@@ -39,6 +39,7 @@ function getPrevImage() {
 function prevImage(place) {
 	var new_img = getPrevImage();
 	document[place].src = new_img;
+	timerID = setTimeout(recur_call, interval);
 }
 
 function nextImage(place) {
