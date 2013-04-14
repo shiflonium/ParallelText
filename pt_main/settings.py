@@ -136,7 +136,6 @@ INSTALLED_APPS = (
     'pt_main',
     'users',
     'home',
-    'login',
     'bs4',
     'ptext',
     'parallel_display'

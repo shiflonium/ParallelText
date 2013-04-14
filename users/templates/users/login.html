@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block bodycontent %}
+    <h2>Login</h2>
+    {{ status }}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td><label for="username">Username</label></td>
+                <td><input type="text" name="username" value="{{ username }}" /></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password</label></td>
+                <td><input type="password" name="password" value="" /></td>
+            </tr>
+            <tr>
+                <td colspan=2><input type="submit" value="Login" /></td>
+            </tr>
+        <table>
+    </form>
+    <p>Don't have an account? <a href="/register/">Register</a> for one today!</p>
+{% endblock %}
+

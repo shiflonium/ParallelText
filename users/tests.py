@@ -7,8 +7,8 @@ Replace this with more appropriate tests for your application.
 
 #from django.test import TestCase
 from django.test.client import RequestFactory
-import register
 import unittest
+import users
 #from mock import patch
 
 class TestRegister(unittest.TestCase):
@@ -21,16 +21,16 @@ class TestRegister(unittest.TestCase):
         """
         self.factory = RequestFactory()
 
-    def test_response(self):
+    def test_register_response(self):
         """
         This simulates a registration and verifies
         that it receives a successful url request
         """
         request = self.factory.get('/register/')
-        response = register.views.user_reg(request)
+        response = users.views.user_reg(request)
         self.assertEqual(response.status_code, 200)
 
-    def test_newuser(self):
+    def test_new_user(self):
         """
         This simulates the creation of a new user and verifies
         that it receives a successful url request
@@ -40,6 +40,6 @@ class TestRegister(unittest.TestCase):
             'password1': 'dummypass',
             'password2': 'dummypass',
             })
-        response = register.views.user_reg(request)
+        response = users.views.user_reg(request)
         self.assertEqual(response.status_code, 200)
 
