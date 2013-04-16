@@ -38,10 +38,11 @@
             <div id="mainnav">
                 {% include 'mainnav.html' %}
             </div>
+            {% autoescape off %}
 
             {% block bodycontent %}
             {% endblock %}
-
+            {% endautoescape %}
             <footer>
                 {% include 'footer.html' %}
             </footer>

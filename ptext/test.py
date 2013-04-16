@@ -15,12 +15,11 @@ class TestPText(unittest.TestCase):
     This class designed to test the popups module. Later on it will be extended
     to test the dictionary functions as well
     '''
-    def setup(self):
+    def setUp(self):
         '''
 	This sets up the test of thepopups
 	'''
-        self.html = BeautifulSoup(
-        urllib2.urlopen (
+        self.html = BeautifulSoup(urllib2.urlopen (
             'http://127.0.0.1:8000/parallel_display/').read())
 
 
@@ -70,7 +69,6 @@ class TestPText(unittest.TestCase):
         self_content = ''.join(self_content)
         self_content = str(self_content).replace(',', '')
         self_content = self_content.split()
-
 
         s = "Original file has {} words and self has {} words".format(
         len(en_content), len(self_content))

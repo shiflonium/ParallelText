@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''
 this module controls the popups for the applicaiton
 '''
@@ -6,6 +7,9 @@ this module controls the popups for the applicaiton
 #from django.shortcuts import render
 #from bs4 import BeautifulSoup
 import re
+import json
+import requests
+import urllib
 
 #def getPage(htmlPage):
 #    soup = BeautifulSoup(open(htmlPage));
@@ -51,6 +55,8 @@ def strip_page(page):
     text = remove_commas(text, '\', ')
     text = remove_commas(text, '"')
     text = remove_commas(text, '", ')
+    text = remove_commas(text, "',")
+    text = remove_commas(text, '",')
 
 
     #Enocde text to html
@@ -61,11 +67,3 @@ def strip_page(page):
 
     
     return text
-
-#def popupDemo(request):
-#    page1 = strip_page('texts/Bible_Genesis/EN/ch_1.html')
-#    page2 = strip_page('texts/Bible_Genesis/HE/ch_1.html')
-    
-#    return render(request, 'ptext/popupDemo.html',{
-#    'myTitle':'Demo', 'css_url':'popup.css',
-#        'text1':page1, 'text2':page2,n 'img_url':'Info.png'}) 

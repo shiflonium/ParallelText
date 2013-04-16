@@ -1,9 +1,10 @@
 {% extends "parallel_display/display.html" %}
 
+	
 	{% block page1 %}
 		{% for word in text1 %}
 			 <a class="tooltip">
-		 	{{word}}
+		 	{{ word }}
 		 	{% if word != "<p>" and word != "</p>" %} 
 			 	<span class="custom info" style="position:fixed;">
 			 		<img src={{STATIC_URL}}{{img_url}} alt="Information" height="48" width="48" />
@@ -15,8 +16,9 @@
 			{% endif %}
 		{% endfor %}
     {% endblock %}
+    
         
-        
+    
 	{% block page2 %}
 		{% for word in text2 %}
 			 <a class="tooltip" > 	
@@ -32,5 +34,6 @@
 			{% endif %}
 		{% endfor %}
     {% endblock %}
+    
 	
 </html>
