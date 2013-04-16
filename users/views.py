@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from users.forms import AccountCreateForm
 from django.contrib.auth import authenticate, login, logout
-#from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 
 def user_reg(request):
     """
@@ -71,5 +71,7 @@ def user_acct(request):
     This function allows the current user to view their account information
     and perform any changes to them, if necessary.
     """
-    return render(request, 'users/account.html')
+    username = User.objects.get(username=request.user)
+    return render(request, 'users/account.html',
+                  {'username': username})
 
