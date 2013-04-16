@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^logout/', 'users.views.user_logout'),
     url(r'^register/', 'users.views.user_reg'),
     url(r'^account/', 'users.views.user_acct'),
+    url(r'^account_delete/', 'users.views.del_acct'),
     #url(r'^ptext/', 'ptext.views.popup_demo'),
     url(r'^parallel_display/', 'parallel_display.views.pdisplay'),
 

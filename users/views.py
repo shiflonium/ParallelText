@@ -75,3 +75,14 @@ def user_acct(request):
     return render(request, 'users/account.html',
                   {'username': username})
 
+
+
+def del_acct(request):
+    """
+    This function allows the current user to delete their account from the
+    system.
+    """
+    username = User.objects.get(username=request.user)
+    username.delete()
+    return HttpResponseRedirect('/')
+
