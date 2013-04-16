@@ -4,6 +4,7 @@
     {% block bodycontent %}
         <h3 style="color:DarkMagenta;">Reading Books</h3>   
 	<div>
+		<form action="" method="get">
 		<label> Book</label>
 		<select name="book">
 		  <option name="Bible_Genesis" value="Bible_Genesis"> Bible: Genesis </option>
@@ -25,7 +26,7 @@
 
 		</select>
 		<label> Other Language</label>
-		<select name="from_language">
+		<select name="to_language">
 		<option name="EN" value="EN"> English </option>
 		  <option name="AR" value="AR"> Arabic </option>
 		  <option name="EL" value="EL"> Greek </option>
@@ -37,6 +38,7 @@
 		</select>
 		<input type="select" value="Choose Texts">
 		<input type="submit" value="submit">
+	</form>
 	</div> 
 	<div>
         <table border="2" width="100%">

@@ -19,9 +19,8 @@ import re
 from django.shortcuts import render
 from bs4 import BeautifulSoup
 from ptext.views import strip_page
-
-
 page = ""
+    
 def get_page(page):
     """
     This function grabs the page and turns it into a 
@@ -53,18 +52,34 @@ def pdisplay(request):
     Importantly, we must pass along information here about  
     whether the text flows Right To Left or Left To Right
     """
-    patheng = "texts/Bible_Genesis/EN/ch_1.html"
-    pathheb = "texts/Bible_Genesis/HE/ch_1.html"
-
-
-    page1 = strip_page(parse_html(patheng))
-    page2 = strip_page(parse_html(pathheb))
+    
+    #GET variables initialization
+    book = ""
+    chapter = ""
+    from_lang = ""
+    to_lang = ""
+    path1 = ""
+    path2 = ""
 
     
+    if request.method == "GET":
+        if request.get_full_path() != "/parallel_display/":
+            book = request.GET.get("book",'')
+            chapter = request.GET.get('chapter','')
+            from_lang = request.GET.get('from_language','')
+            to_lang = request.GET.get('to_language','')
+            path1 = "texts/"+book+"/"+from_lang+"/"+chapter+".html"
+            path2 = "texts/"+book+"/"+to_lang+"/"+chapter+".html"
+        else:
+            path1 = "texts/Bible_Genesis/EN/ch_1.html"
+            path2 = "texts/Bible_Genesis/HE/ch_1.html"
+
+    page1 = strip_page(parse_html(path1))
+    page2 = strip_page(parse_html(path2))
     
     return render (request, 
                    "ptext/popupDemo.html",
                    {'myTitle':'Demo', 'css_url':'popup.css', 
-                    'text1':page1, 'text2':page2,                     
+                    'text1':page1, 'text2':page2, 
                     'img_url':'Info.png', 
                     'text1Dir':'left',  'text2Dir':'right'})
