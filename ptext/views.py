@@ -33,17 +33,17 @@ def strip_page(page):
     stripped_para_list = re.sub("\|",  ' </p> ', str(stripped_para_list))
     stripped_para_list = re.sub(r'\[',  '', str(stripped_para_list))
     stripped_para_list = re.sub(r'\]',  '', str(stripped_para_list))
-
+    
     #While loop to create a clean list
     pos = 0
     text = list()
     text.append('')
     i = 0
-
+    
     while (i<len(stripped_para_list)):
         if (stripped_para_list[i] != ' '):
             text[pos] = text[pos]+stripped_para_list[i]
-
+        
         else:
             pos = pos+1
             text.append('')
@@ -63,7 +63,7 @@ def strip_page(page):
     for i in range (0, len(text)):
         text[i] = text[i].decode('string_escape')
         text[i] = text[i].decode('string_escape')
+        
 
-
-
+    
     return text
