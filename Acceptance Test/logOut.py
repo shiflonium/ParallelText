@@ -10,6 +10,11 @@ from selenium.common.exceptions import NoSuchElementException
 import unittest, time, re
 
 class Logout(unittest.TestCase):
+        def setUp(self):
+            
+    
+        def test_logout(self):
+           
         
         
 
