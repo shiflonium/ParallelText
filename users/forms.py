@@ -7,7 +7,6 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from users.models import UserAccount
-from django.forms import ModelForm
 
 class AccountCreateForm(UserCreationForm):
     """
@@ -107,11 +106,11 @@ class AccountManageForm(forms.ModelForm):
     #def __init__(self):
         #pass
 
-    username = forms.CharField(
+    #username = forms.CharField(
         #max_length = 30,
         #required = True,
-        label = 'Username',
-    )
+        #label = 'Username',
+    #)
 
     email = forms.EmailField(
         max_length = 75,
@@ -148,7 +147,7 @@ class AccountManageForm(forms.ModelForm):
 
         model = User
         fields = (
-            'username',
+            #'username',
             #'password1',
             #'password2',
             'email',
