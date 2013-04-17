@@ -7,6 +7,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from users.models import UserAccount
+from django.core.exceptions import ValidationError
 
 class AccountCreateForm(UserCreationForm):
     """
@@ -159,4 +160,17 @@ class AccountManagePassForm(forms.ModelForm):
             'pass_new1',
             'pass_new2',
         )
+
+    def clean(self):
+        """
+        clean cleans the data before comparing them and inserting into the
+        database. Sends exception errors if tests are not passed.
+        """
+        pass_new1 = self.cleaned_data.get('pass_new1')
+        pass_new2 = self.cleaned_data.get('pass_new2')
+
+        if pass_new1 and pass_new2 and pass_new1 != pass_new2:
+            raise forms.ValidationError("Passwords do not match.")
+
+        return self.cleaned_data
 
