@@ -20,15 +20,15 @@
         
     
 	{% block page2 %}
-		{% for word in text2 %}
+		{% for key, value in text2.items %}
 			 <a class="tooltip" > 	
-		 	{{ word }}
-		 	{% if word != "<p>" and word != "</p>" %} 
+		 	{{ key }}
+		 	{% if key != "<p>" and key != "</p>" %} 
 			 	<span class="custom info" style="position: fixed; left: 60em; background: #FFFFAA;">
 			 		<img src={{STATIC_URL}}{{img_url}} alt="Information" height="48" width="48" />
 					<em>			
-						{{ word }}<br>
-						_dictionary
+						{{ key }} <br>
+						{{ value }}
 					</em>
 				</span></a>
 			{% endif %}

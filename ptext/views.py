@@ -8,11 +8,11 @@ this module controls the popups for the applicaiton
 #from bs4 import BeautifulSoup
 import re
 import json
-#import requests
 import urllib
-#from ptext.models import HE_2_EN
+from ptext.models import HE_2_EN
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+
 
 def remove_commas(my_list, val):
     return [value for value in my_list if value != val]
@@ -70,8 +70,8 @@ def strip_page(page):
 def getTranslatedList(listToTransalte):
     #Strip the words in the list
     i=0
-    transatedList=list()
-    for i in range(i,len(listToTransalte)):
+    translatedList=list()
+    for i in range(0,len(listToTransalte)):
         listToTransalte[i] = listToTransalte[i].replace(':','')
         listToTransalte[i] = listToTransalte[i].replace('.','')
         listToTransalte[i] = listToTransalte[i].replace(',','')
@@ -80,10 +80,10 @@ def getTranslatedList(listToTransalte):
         #get translation and put in a different list
         try:
             temp = HE_2_EN.objects.get(original=listToTransalte[i].decode('utf8'))
-            transatedList.append(temp.definition)
+            translatedList.append(temp.definition)
         except ObjectDoesNotExist:
-            transatedList.append('')
+            translatedList.append('a')
             
-    return transatedList
+    return translatedList
 
     
