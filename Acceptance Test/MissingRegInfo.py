@@ -1,3 +1,9 @@
+'''Acceptance test for Missing Registration Information.
+This tests the system when someone tries to register 
+without having all the required fields filled in with
+informations.
+'''
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
