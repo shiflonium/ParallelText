@@ -18,26 +18,6 @@ class AccountCreateForm(UserCreationForm):
     #def __init__(self):
         #pass
 
-    #username = forms.CharField(
-        #max_length = 30,
-        #required = True,
-        #label = 'Username',
-    #)
-
-    #password1 = forms.CharField(
-        #widget=forms.PasswordInput,
-        #max_length = 30,
-        #required = True,
-        #label = 'Password',
-    #)
-
-    #password2 = forms.CharField(
-        #widget = forms.PasswordInput,
-        #max_length = 30,
-        #required = True,
-        #label = 'Password (again)',
-    #)
-
     email = forms.EmailField(
         max_length = 75,
         required = False,
@@ -92,12 +72,6 @@ class AccountManageForm(forms.ModelForm):
     #def __init__(self):
         #pass
 
-    #username = forms.CharField(
-        #max_length = 30,
-        #required = True,
-        #label = 'Username',
-    #)
-
     email = forms.EmailField(
         max_length = 75,
         required = False,
@@ -133,9 +107,6 @@ class AccountManageForm(forms.ModelForm):
 
         model = User
         fields = (
-            #'username',
-            #'password1',
-            #'password2',
             'email',
             'first_name',
             'last_name',
