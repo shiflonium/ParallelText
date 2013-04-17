@@ -1,7 +1,6 @@
 #coding: utf-8
 from django.db import models
 from ptext.models import HE_2_EN
-import os
 
 
 a=HE_2_EN (original='', definition='')
