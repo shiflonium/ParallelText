@@ -1,3 +1,8 @@
+'''Acceptance test for Reading books in parallel.
+This tests the system when someone tries to read a book
+in two different languages simultaneously.
+'''
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
