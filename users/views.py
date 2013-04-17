@@ -72,6 +72,8 @@ def user_acct(request):
     This function allows the current user to view their account information
     and perform any changes to them, if necessary.
     """
+    status = ""
+
     username = User.objects.get(username=request.user)
 
     if request.method == 'POST':
@@ -79,12 +81,14 @@ def user_acct(request):
         if form.is_valid():
             #user = form.save(commit=False)
             form.save()
-            return HttpResponseRedirect('/account/')
+            status = "Your account information has been saved."
+            #return HttpResponseRedirect('/account/')
     else:
         form = AccountManageForm(instance=request.user)
 
     return render(request, 'users/account.html',
                   {'form': form,
+                   'status': status,
                    'username': username})
 
 

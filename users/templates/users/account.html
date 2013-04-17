@@ -6,8 +6,9 @@
         {% csrf_token %}
         <table>
             {{ form.non_field_errors }}
-            <tr>
-                <td><label for="id_username">{{ form.username.label }}</label></td>
+            {{ status }}
+            <tr height="50px">
+                <td>Username</td>
                 <td colspan=2>{{ username }}</td>
             </tr>
             <tr>
