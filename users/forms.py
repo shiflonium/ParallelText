@@ -10,7 +10,8 @@ from users.models import UserAccount
 
 class AccountCreateForm(UserCreationForm):
     """
-    AccountCreateForm creates the user account based on provided credentials.
+    AccountCreateForm provides the form model that creates the user account
+    based on provided credentials.
     Required: Username, Password, Password Confirmation, and Native Language.
     Optional: Email Address, First Name, Last Name.
     """
@@ -85,8 +86,8 @@ class AccountCreateForm(UserCreationForm):
 
 class AccountManageForm(forms.ModelForm):
     """
-    AccountManageForm retrieves and displays the user's information based on
-    the data already stored in the database.
+    AccountManageForm provides the form model that retrieves and displays the
+    user's information based on the data already stored in the database.
     """
     #def __init__(self):
         #pass
@@ -139,5 +140,52 @@ class AccountManageForm(forms.ModelForm):
             'first_name',
             'last_name',
             'native_lang',
+        )
+
+
+
+class AccountManagePassForm(forms.ModelForm):
+    """
+    AccountManagePassForm provides the form model that allows the user to
+    change their account password.
+    """
+    #def __init__(self):
+        #pass
+
+    pass_old = forms.CharField(
+        widget=forms.PasswordInput,
+        max_length = 30,
+        required = True,
+        label = 'Old Password',
+    )
+
+    pass_new1 = forms.CharField(
+        widget = forms.PasswordInput,
+        max_length = 30,
+        required = True,
+        label = 'New Password',
+    )
+
+    pass_new2 = forms.CharField(
+        widget = forms.PasswordInput,
+        max_length = 30,
+        required = True,
+        label = 'New Password (again)',
+    )
+
+    class Meta:
+        """
+        Model metadata used to identify attributes in POST data when submitting
+        a registration form. Required by users/views.py --> form =
+        AccountCreateForm(request.Post). Throws error if removed.
+        """
+        def __init__(self):
+            pass
+
+        model = User
+        fields = (
+            'pass_old',
+            'pass_new1',
+            'pass_new2',
         )
 

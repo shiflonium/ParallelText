@@ -89,6 +89,11 @@ def user_acct(request):
 
 
 
+def user_acct_pass(request):
+    pass
+
+
+
 def del_acct(request):
     """
     This function allows the current user to delete their account from the
