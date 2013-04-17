@@ -4,7 +4,7 @@ views.py decides what to display on webpage based on current conditions.
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from users.forms import AccountCreateForm
+from users.forms import AccountCreateForm, AccountManageForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
@@ -71,9 +71,12 @@ def user_acct(request):
     This function allows the current user to view their account information
     and perform any changes to them, if necessary.
     """
-    username = User.objects.get(username=request.user)
+    form = AccountManageForm()
+    username = User.objects.get(pk=1)
+    form = AccountManageForm(instance=username)
     return render(request, 'users/account.html',
-                  {'username': username})
+                  {'form': form,
+                   'username': username})
 
 
 
