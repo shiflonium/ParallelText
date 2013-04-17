@@ -64,6 +64,23 @@ def strip_page(page):
         text[i] = text[i].decode('string_escape')
         text[i] = text[i].decode('string_escape')
 
+def getTranslatedList(listToTransalte):
+    #Strip the words in the list
+    i=0
+    transatedList=list()
+    for i in range(i,len(listToTransalte)):
+        listToTransalte[i] = listToTransalte[i].replace(':','')
+        listToTransalte[i] = listToTransalte[i].replace('.','')
+        listToTransalte[i] = listToTransalte[i].replace(',','')
+        listToTransalte[i] = listToTransalte[i].replace('-','')
 
+        #get translation and put in a different list
+        try:
+            temp = HE_2_EN.objects.get(original=listToTransalte[i].decode('utf8'))
+            transatedList.append(temp.definition)
+        except ObjectDoesNotExist:
+            transatedList.append('')
+            
+    return transatedList
 
     return text
