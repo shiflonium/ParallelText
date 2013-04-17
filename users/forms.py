@@ -109,23 +109,9 @@ class AccountManageForm(forms.ModelForm):
         #pass
 
     username = forms.CharField(
-        max_length = 30,
-        required = True,
+        #max_length = 30,
+        #required = True,
         label = 'Username',
-    )
-
-    password1 = forms.CharField(
-        widget=forms.PasswordInput,
-        max_length = 30,
-        required = True,
-        label = 'Password',
-    )
-
-    password2 = forms.CharField(
-            widget = forms.PasswordInput,
-            max_length = 30,
-            required = True,
-            label = 'Password (again)',
     )
 
     email = forms.EmailField(
@@ -164,8 +150,8 @@ class AccountManageForm(forms.ModelForm):
         model = User
         fields = (
             'username',
-            'password1',
-            'password2',
+            #'password1',
+            #'password2',
             'email',
             'first_name',
             'last_name',
@@ -178,7 +164,7 @@ class AccountManageForm(forms.ModelForm):
         not automatically do it for you.
         """
         if commit:
-            user = super(AccountCreateForm, self).save(commit=False)
+            user = super(AccountManageForm, self).save(commit=False)
             #user.username = self.cleaned_data['username']
             #user.password1 = self.cleaned_data['password1']
             #user.password2 = self.cleaned_data['password2']

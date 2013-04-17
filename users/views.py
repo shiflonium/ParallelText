@@ -72,7 +72,7 @@ def user_acct(request):
     and perform any changes to them, if necessary.
     """
     form = AccountManageForm()
-    username = User.objects.get(pk=1)
+    username = User.objects.get(username=request.user)
     form = AccountManageForm(instance=username)
     return render(request, 'users/account.html',
                   {'form': form,
