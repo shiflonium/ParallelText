@@ -27,7 +27,7 @@
         <link rel="shortcut icon" href="_/ico/favicon.png"> -->
     </head>
 
-    <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <body data-spy="scroll" data-target=".bs-docs-sidebar"{% if onload %} onLoad="{{ onload }}"{% endif %}>
         {% include 'header.html' %} 
         <div class="container">
             {% include 'mainnav.html' %}
