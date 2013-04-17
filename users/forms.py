@@ -11,7 +11,7 @@ from django.forms import ModelForm
 
 class AccountCreateForm(UserCreationForm):
     """
-    UserAccountCreate creates the user account based on provided credentials.
+    AccountCreateForm creates the user account based on provided credentials.
     Required: Username, Password, Password Confirmation, and Native Language.
     Optional: Email Address, First Name, Last Name.
     """
@@ -65,7 +65,7 @@ class AccountCreateForm(UserCreationForm):
     class Meta:
         """
         Model metadata used to identify attributes in POST data when submitting
-        a registration form. Required by register/views.py --> form =
+        a registration form. Required by users/views.py --> form =
         AccountCreateForm(request.Post). Throws error if removed.
         """
         def __init__(self):
@@ -84,8 +84,7 @@ class AccountCreateForm(UserCreationForm):
 
     def save(self, commit=True):
         """
-        Saves the submitted registration form into database because Django does
-        not automatically do it for you.
+        Saves the submitted registration form into database.
         """
         if commit:
             user = super(AccountCreateForm, self).save(commit=False)
@@ -102,8 +101,8 @@ class AccountCreateForm(UserCreationForm):
 
 class AccountManageForm(forms.ModelForm):
     """
-    AccountManageForm
-    <TODO>
+    AccountManageForm retrieves and displays the user's information based on
+    the data already stored in the database.
     """
     #def __init__(self):
         #pass
@@ -141,7 +140,7 @@ class AccountManageForm(forms.ModelForm):
     class Meta:
         """
         Model metadata used to identify attributes in POST data when submitting
-        a registration form. Required by register/views.py --> form =
+        a registration form. Required by users/views.py --> form =
         AccountCreateForm(request.Post). Throws error if removed.
         """
         def __init__(self):
@@ -160,8 +159,7 @@ class AccountManageForm(forms.ModelForm):
 
     def save(self, commit=True):
         """
-        Saves the submitted registration form into database because Django does
-        not automatically do it for you.
+        Saves the updated user information form into database.
         """
         if commit:
             user = super(AccountManageForm, self).save(commit=False)
