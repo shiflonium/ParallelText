@@ -10,10 +10,9 @@ import re
 import json
 #import requests
 import urllib
-
-#def getPage(htmlPage):
-#    soup = BeautifulSoup(open(htmlPage));
-#    return soup
+#from ptext.models import HE_2_EN
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
 
 def remove_commas(my_list, val):
     return [value for value in my_list if value != val]
@@ -64,6 +63,10 @@ def strip_page(page):
         text[i] = text[i].decode('string_escape')
         text[i] = text[i].decode('string_escape')
 
+    return text
+
+
+
 def getTranslatedList(listToTransalte):
     #Strip the words in the list
     i=0
@@ -83,4 +86,4 @@ def getTranslatedList(listToTransalte):
             
     return transatedList
 
-    return text
+    
