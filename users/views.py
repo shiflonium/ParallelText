@@ -17,6 +17,7 @@ def user_reg(request):
 
     if request.method == 'POST':
         if form.is_valid():
+            #user = form.save(commit=False)
             form.save()
             return HttpResponseRedirect('/')
     else:
@@ -72,6 +73,7 @@ def user_acct(request):
     and perform any changes to them, if necessary.
     """
     username = User.objects.get(username=request.user)
+
     if request.method == 'POST':
         form = AccountManageForm(data=request.POST, instance=request.user)
         if form.is_valid():

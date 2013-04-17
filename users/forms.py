@@ -81,21 +81,6 @@ class AccountCreateForm(UserCreationForm):
             'native_lang',
         )
 
-    def save(self, commit=True):
-        """
-        Saves the submitted registration form into database.
-        """
-        if commit:
-            user = super(AccountCreateForm, self).save(commit=False)
-            #user.username = self.cleaned_data['username']
-            #user.password1 = self.cleaned_data['password1']
-            #user.password2 = self.cleaned_data['password2']
-            #user.email = self.cleaned_data['email']
-            #user.first_name = self.cleaned_data['first_name']
-            #user.last_name = self.cleaned_data['last_name']
-            user.save()
-
-        return user
 
 
 class AccountManageForm(forms.ModelForm):
@@ -155,20 +140,4 @@ class AccountManageForm(forms.ModelForm):
             'last_name',
             'native_lang',
         )
-
-    def save(self, commit=True):
-        """
-        Saves the updated user information form into database.
-        """
-        if commit:
-            user = super(AccountManageForm, self).save(commit=False)
-            #user.username = self.cleaned_data['username']
-            #user.password1 = self.cleaned_data['password1']
-            #user.password2 = self.cleaned_data['password2']
-            #user.email = self.cleaned_data['email']
-            #user.first_name = self.cleaned_data['first_name']
-            #user.last_name = self.cleaned_data['last_name']
-            user.save()
-
-        return user
 
