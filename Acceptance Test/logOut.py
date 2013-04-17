@@ -28,12 +28,23 @@ class Logout(unittest.TestCase):
             driver.find_element_by_id("id_password2").clear()
             driver.find_element_by_id("id_password2").send_keys("exdx")
         
-        
-
-
-
-
-
+        Select(driver.find_element_by_id("id_native_lang")).select_by_visible_text("Spanish")
+        driver.find_element_by_css_selector("input[type=\"submit\"]").click()
+        driver.find_element_by_link_text("Login").click()
+        driver.find_element_by_name("username").clear()
+        driver.find_element_by_name("username").send_keys("exdx")
+        driver.find_element_by_name("password").clear()
+        driver.find_element_by_name("password").send_keys("exdx")
+        driver.find_element_by_css_selector("input[type=\"submit\"]").click()
+        driver.find_element_by_link_text("Account").click()
+        driver.find_element_by_link_text("Logout").click()
+        driver.find_element_by_link_text("Login").click()
+        driver.find_element_by_name("username").clear()
+        driver.find_element_by_name("username").send_keys("exdx")
+        driver.find_element_by_name("password").clear()
+        driver.find_element_by_name("password").send_keys("exdx")
+        driver.find_element_by_css_selector("input[type=\"submit\"]").click()
+        driver.find_element_by_link_text("Logout").click()  
 
 if __name__ == "__main__":
     unittest.main()
