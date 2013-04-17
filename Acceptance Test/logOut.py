@@ -18,8 +18,22 @@ class Logout(unittest.TestCase):
             self.accept_next_alert = True
     
         def test_logout(self):
-            
+            driver = self.driver
+            driver.get(self.base_url + "/#")
+            driver.find_element_by_link_text("Register").click()
+            driver.find_element_by_id("id_username").clear()
+            driver.find_element_by_id("id_username").send_keys("exdx")
+            driver.find_element_by_id("id_password1").clear()
+            driver.find_element_by_id("id_password1").send_keys("exdx")
+            driver.find_element_by_id("id_password2").clear()
+            driver.find_element_by_id("id_password2").send_keys("exdx")
         
+        
+
+
+
+
+
 
 if __name__ == "__main__":
     unittest.main()
