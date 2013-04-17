@@ -1,19 +1,31 @@
-<div id="logo">
-    <a href="/"><img src="{{ STATIC_URL }}logo.png" alt="ParallelText" width="350" height="150"></a>
+<!-- System Navigation (Pre-title)
+================================================== -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Sign Up</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="">
+                    <a href="#å">Sign In</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
-<div id="sysnav">
-    <ul id="sysnavlist">
-        {% if user.is_authenticated %}
-            <li>Welcome, {{ username }}</li>
-            <li><a href="/account/">Account</a></li>
-            <li><a href="/logout/">Logout</a></li>
-        {% else %}
-            <li><a href="/login/">Login</a></li>
-            <li><a href="/register/">Register</a></li>
-        {% endif %}
-    </ul>
+
+<!-- Title
+================================================== -->
+<header class="jumbotron subhead">
+<div class="container">
+    <h1>Parallel Text</h1>
+    <p class="lead"> - Simple Way of Learning A Second Language -
 </div>
-<div id="theme">
-    <h1><em>"Lorem ipsum dolor sit amet."</em></h1>
-</div>
+</header>
 
