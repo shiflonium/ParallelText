@@ -11,7 +11,20 @@ import re
 #import urllib
 from ptext.models import HE_2_EN
 from django.core.exceptions import ObjectDoesNotExist
+
 #from django.db import models
+
+class mydict(object):
+    def __init__(self,_o, _d):
+        self.o = _o
+        self.d = _d
+    def __iter__(self):
+        for i in range(0,len(self.o)):
+            yield self.o[i]
+    def get_original(self, index):
+        return x.o[index]
+    def get_definition(self,index):
+        return x.d[index]
 
 
 def remove_commas(my_list, val):
@@ -71,7 +84,10 @@ def strip_page(page):
 def get_translated_list(list_to_translate):
     '''Strip the words in the list'''
     i = 0
+    
     translated_list = list()
+    
+
     for i in range(0, len(list_to_translate)):
         list_to_translate[i] = list_to_translate[i].replace(':','')
         list_to_translate[i] = list_to_translate[i].replace('.','')
@@ -87,7 +103,10 @@ def get_translated_list(list_to_translate):
                     original=list_to_translate[i].decode('utf8'))
                 translated_list.append(temp.definition)
             except ObjectDoesNotExist:
-                translated_list.append('')
+                translated_list.append(str(i))
+
+    
+
             
     return translated_list
 

@@ -1,5 +1,5 @@
 {% extends "parallel_display/display.html" %}
-
+{% load customList %}
 	
 	{% block page1 %}
 		{% for word in text1 %}
@@ -20,15 +20,18 @@
         
     
 	{% block page2 %}
-		{% for key, value in text2.items %}
+		
+		
+		
+		{% for word in text2 %}
 			 <a class="tooltip" > 	
-		 	{{ key }}
-		 	{% if key != "<p>" and key != "</p>" %} 
+		 	{{ text2|get_original:forloop.counter0 }}
+		 	{% if text2|get_original:forloop.counter0 != "<p>" and text2|get_original:forloop.counter0 != "</p>" %} 
 			 	<span class="custom info" style="position: fixed; left: 60em; background: #FFFFAA;">
 			 		<img src={{STATIC_URL}}{{img_url}} alt="Information" height="48" width="48" />
 					<em>			
-						{{ key }} <br>
-						{{ value }}
+						{{ text2|get_original:forloop.counter0 }} <br>
+						{{ text2|get_definition:forloop.counter0 }}
 					</em>
 				</span></a>
 			{% endif %}

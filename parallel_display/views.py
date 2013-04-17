@@ -20,7 +20,9 @@ from django.shortcuts import render
 from bs4 import BeautifulSoup
 from ptext.views import strip_page
 from ptext.views import get_translated_list
-import collections
+from ptext.views import mydict
+
+
 page = ""
     
 def get_page(page):
@@ -79,27 +81,15 @@ def pdisplay(request):
     page1 = strip_page(parse_html(path1))
     page2 = strip_page(parse_html(path2))
     
-    definitions = get_translated_list(page2)
+    definition2 = get_translated_list(page2)
+    text2_iterator = range(0,len(page2)-10)
+
+
+    mylist = mydict(page2,definition2)
     
-    
-
-
-    i=0
-    dict2=collections.OrderedDict()
-    for i in range (0,len(page2)):
-        dict2.update({page2[i]:definitions[i]})
-
-
-    for k in dict2.keys():
-        print k
-
-
-
-
-
     return render (request, 
                    "ptext/popupDemo.html",
                    {'myTitle':'Demo', 'css_url':'popup.css', 
-                    'text1':page1, 'text2':dict2, 
+                    'text1':page1, 'text2':mylist, 
                     'img_url':'Info.png', 
                     'text1Dir':'left',  'text2Dir':'right'})
