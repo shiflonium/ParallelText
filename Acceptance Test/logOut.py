@@ -10,24 +10,23 @@ from selenium.common.exceptions import NoSuchElementException
 import unittest, time, re
 
 class Logout(unittest.TestCase):
-        def setUp(self):
-            self.driver = webdriver.Firefox()
-            self.driver.implicitly_wait(30)
-            self.base_url = "http://lit-earth-8332.herokuapp.com/"
-            self.verificationErrors = []
-            self.accept_next_alert = True
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+        self.driver.implicitly_wait(30)
+        self.base_url = "http://lit-earth-8332.herokuapp.com/"
+        self.verificationErrors = []
+        self.accept_next_alert = True
     
-        def test_logout(self):
-            driver = self.driver
-            driver.get(self.base_url + "/#")
-            driver.find_element_by_link_text("Register").click()
-            driver.find_element_by_id("id_username").clear()
-            driver.find_element_by_id("id_username").send_keys("exdx")
-            driver.find_element_by_id("id_password1").clear()
-            driver.find_element_by_id("id_password1").send_keys("exdx")
-            driver.find_element_by_id("id_password2").clear()
-            driver.find_element_by_id("id_password2").send_keys("exdx")
-        
+    def test_logout(self):
+        driver = self.driver
+        driver.get(self.base_url + "/#")
+        driver.find_element_by_link_text("Register").click()
+        driver.find_element_by_id("id_username").clear()
+        driver.find_element_by_id("id_username").send_keys("exdx")
+        driver.find_element_by_id("id_password1").clear()
+        driver.find_element_by_id("id_password1").send_keys("exdx")
+        driver.find_element_by_id("id_password2").clear()
+        driver.find_element_by_id("id_password2").send_keys("exdx")
         Select(driver.find_element_by_id("id_native_lang")).select_by_visible_text("Spanish")
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
         driver.find_element_by_link_text("Login").click()
@@ -63,7 +62,7 @@ class Logout(unittest.TestCase):
     
     def tearDown(self):
         self.driver.quit()
-        self.assertEqual([], self.verificationErrors)      
+        self.assertEqual([], self.verificationErrors)
 
 if __name__ == "__main__":
     unittest.main()
