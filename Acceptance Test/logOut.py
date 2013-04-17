@@ -44,7 +44,26 @@ class Logout(unittest.TestCase):
         driver.find_element_by_name("password").clear()
         driver.find_element_by_name("password").send_keys("exdx")
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
-        driver.find_element_by_link_text("Logout").click()  
+        driver.find_element_by_link_text("Logout").click()
+    
+    def is_element_present(self, how, what):
+        try: self.driver.find_element(by=how, value=what)
+        except NoSuchElementException, e: return False
+        return True
+    
+    def close_alert_and_get_its_text(self):
+        try:
+            alert = self.driver.switch_to_alert()
+            if self.accept_next_alert:
+                alert.accept()
+            else:
+                alert.dismiss()
+            return alert.text
+        finally: self.accept_next_alert = True
+    
+    def tearDown(self):
+        self.driver.quit()
+        self.assertEqual([], self.verificationErrors)      
 
 if __name__ == "__main__":
     unittest.main()
