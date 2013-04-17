@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block bodycontent %}
+<h2>Account Management: {{ username }}</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.non_field_errors }}
+            {{ status }}
+            <tr>
+                <td><label for="id_pass_old">{{ form.pass_old.label }}</label></td>
+                <td>{{ form.pass_old }}</td>
+                <td>{{ form.pass_old.errors }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_pass_new1">{{ form.pass_new1.label }} </label></td>
+                <td>{{ form.pass_new1 }}</td>
+                <td>{{ form.pass_new1.errors }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_pass_new2">{{ form.pass_new2.label }} </label></td>
+                <td>{{ form.pass_new2 }}</td>
+                <td>{{ form.pass_new2.errors }}</td>
+            </tr>
+            <tr>
+                <td colspan=3><input type="submit" value="Update"></td>
+            </tr>
+        </table>
+    </form>
+
+    <a href="/account/">Change Account Information</a><br>
+    <a href="/account_delete/">Delete Account</a>
+{% endblock %}
+

@@ -3,7 +3,7 @@
 	
 	{% block page1 %}
 		{% for word in text1 %}
-			 <a class="tooltip">
+			 <a class="tooltip_pt">
 		 	{{ word }}
 		 	{% if word != "<p>" and word != "</p>" %} 
 			 	<span class="custom info" style="position:fixed;">
@@ -21,7 +21,7 @@
     
 	{% block page2 %}
 		{% for word in text2 %}
-			 <a class="tooltip" > 	
+			 <a class="tooltip_pt" > 	
 		 	{{ word }}
 		 	{% if word != "<p>" and word != "</p>" %} 
 			 	<span class="custom info" style="position: fixed; left: 60em; background: #FFFFAA;">

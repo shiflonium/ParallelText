@@ -2,7 +2,42 @@
 
 {% block bodycontent %}
 <h2>Account Management: {{ username }}</h2>
-    <a href="">Change Password</a><br>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.non_field_errors }}
+            {{ status }}
+            <tr height="50px">
+                <td>Username</td>
+                <td colspan=2>{{ username }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_email">{{ form.email.label }}</label></td>
+                <td>{{ form.email }}</td>
+                <td>{{ form.email.errors }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_first_name">{{ form.first_name.label }}</label></td>
+                <td>{{ form.first_name }}</td>
+                <td>{{ form.first_name.errors }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_last_name">{{ form.last_name.label }} </label></td>
+                <td>{{ form.last_name }}</td>
+                <td>{{ form.last_name.errors }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_last_name">{{ form.native_lang.label }} </label></td>
+                <td>{{ form.native_lang }}</td>
+                <td>{{ form.native_lang.errors }}</td>
+            </tr>
+            <tr>
+                <td colspan=3><input type="submit" value="Update"></td>
+            </tr>
+        </table>
+    </form>
+
+    <a href="/account_pass/">Change Password</a><br>
     <a href="/account_delete/">Delete Account</a>
 {% endblock %}
 

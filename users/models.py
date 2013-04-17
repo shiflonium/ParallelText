@@ -24,7 +24,7 @@ class UserAccount(models.Model):
         blank=False,
         max_length = 2,
         choices = native_lang_choices,
-        default = 'es',
+        default = 'en',
     )
 
 
