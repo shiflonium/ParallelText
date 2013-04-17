@@ -4,7 +4,7 @@ views.py decides what to display on webpage based on current conditions.
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from users.forms import AccountCreateForm, AccountManageForm
+from users.forms import AccountCreateForm, AccountManageForm, AccountManagePassForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
@@ -94,7 +94,30 @@ def user_acct(request):
 
 
 def user_acct_pass(request):
-    pass
+    """
+    This function allows the current user to view their account information
+    and perform any changes to them, if necessary.
+    """
+    status = ""
+
+    username = User.objects.get(username=request.user)
+
+    form = AccountManagePassForm(request.POST)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            username.set_password(request.POST.get('pass_new1'))
+            #user = form.save(commit=False)
+            username.save()
+            status = "Your account information has been saved."
+            #return HttpResponseRedirect('/')
+    else:
+        form = AccountManagePassForm()
+
+    return render(request, 'users/account_pass.html',
+                  {'form': form,
+                   'status': status,
+                   'username': username})
 
 
 
