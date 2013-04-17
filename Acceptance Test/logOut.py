@@ -8,3 +8,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 import unittest, time, re
+
+class Logout(unittest.TestCase):
+        
+        
+
+
+
+
+
+
+if __name__ == "__main__":
+    unittest.main()
