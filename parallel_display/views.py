@@ -22,14 +22,13 @@ from ptext.views import strip_page
 from django import forms
 page = ""
 
-class Texts(forms.Form):
-    book = ( 
+book = ( 
         ("Bible_Genesis","Bible_Genesis"), 
         ("Koran","Koran"),
         )
 
 
-    chapters = (
+chapters = (
             ("ch_1","Chapter 1"),
             ("ch_1","Chapter 2"),
             ("ch_1","Chapter 3"),
@@ -38,7 +37,7 @@ class Texts(forms.Form):
             ("ch_1","Chapter 6"),
             ("ch_1","Chapter 7"),
         )
-    left_lang = ( 
+left_lang = ( 
         ("en","English"),
         ("he","Hebrew"),
         ("el","Greek"),
@@ -48,7 +47,7 @@ class Texts(forms.Form):
         ("ar","Arabic"),
         )
 
-    right_lang = (
+right_lang = (
         ("en","English"),
         ("he","Hebrew"),
         ("el","Greek"),
@@ -58,7 +57,14 @@ class Texts(forms.Form):
         ("ar","Arabic"),
         )
 
-    
+class Texts(forms.Form):
+    book_dd = forms.ChoiceField()
+
+    #class Texts end
+
+dd_test = {'book_dd':book}
+dropdown = Texts(dd_test,auto_id = False)
+print dropdown
 def get_page(page):
     """
     This function grabs the page and turns it into a 
