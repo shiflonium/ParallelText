@@ -59,10 +59,14 @@ right_lang = (
 
 class Texts(forms.Form):
     book_dd = forms.ChoiceField(choices=book)
+    chapter_dd = forms.ChoiceField(choices=chapters)
+    right_lang_dd = forms.ChoiceField(choices=right_lang)
+    left_lang_dd = forms.ChoiceField(choices=left)
+
 
     #class Texts end
 
-dd_test = {'book_dd':book}
+dropdowns = {'book_dd':book,'chapter_dd':chapter}
 dropdown = Texts(dd_test,auto_id = False)
 print dropdown
 def get_page(page):
