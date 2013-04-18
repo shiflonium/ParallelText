@@ -6,7 +6,7 @@
                          <a class="tooltip_pt">
                         {{ word }}
                         {% if word != "<p>" and word != "</p>" %} 
-                                <span class="custom info" style="position:fixed;">
+                                <span class="custom info" style="position:fixed; margin-top:2em;">
                                         <img src={{STATIC_URL}}{{img_url}} alt="Information" height="48" width="48" />
                                         <em>                    
                                                 {{ word }}<br>
@@ -19,23 +19,20 @@
     
         
     
-        {% block page2 %}
-                
-                
-                
-                {% for word in text2 %}
-                         <a class="tooltip_pt" >        
-                        {{ text2|get_original:forloop.counter0 }}
-                        {% if text2|get_original:forloop.counter0 != "<p>" and text2|get_original:forloop.counter0 != "</p>" %} 
-                                <span class="custom info" style="position: fixed; left: 60em; background: #FFFFAA;">
-                                        <img src={{STATIC_URL}}{{img_url}} alt="Information" height="48" width="48" />
-                                        <em>                    
-                                                {{ text2|get_original:forloop.counter0 }} <br>
-                                                {{ text2|get_definition:forloop.counter0 }}
-                                        </em>
-                                </span></a>
-                        {% endif %}
-                {% endfor %}
+	{% block page2 %}	
+		{% for word in text2 %}
+			 <a class="tooltip_pt"> 	
+		 	{{ text2|get_original:forloop.counter0 }}
+		 	{% if text2|get_original:forloop.counter0 != "<p>" and text2|get_original:forloop.counter0 != "</p>" %} 
+			 	<span class="custom info" style="position: fixed; left: 60em; margin-top:2em; background: #FFFFAA;">
+			 		<img src={{STATIC_URL}}{{img_url}} alt="Information" height="48" width="48" />
+					<em>			
+						{{ text2|get_original:forloop.counter0 }} <br>
+						{{ text2|get_definition:forloop.counter0 }}
+					</em>
+				</span></a>
+			{% endif %}
+		{% endfor %}
     {% endblock %}
     
         
