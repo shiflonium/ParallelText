@@ -44,7 +44,7 @@ class Texts(forms.Form):
         ("el","Greek")
         ("es","Spanish")
         ("pt","Portuguese")
-        ("en","English")
+        ("ru","Russian")
         )
     
 def get_page(page):
