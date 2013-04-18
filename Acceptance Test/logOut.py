@@ -10,11 +10,12 @@ import unittest
 
 class Logout(unittest.TestCase):
     '''
-    defining the class
+    this is the logout class
+    which provides the unit test
     '''
     def setUp(self):
         '''
-        defining the function
+        defining setup
         '''
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
@@ -24,7 +25,7 @@ class Logout(unittest.TestCase):
     
     def test_logout(self):
         '''
-        defining the function
+        defining test for logout
         '''
         driver = self.driver
         driver.get(self.base_url + "/#")
@@ -57,8 +58,10 @@ class Logout(unittest.TestCase):
         '''
         defining the function
         '''
-        try: self.driver.find_element(by=how, value=what)
-        except NoSuchElementException: return False
+        try: 
+            self.driver.find_element(by=how, value=what)
+        except NoSuchElementException: 
+            return False
         return True
     
     def close_alert_and_get_its_text(self):
