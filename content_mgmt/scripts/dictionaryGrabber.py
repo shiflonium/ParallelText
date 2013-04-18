@@ -11,6 +11,9 @@ parser.add_argument("--definition", "-d", required=True, help="Definiton Languag
 parser.add_argument("--file", "-f",  required=True, help="input file")
 
 
+
+processed_words = {}
+
 language_dictionaries = {
     'SQ': 1,       # Albanian
     'AR': 2,       # Arabic
@@ -39,13 +42,40 @@ language_dictionaries = {
     'HE': 25 ,     # Hebrew
 }
 
+
+def initialize_dictionary():
+    # select original from language_dictionary 
+    # where original_lang=blahblah and definitionlang=blahblah
+    # for result in (result_set)
+    # processed_words[result]=1
+    
+    1
+
 def translateWordUsingMorfix_EN_2_HE(word):
     dictionary_request = "http://www.morfix.co.il/" + word 
+    print dictionary_request
     r = requests.get(dictionary_request)
     response_text = r.text
     soup = BeautifulSoup(response_text)
 
     definition_soup = soup.find_all('div' , {"class": "default_trans"})
+    all_definitions= ""
+    for definition in (definition_soup):
+        all_definitions = all_definitions + ";; "+ definition.string
+
+    if (len(all_definitions) > 3):
+        all_definitions = all_definitions [3:]
+    return all_definitions
+
+
+def translateWordUsingMorfix_HE_2_EN(word):
+    dictionary_request = "http://www.morfix.co.il/" + word 
+    r = requests.get(dictionary_request)
+    response_text = r.text
+    soup = BeautifulSoup(response_text)
+    
+    
+    definition_soup = soup.find_all('div' , {"class": "translation translation_he heTrans"})
     all_definitions= ""
     for definition in (definition_soup):
         all_definitions = all_definitions + ";; "+ definition.string
@@ -85,11 +115,15 @@ def main():
     db_name = original + "_2_" + definition
     for word in (all_words):
         word = re.sub ("\s*", "", word)
-        translation = translateWordUsingMorfix_EN_2_HE(word)
-#        translation = translateWordUsingLingvozone(original, definition, word)
-
-        print "INSERT IGNORE INTO %s (`original`, `definition`) VALUES (\'%s\', \'%s\')" % (
-            db_name, word, translation)
+        if (processed_words[word] != 1):
+            translation = ''
+        # make this smarter using function pointers
+            translation = translateWordUsingMorfix_HE_2_EN(word)
+        #        translation = translateWordUsingLingvozone(original, definition, word)
+            print "INSERT IGNORE INTO %s (`original`, `definition`) VALUES (\'%s\', \'%s\')" % 
+            (db_name, word, translation)
+            processed_words[word]=1
+        
             
         
 
