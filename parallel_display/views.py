@@ -61,14 +61,16 @@ class Texts(forms.Form):
     book_dd = forms.ChoiceField(choices=book)
     chapter_dd = forms.ChoiceField(choices=chapters)
     right_lang_dd = forms.ChoiceField(choices=right_lang)
-    left_lang_dd = forms.ChoiceField(choices=left)
+    left_lang_dd = forms.ChoiceField(choices=left_lang)
 
 
     #class Texts end
 
-dropdowns = {'book_dd':book,'chapter_dd':chapter}
-dropdown = Texts(dd_test,auto_id = False)
-print dropdown
+dropdowns = {'book_dd':book, 'chapter_dd':chapters, 'right_lang_dd':right_lang,
+'left_lang_dd':left_lang
+}
+visual_dropdown = Texts(dropdowns,auto_id = False)
+
 def get_page(page):
     """
     This function grabs the page and turns it into a 
