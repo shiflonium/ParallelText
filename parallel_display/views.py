@@ -41,7 +41,7 @@ class Texts(forms.Form):
     left_lang = ( 
         ("en","English")
         ("he","Hebrew")
-        ("en","English")
+        ("el","Greek")
         ("en","English")
         ("en","English")
         ("en","English")
