@@ -8,7 +8,20 @@ from django.db import models
 
 class HE_2_EN(models.Model):
     '''Dictionary object'''
-    #from_lang = models.CharField(max_length=2)
-    #to_lang = models.CharField(max_length=2)
     original = models.CharField(primary_key=True, max_length = 20)
     definition = models.CharField(max_length = 200)
+    #fromLang = models.CharField(max_length=2)
+    #toLang = models.CharField(max_length=2)
+
+'''
+class UserDictionary(models.Model):
+	fromLang = models.CharField(max_length=2)
+	toLang = models.CharField(max_length=2)
+
+class Languages(models.Model):
+	fromLang = models.CharField(max_length=2)
+	toLang = models.CharField(max_length=2)
+
+	class Meta:
+		unique_together = ('fromLang', 'toLang')
+'''
