@@ -54,6 +54,37 @@ def translateWordUsingMorfix_EN_2_HE(word):
         all_definitions = all_definitions [3:]
     return all_definitions
 
+def translateWordUsingMorfix_EN_2_HE(word):
+    dictionary_request = "http://www.morfix.co.il/" + word 
+    r = requests.get(dictionary_request)
+    response_text = r.text
+    soup = BeautifulSoup(response_text)
+
+    definition_soup = soup.find_all('div' , {"class": "default_trans"})
+    all_definitions= ""
+    for definition in (definition_soup):
+        all_definitions = all_definitions + ";; "+ definition.string
+
+    if (len(all_definitions) > 3):
+        all_definitions = all_definitions [3:]
+    return all_definitions
+
+
+def translateWordUsingMorfix_HE_2_EN(word):
+    dictionary_request = "http://www.morfix.co.il/" + word 
+    r = requests.get(dictionary_request)
+    response_text = r.text
+    soup = BeautifulSoup(response_text)
+
+    definition_soup = soup.find_all('div' , {"class": "default_trans"})
+    all_definitions= ""
+    for definition in (definition_soup):
+        all_definitions = all_definitions + ";; "+ definition.string
+
+    if (len(all_definitions) > 3):
+        all_definitions = all_definitions [3:]
+    return all_definitions
+
 def translateWordUsingLingvozone(from_lang, to_lang, word):
     from_lang_id = str(language_dictionaries[from_lang])
     to_lang_id = str(language_dictionaries[to_lang])
@@ -85,7 +116,7 @@ def main():
     db_name = original + "_2_" + definition
     for word in (all_words):
         word = re.sub ("\s*", "", word)
-        translation = translateWordUsingMorfix_EN_2_HE(word)
+        translation = translateWordUsingMorfix_HE_2_EN(word)
 #        translation = translateWordUsingLingvozone(original, definition, word)
 
         print "INSERT IGNORE INTO %s (`original`, `definition`) VALUES (\'%s\', \'%s\')" % (
