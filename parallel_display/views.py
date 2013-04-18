@@ -58,15 +58,15 @@ right_lang = (
         )
 
 class Texts(forms.Form):
-    book_dd = forms.ChoiceField(choices=book)
-    chapter_dd = forms.ChoiceField(choices=chapters)
-    right_lang_dd = forms.ChoiceField(choices=right_lang)
-    left_lang_dd = forms.ChoiceField(choices=left_lang)
+    book_dd = forms.ChoiceField(label = "Book",choices = book)
+    chapter_dd = forms.ChoiceField(label = "Chapters",choices = chapters)
+    right_lang_dd = forms.ChoiceField(label = "From Language",choices = right_lang)
+    left_lang_dd = forms.ChoiceField(label = "To Language",choices = left_lang)
 
 
     #class Texts end
 
-dropdowns = {'book_dd':book, 'chapter_dd':chapters, 'right_lang_dd':right_lang,
+dropdowns = {'Book':book, 'chapter_dd':chapters, 'right_lang_dd':right_lang,
 'left_lang_dd':left_lang
 }
 visual_dropdown = Texts(dropdowns,auto_id = False)
