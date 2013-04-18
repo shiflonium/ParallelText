@@ -3,7 +3,20 @@
     {% autoescape off %}
     {% block bodycontent %}
         <h3 style="color:DarkMagenta;">Reading Books</h3>   
-	<div>{{form}}
+	<div>
+		<form method='post' action="">
+
+			<table>
+				<tr>
+					<td> {{form.book_dd}} </td>
+					<td> {{form.chapter_dd}} </td>
+					<td> {{form.left_lang_dd}} </td>
+					<td> {{form.right_lang_dd}} </td>
+
+				</tr>
+			</table>
+
+		</form>
 		<!-- <form action="" method="get">
 		<label> Book</label>
 		<select name="book">

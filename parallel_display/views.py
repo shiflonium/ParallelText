@@ -20,6 +20,7 @@ from django.shortcuts import render
 from bs4 import BeautifulSoup
 from ptext.views import strip_page
 from django import forms
+from django.utils.safestring import mark_safe
 page = ""
 
 book = ( 
@@ -70,7 +71,7 @@ dropdowns = {'Book':book, 'chapter_dd':chapters, 'right_lang_dd':right_lang,
 'left_lang_dd':left_lang
 }
 visual_dropdown = Texts(dropdowns,auto_id = False)
-
+#print visual_dropdown
 def get_page(page):
     """
     This function grabs the page and turns it into a 
