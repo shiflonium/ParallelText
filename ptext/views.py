@@ -2,26 +2,42 @@
 '''
 this module controls the popups for the applicaiton
 '''
-#from django.http import HttpResponse
-
-#from django.shortcuts import render
 #from bs4 import BeautifulSoup
 import re
-import json
-#import requests
-import urllib
+from ptext.models import HE_2_EN
+from django.core.exceptions import ObjectDoesNotExist
 
-#def getPage(htmlPage):
-#    soup = BeautifulSoup(open(htmlPage));
-#    return soup
+
+
+class CustomDict(object):
+    '''This class is an iteratible dictionary in django templates'''
+    
+    def __init__(self, org, dfn):
+        '''Constructor'''
+        self.org = org
+        self.dfn = dfn
+    def __iter__(self):
+        '''Iterator'''
+        for i in range(0, len(self.org)):
+            yield self.org[i]
+
+    def get_original(self, index):
+        '''return original word at index'''
+        return self.org[index]
+
+    def get_definition(self, index):
+        '''return word definition at index'''
+        return self.dfn[index]
+
 
 def remove_commas(my_list, val):
+    '''Rmoving commas from a whole list'''
     return [value for value in my_list if value != val]
 
 
 def strip_page(page):
-    #page = getPage('texts/Bible_Genesis/EN/ch_1.html')    #Get html source
-    #page = getPage(html)    #Get html source
+    '''Cleans all html code from the text and return a list 
+    of every Word including <p> tags'''
 
     #STRIP TEXT
     plist = re.findall(r'<p.*?</p>', str(page), re.DOTALL)
@@ -30,7 +46,7 @@ def strip_page(page):
     stripped_para_list = re.sub(r'\\\\r', '', str(stripped_para_list))
     stripped_para_list = re.sub(r'</p>',  '|', str(stripped_para_list))
     stripped_para_list = re.sub(r'>',  ' <p> ', str(stripped_para_list))
-    stripped_para_list = re.sub("\|",  ' </p> ', str(stripped_para_list))
+    stripped_para_list = re.sub(r"\|",  ' </p> ', str(stripped_para_list))
     stripped_para_list = re.sub(r'\[',  '', str(stripped_para_list))
     stripped_para_list = re.sub(r'\]',  '', str(stripped_para_list))
 
@@ -64,6 +80,39 @@ def strip_page(page):
         text[i] = text[i].decode('string_escape')
         text[i] = text[i].decode('string_escape')
 
+    #build dictionay for template
+    definitions = get_translated_list(text)
+    final_dict = CustomDict(text, definitions)
+
+    return final_dict
 
 
-    return text
+
+def get_translated_list(list_to_translate):
+    '''Strip the words in the list'''
+    
+    translated_list = list()
+
+    #Strip list
+    for i in range(0, len(list_to_translate)):
+        list_to_translate[i] = list_to_translate[i].replace(':','')
+        list_to_translate[i] = list_to_translate[i].replace('.','')
+        list_to_translate[i] = list_to_translate[i].replace(',','')
+        list_to_translate[i] = list_to_translate[i].replace('-','')
+
+        #get translation and put in a different list
+        if (list_to_translate[i] == '<p>' or list_to_translate == '</p>'):
+            translated_list.append(str(i))
+        else:
+
+            try:
+                temp = HE_2_EN.objects.get(
+                    original=list_to_translate[i].decode('utf8'))
+                translated_list.append(temp.definition)
+
+            except ObjectDoesNotExist: #Case query not in database
+                translated_list.append('')
+
+    return translated_list
+
+    
