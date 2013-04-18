@@ -38,6 +38,14 @@ class Texts(forms.Form):
             ("ch_1","Chapter 6"),
             ("ch_1","Chapter 7"),
         )
+    left_lang = ( 
+        ("en","English")
+        ("he","Hebrew")
+        ("en","English")
+        ("en","English")
+        ("en","English")
+        ("en","English")
+        )
     
 def get_page(page):
     """
