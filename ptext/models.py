@@ -31,8 +31,9 @@ class UserDictionary(models.Model):
 	definitionID = models.CharField(max_length=2)
 
 class AvailLangs(models.Model):
-	fromLang = models.CharField(max_length=2)
-	toLang = models.CharField(max_length=2)
+	langID =models.AutoField(primary_key=True)
+	abbr = models.CharField(max_length=2)
+	name = models.CharField(max_length=20)
 
 	class Meta:
-		unique_together = ('fromLang', 'toLang')
+		unique_together = ('abbr', 'name')
