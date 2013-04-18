@@ -19,10 +19,25 @@ import re
 from django.shortcuts import render
 from bs4 import BeautifulSoup
 from ptext.views import strip_page
-
-
-
+from django import forms
 page = ""
+
+class Texts(forms.Form):
+    book = ( 
+        ("Bible_Genesis","Bible_Genesis"), 
+        ("Koran","Koran"),
+        )
+
+
+    chapters = (
+            ("ch_1","Chapter 1"),
+            ("ch_1","Chapter 2"),
+            ("ch_1","Chapter 3"),
+            ("ch_1","Chapter 4"),
+            ("ch_1","Chapter 5"),
+            ("ch_1","Chapter 6"),
+            ("ch_1","Chapter 7"),
+        )
     
 def get_page(page):
     """
@@ -43,6 +58,7 @@ def parse_html(filepath):
     p_tag_list = re.findall('<p.*?</p>' , page , re.DOTALL)
     p_tag_string = "" . join(p_tag_list)
     return p_tag_string
+
 
 def pdisplay(request):
     """
@@ -79,7 +95,6 @@ def pdisplay(request):
 
     page1 = strip_page(parse_html(path1))
     page2 = strip_page(parse_html(path2))
-    
     
     return render (request, 
                    "ptext/popupDemo.html",
