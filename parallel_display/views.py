@@ -48,6 +48,16 @@ class Texts(forms.Form):
         ("ar","Arabic"),
         )
 
+    right_lang = (
+        ("en","English"),
+        ("he","Hebrew"),
+        ("el","Greek"),
+        ("es","Spanish"),
+        ("pt","Portuguese"),
+        ("ru","Russian"),
+        ("ar","Arabic"),
+        )
+
     
 def get_page(page):
     """
