@@ -17,6 +17,7 @@ localhost/parallel_display/Bible_Genesis/ch_1/ENHE/
 """
 import re
 from django.shortcuts import render
+from django.core.context_processors import csrf
 from bs4 import BeautifulSoup
 from ptext.views import strip_page
 from django import forms
@@ -24,19 +25,19 @@ from django.utils.safestring import mark_safe
 page = ""
 
 book = ( 
-        ("Bible_Genesis","Bible_Genesis"), 
+        ("Bible_Genesis","Bible Genesis"), 
         ("Koran","Koran"),
         )
 
 
 chapters = (
             ("ch_1","Chapter 1"),
-            ("ch_1","Chapter 2"),
-            ("ch_1","Chapter 3"),
-            ("ch_1","Chapter 4"),
-            ("ch_1","Chapter 5"),
-            ("ch_1","Chapter 6"),
-            ("ch_1","Chapter 7"),
+            ("ch_2","Chapter 2"),
+            ("ch_3","Chapter 3"),
+            ("ch_4","Chapter 4"),
+            ("ch_5","Chapter 5"),
+            ("ch_6","Chapter 6"),
+            ("ch_7","Chapter 7"),
         )
 left_lang = ( 
         ("en","English"),
@@ -63,6 +64,7 @@ class Texts(forms.Form):
     chapter_dd = forms.ChoiceField(label = "Chapters",choices = chapters)
     right_lang_dd = forms.ChoiceField(label = "From Language",choices = right_lang)
     left_lang_dd = forms.ChoiceField(label = "To Language",choices = left_lang)
+    search_field = forms.CharField(label = "Search Texts")
 
 
     #class Texts end
@@ -114,17 +116,21 @@ def pdisplay(request):
     path2 = ""
 
     
-    if request.method == "GET":
-        if request.get_full_path() != "/parallel_display/":
-            book = request.GET.get("book",'')
-            chapter = request.GET.get('chapter','')
-            from_lang = request.GET.get('from_language','')
-            to_lang = request.GET.get('to_language','')
-            path1 = "texts/"+book+"/"+from_lang+"/"+chapter+".html"
-            path2 = "texts/"+book+"/"+to_lang+"/"+chapter+".html"
-        else:
-            path1 = "texts/Bible_Genesis/EN/ch_1.html"
-            path2 = "texts/Bible_Genesis/HE/ch_1.html"
+    
+    
+    
+    if request.method == "POST":
+        #posted_form = Texts(request.POST)
+        book = request.POST["book_dd"]
+        chapter = request.POST['chapter_dd']
+        from_lang = request.POST['left_lang_dd']
+        to_lang = request.POST['right_lang_dd']
+        path1 = "texts/"+book+"/"+from_lang.upper()+"/"+chapter+".html"
+        path2 = "texts/"+book+"/"+to_lang.upper()+"/"+chapter+".html"
+        print path1
+    else:
+        path1 = "texts/Bible_Genesis/EN/ch_1.html"
+        path2 = "texts/Bible_Genesis/HE/ch_1.html"
 
     page1 = strip_page(parse_html(path1))
     page2 = strip_page(parse_html(path2))
