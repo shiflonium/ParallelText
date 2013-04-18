@@ -1,7 +1,6 @@
 # use glob syntax
 syntax: glob
 
-*.db
 *.log
 *.pyc
 *~
