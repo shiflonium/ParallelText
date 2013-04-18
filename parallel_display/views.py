@@ -58,7 +58,7 @@ right_lang = (
         )
 
 class Texts(forms.Form):
-    book_dd = forms.ChoiceField()
+    book_dd = forms.ChoiceField(choices=book)
 
     #class Texts end
 
@@ -121,10 +121,10 @@ def pdisplay(request):
 
     page1 = strip_page(parse_html(path1))
     page2 = strip_page(parse_html(path2))
-    
+    form_test = Texts()
     return render (request, 
                    "ptext/popupDemo.html",
                    {'myTitle':'Demo', 'css_url':'popup.css', 
                     'text1':page1, 'text2':page2, 
                     'img_url':'Info.png', 
-                    'text1Dir':'left',  'text2Dir':'right'})
+                    'text1Dir':'left',  'text2Dir':'right','form':form_test})
