@@ -43,7 +43,7 @@ class Texts(forms.Form):
         ("he","Hebrew")
         ("el","Greek")
         ("es","Spanish")
-        ("en","English")
+        ("pt","Portuguese")
         ("en","English")
         )
     
