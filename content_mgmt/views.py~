@@ -1,0 +1,12 @@
+"""
+This renders the homepage
+"""
+from django.shortcuts import render
+
+def index(request):
+    """ 
+    this method is responsible for drawing the homepage
+    """
+    return render(request, '/upload.html')
+
+
