@@ -19,8 +19,7 @@ import re
 from django.shortcuts import render
 from bs4 import BeautifulSoup
 from ptext.views import strip_page
-from ptext.views import get_translated_list
-from ptext.views import mydict
+
 
 
 page = ""
@@ -81,15 +80,10 @@ def pdisplay(request):
     page1 = strip_page(parse_html(path1))
     page2 = strip_page(parse_html(path2))
     
-    definition2 = get_translated_list(page2)
-    text2_iterator = range(0,len(page2)-10)
-
-
-    mylist = mydict(page2,definition2)
     
     return render (request, 
                    "ptext/popupDemo.html",
                    {'myTitle':'Demo', 'css_url':'popup.css', 
-                    'text1':page1, 'text2':mylist, 
+                    'text1':page1, 'text2':page2, 
                     'img_url':'Info.png', 
                     'text1Dir':'left',  'text2Dir':'right'})
