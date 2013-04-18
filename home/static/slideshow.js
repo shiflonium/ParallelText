@@ -5,9 +5,9 @@ var imgNum = 0;
 imgArray = new Array();
 imgArray[imgNum++] = new imageItem(imgDir + "slide_01.png");
 imgArray[imgNum++] = new imageItem(imgDir + "slide_02.png");
-imgArray[imgNum++] = new imageItem(imgDir + "slide_03.gif");
-imgArray[imgNum++] = new imageItem(imgDir + "slide_04.gif");
-imgArray[imgNum++] = new imageItem(imgDir + "slide_05.gif");
+imgArray[imgNum++] = new imageItem(imgDir + "slide_03.png");
+imgArray[imgNum++] = new imageItem(imgDir + "slide_04.png");
+imgArray[imgNum++] = new imageItem(imgDir + "slide_05.png");
 
 var totalimg = imgArray.length;
 
