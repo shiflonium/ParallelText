@@ -9,6 +9,11 @@
                 <span class="icon-bar"></span>
             </button>
             {% if user.is_authenticated %}
+		<ul class="nav nav-pills">
+			  <li class="active">
+			    <a href="">Dictionary</a>
+			  </li>
+			</ul>
             <a class="brand" href="/logout/">Logout</a>
             {% else %}
             <a class="brand" href="/register/">Sign Up</a>
