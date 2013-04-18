@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block bodycontent %}
-<h2><a href=/parallel_display/>Welcome to ParallelText!</a></h2>
 
 <section id="carousel">
 <div id="slideshow" class="carousel slide">
@@ -18,7 +17,7 @@
             </div>
         </div>
         <div class="item">
-            <img src="{{ STATIC_URL }}slide_02.png" alt="">
+            <img id="slideImg" src="{{ STATIC_URL }}slide_02.png" alt="">
             <div class="carousel-caption">
                 <p>Proud members of this project.</p>
             </div>
