@@ -9,7 +9,7 @@ class Translations(models.Model):
     definition = models.CharField(max_length = 200)
     
     def save(self):
-		top = Languages.objects.order_by('definitionID')
+		top = Translations.objects.order_by('definitionID')
 
 		if len(top) == 0:
 			self.definitionID=0
@@ -24,7 +24,7 @@ class UserDictionary(models.Model):
 	userID = models.CharField(max_length=2)
 	definitionID = models.CharField(max_length=2)
 
-class AvailLangs(models.Model):
+class Languages(models.Model):
 	langID =models.AutoField(primary_key=True)
 	abbr = models.CharField(max_length=2)
 	name = models.CharField(max_length=20)
