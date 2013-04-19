@@ -1,0 +1,4 @@
+from models inport BookInfo, BookTranslations
+
+a=book(title="Bible Genesis", author="Moses", num_chaps=50)
+b=book(title="Quran", author="Muhammad", num_chaps=50)
