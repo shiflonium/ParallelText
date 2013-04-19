@@ -5,9 +5,9 @@ In any case, this entire module will soon be destroyed
 """
 from django.db import models
 
-
+'''
 class Languages(models.Model):
-    '''Dictionary object'''
+    
     definitionID = models.IntegerField()
     fromLang = models.CharField(max_length=2)
     toLang = models.CharField(max_length=2)
@@ -37,3 +37,4 @@ class AvailLangs(models.Model):
 
 	class Meta:
 		unique_together = ('abbr', 'name')
+		'''
