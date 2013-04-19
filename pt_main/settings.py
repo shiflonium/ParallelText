@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'bs4',
     'ptext',
     'parallel_display',
+    'Languages'
 )
 
 # A sample logging configuration. The only tangible logging

@@ -18,7 +18,7 @@ def HE_2_EN():
 		a[i] = re.sub(r'\(\'','(original=\'',a[i])
 		a[i] = re.sub(r'\, \'',', defininion=\'',a[i])
 		a[i] = re.sub(r'\(original=','(fromLang=\'HE\', toLang=\'EN\', original=', a[i])
-		f.write("a=Languages"+a[i].encode('utf8')+"\na.save()\n")
+		f.write("a=Translations"+a[i].encode('utf8')+"\na.save()\n")
 
 	f.close()
 

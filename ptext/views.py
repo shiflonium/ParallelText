@@ -4,7 +4,7 @@ this module controls the popups for the applicaiton
 '''
 #from bs4 import BeautifulSoup
 import re
-from ptext.models import Languages
+from Languages.models import Translations
 from django.core.exceptions import ObjectDoesNotExist
 
 
