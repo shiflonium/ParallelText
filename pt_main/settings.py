@@ -141,7 +141,7 @@ INSTALLED_APPS = (
     'parallel_display',
     'books',
     'content_mgmt',
-    'languages'
+    'Languages'
 )
 
 # A sample logging configuration. The only tangible logging
