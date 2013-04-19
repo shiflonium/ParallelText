@@ -1,7 +1,7 @@
 from books.models import BookInfo, BookTranslation
 from Languages.models import Languages
 
-bible=BookInfo(title="Bible Genesis", author="Moses", chaps=50)
+bible=BookInfo(title="Bible_Genesis", author="Moses", chaps=50)
 quran=BookInfo(title="Quran", author="Muhammad", chaps=113)
 bible.save()
 quran.save()
