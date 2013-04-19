@@ -4,7 +4,7 @@ this module controls the popups for the applicaiton
 '''
 #from bs4 import BeautifulSoup
 import re
-from ptext.models import Languages
+from Languages.models import Translations
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -106,7 +106,7 @@ def get_translated_list(list_to_translate):
         else:
 
             try:
-                temp = Languages.objects.get(
+                temp = Translations.objects.get(
                     original=list_to_translate[i].decode('utf8'))
                 translated_list.append(temp.definition)
 

@@ -1,9 +1,10 @@
 import re
 import codecs
-from ptext.models import AvailLangs
+from Languages.models import Languages
 
-#fileObj = codecs.open("LangsAbbr/abbr.sql","r","utf-8");
-#x = fileObj.read()
+# fileObj = codecs.open("LangsAbbr/abbr.sql","r","utf-8");
+fileObj = codecs.open("workfile.txt","r","utf-8");
+x = fileObj.read()
 f=open('workfile.txt', 'w');
 
 #f.write('#coding: utf-8\nfrom django.db import models\nfrom ptext.models import AvailLangs\n\n')
@@ -18,7 +19,7 @@ def HE_2_EN():
 		a[i] = re.sub(r'\(\'','(original=\'',a[i])
 		a[i] = re.sub(r'\, \'',', defininion=\'',a[i])
 		a[i] = re.sub(r'\(original=','(fromLang=\'HE\', toLang=\'EN\', original=', a[i])
-		f.write("a=Languages"+a[i].encode('utf8')+"\na.save()\n")
+		f.write("a=Translations"+a[i].encode('utf8')+"\na.save()\n")
 
 	f.close()
 
@@ -32,9 +33,9 @@ def abbrTable():
 		f.write('a=AvailLangs'+a[i].encode('utf8')+'\na.save()\n')
 
 def uppercaseAbbrInDatabase():
-	length = AvailLangs.objects.count()
+	length = Languages.objects.count()
 	for i in range(1,length):
-		abb = AvailLangs.objects.get(langID=i)
+		abb = Languages.objects.get(langID=i)
 		abb.abbr = str(abb.abbr).upper()
 		abb.delete()
 		abb.save()
@@ -42,7 +43,7 @@ def uppercaseAbbrInDatabase():
 
 if __name__ == '__main__':
 	#abbrTable()
-	#uppercaseAbbrInDatabase()
+	uppercaseAbbrInDatabase()
 
 
 
