@@ -10,7 +10,7 @@ import unittest
 
 class FailReg(unittest.TestCase):
     '''
-    
+    defining the fail registration class
     '''
     def setUp(self):
         '''
@@ -35,7 +35,7 @@ class FailReg(unittest.TestCase):
     
     def is_element_present(self, how, what):
         '''
-        
+        defining the function 
         '''
         try: 
             self.driver.find_element(by=how, value=what)
@@ -44,6 +44,9 @@ class FailReg(unittest.TestCase):
         return True
     
     def close_alert_and_get_its_text(self):
+        '''
+        defining the function
+        '''
         try:
             alert = self.driver.switch_to_alert()
             if self.accept_next_alert:
