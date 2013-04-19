@@ -1,24 +1,24 @@
 from books.models import BookInfo, BookTranslation
-from ptext.models import AvailLangs
+from Languages.models import Languages
 
-bible=BookInfo(title="Bible Genesis", author="Moses", numChaps=50)
-quran=BookInfo(title="Quran", author="Muhammad", numChaps=113)
+bible=BookInfo(title="Bible Genesis", author="Moses", chaps=50)
+quran=BookInfo(title="Quran", author="Muhammad", chaps=113)
 bible.save()
 quran.save()
 
 # genesis languages
-es=AvailLangs.objects.get(abbr="ES")
-ar=AvailLangs.objects.get(abbr="AR")
-el=AvailLangs.objects.get(abbr="EL")
-he=AvailLangs.objects.get(abbr="HE")
-ko=AvailLangs.objects.get(abbr="KO")
-la=AvailLangs.objects.get(abbr="LA")
-pt=AvailLangs.objects.get(abbr="PT")
-ru=AvailLangs.objects.get(abbr="RU")
-th=AvailLangs.objects.get(abbr="TH")
-uk=AvailLangs.objects.get(abbr="UK")
-zh=AvailLangs.objects.get(abbr="ZH")
-en=AvailLangs.objects.get(abbr="EN")
+es=Languages.objects.get(abbr="ES")
+ar=Languages.objects.get(abbr="AR")
+el=Languages.objects.get(abbr="EL")
+he=Languages.objects.get(abbr="HE")
+ko=Languages.objects.get(abbr="KO")
+la=Languages.objects.get(abbr="LA")
+pt=Languages.objects.get(abbr="PT")
+ru=Languages.objects.get(abbr="RU")
+th=Languages.objects.get(abbr="TH")
+uk=Languages.objects.get(abbr="UK")
+zh=Languages.objects.get(abbr="ZH")
+en=Languages.objects.get(abbr="EN")
 
 
 c=BookTranslation(book_id=bible, language_id=es)
@@ -57,17 +57,17 @@ en=en
 ru=ru
 zh=zh
 
-bs=AvailLangs.objects.get(abbr="BS")
-de=AvailLangs.objects.get(abbr="DE")
-fr=AvailLangs.objects.get(abbr="FR")
-hr=AvailLangs.objects.get(abbr="HR")
-idi=AvailLangs.objects.get(abbr="ID")
-it=AvailLangs.objects.get(abbr="IT")
-ja=AvailLangs.objects.get(abbr="JA")
-ms=AvailLangs.objects.get(abbr="MS")
-pl=AvailLangs.objects.get(abbr="PL")
-sw=AvailLangs.objects.get(abbr="SW")
-tr=AvailLangs.objects.get(abbr="TR")
+bs=Languages.objects.get(abbr="BS")
+de=Languages.objects.get(abbr="DE")
+fr=Languages.objects.get(abbr="FR")
+hr=Languages.objects.get(abbr="HR")
+idi=Languages.objects.get(abbr="ID")
+it=Languages.objects.get(abbr="IT")
+ja=Languages.objects.get(abbr="JA")
+ms=Languages.objects.get(abbr="MS")
+pl=Languages.objects.get(abbr="PL")
+sw=Languages.objects.get(abbr="SW")
+tr=Languages.objects.get(abbr="TR")
 
 
 b=BookTranslation(book_id=quran, language_id=ar)
