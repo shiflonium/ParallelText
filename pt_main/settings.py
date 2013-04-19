@@ -140,7 +140,8 @@ INSTALLED_APPS = (
     'ptext',
     'parallel_display',
     'books',
-    'content_mgmt'
+    'content_mgmt',
+    'languages'
 )
 
 # A sample logging configuration. The only tangible logging
