@@ -51,27 +51,10 @@ LANG_ABBREV_TO_FULL = {
     "TH" : "Thai",
      "UK"  : "Ukranian",
     "ZH" : "Chinese",
-    "ZHMINNAN": "Chinese-Minnan", 
 }
 
 
 
-LANG_FULL_TO_ABBREV = {
-kk
-    "Chinese-Minnan" : "ZHMINNAN", 
-    }
-
-'''
- os.mkdir(path[, mode])
-
-    Create a directory named path with numeric mode mode. The default mode is 0777 (octal). On some systems, mode is ignored. Where it is used, the current umask value is first masked out. If the directory already exists, OSError is raised.
-
-    It is also possible to create temporary directories; see the tempfile module’s tempfile.mkdtemp() function.
-
-    Availability: Unix, Windows
-
-
-'''
 
 def convert_book_to_html (book_subdir, lang, book_name, 
                           book_text):
