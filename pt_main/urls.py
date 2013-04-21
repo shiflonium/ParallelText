@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     #url(r'^ptext/', 'ptext.views.popup_demo'),
     url(r'^parallel_display/', 'parallel_display.views.pdisplay'),
     url(r'^upload/', 'content_mgmt.views.upload'),
+    url(r'^search/', ''),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
