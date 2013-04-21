@@ -1,8 +1,7 @@
 from django.db import models
+from django.shortcuts import render
 
 # Create your models here.
-
-from django.shortcuts import render
 
 def search(request):
     '''
