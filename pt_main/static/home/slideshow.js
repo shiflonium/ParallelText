@@ -1,13 +1,13 @@
 var interval = 5000;
-//var imgDir = "../static/";
+var imgDir = "../static/home/";
 var imgNum = 0;
 
 imgArray = new Array();
-imgArray[imgNum++] = new imageItem("slide_04.png");
-imgArray[imgNum++] = new imageItem("slide_02.png");
-imgArray[imgNum++] = new imageItem("slide_03.png");
-imgArray[imgNum++] = new imageItem("slide_04.png");
-imgArray[imgNum++] = new imageItem("slide_05.png");
+imgArray[imgNum++] = new imageItem(imgDir + "slide_04.png");
+imgArray[imgNum++] = new imageItem(imgDir + "slide_02.png");
+imgArray[imgNum++] = new imageItem(imgDir + "slide_03.png");
+imgArray[imgNum++] = new imageItem(imgDir + "slide_04.png");
+imgArray[imgNum++] = new imageItem(imgDir + "slide_05.png");
 
 var totalimg = imgArray.length;
 

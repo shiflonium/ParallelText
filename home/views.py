@@ -10,8 +10,8 @@ def index(request):
     """
     #username = User.objects.get(username=request.user)
     return render(request, 'home/index.html',
-                  {'include_css': 'home.css',
-                   'include_js': 'slideshow.js',
+                  {'include_css': 'home/home.css',
+                   'include_js': 'home/slideshow.js',
                    'onload': 'playImage(\'slideImg\')',
                    #'username': username
                   })
