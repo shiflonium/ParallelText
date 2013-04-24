@@ -1,7 +1,7 @@
 # coding: utf-8
 # views.py
-""" 
-This file is responsible for taking the two texts and 
+"""
+This file is responsible for taking the two texts and
 displaying them in a parallel layout.
 
 We need to generalize this function to take any two texts
@@ -24,8 +24,8 @@ from django import forms
 from django.utils.safestring import mark_safe
 page = ""
 
-book = ( 
-        ("Bible_Genesis","Bible Genesis"), 
+book = (
+        ("Bible_Genesis","Bible Genesis"),
         ("Koran","Koran"),
         )
 
@@ -39,7 +39,7 @@ chapters = (
             ("ch_6","Chapter 6"),
             ("ch_7","Chapter 7"),
         )
-left_lang = ( 
+left_lang = (
         ("en","English"),
         ("he","Hebrew"),
         ("el","Greek"),
@@ -76,9 +76,9 @@ visual_dropdown = Texts(dropdowns,auto_id = False)
 #print visual_dropdown
 def get_page(page):
     """
-    This function grabs the page and turns it into a 
+    This function grabs the page and turns it into a
     beautiful soup.
-    
+
     It is unclear to me whether we actually need a separate
     function for this.
     """
@@ -99,14 +99,14 @@ def pdisplay(request):
     """
     This function takes the two texts, parses them both,
     and inserts them into the right and left windows.
-    
+
     Right now, it is too specific.  It must be made more general
     to include any two texts
-    
-    Importantly, we must pass along information here about  
+
+    Importantly, we must pass along information here about
     whether the text flows Right To Left or Left To Right
     """
-    
+
     #GET variables initialization
     book = ""
     chapter = ""
@@ -115,10 +115,10 @@ def pdisplay(request):
     path1 = ""
     path2 = ""
 
-    
-    
-    
-    
+
+
+
+
     if request.method == "POST":
         #posted_form = Texts(request.POST)
         book = request.POST["book_dd"]
@@ -135,9 +135,9 @@ def pdisplay(request):
     page1 = strip_page(parse_html(path1))
     page2 = strip_page(parse_html(path2))
     form_test = Texts()
-    return render (request, 
+    return render (request,
                    "ptext/popupDemo.html",
-                   {'myTitle':'Demo', 'css_url':'popup.css', 
-                    'text1':page1, 'text2':page2, 
-                    'img_url':'Info.png', 
+                   {'myTitle':'Demo', 'css_url':'parallel_display/popup.css',
+                    'text1':page1, 'text2':page2,
+                    'img_url':'parallel_display/Info.png',
                     'text1Dir':'left',  'text2Dir':'right','form':form_test})

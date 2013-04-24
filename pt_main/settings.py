@@ -86,7 +86,6 @@ STATICFILES_DIRS = (
     #os.path.join(PROJECT_ROOT, 'static/img').replace('\\','/'),
     #os.path.join(PROJECT_ROOT, 'static/js').replace('\\','/'),
     os.path.join(os.path.dirname(__file__), 'static/pt_main'),
-    os.path.join(os.path.dirname(__file__), 'static/home'),
 )
 
 # List of finder classes that know how to find static files in
