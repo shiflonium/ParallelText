@@ -8,5 +8,5 @@ syntax: glob
 *orig
 .metadata/*
 .metadata*
-Procfile
+.DS_Store
 hero_deploy
