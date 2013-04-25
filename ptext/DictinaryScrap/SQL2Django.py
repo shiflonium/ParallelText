@@ -5,7 +5,7 @@ from Languages.models import Languages
 # fileObj = codecs.open("LangsAbbr/abbr.sql","r","utf-8");
 fileObj = codecs.open("workfile.txt","r","utf-8");
 x = fileObj.read()
-f=open('workfile.txt', 'w');
+#f=open('workfile.txt', 'w');
 
 #f.write('#coding: utf-8\nfrom django.db import models\nfrom ptext.models import AvailLangs\n\n')
 

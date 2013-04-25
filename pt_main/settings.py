@@ -2,9 +2,9 @@
  Django settings for paralleltext project.
 """
 import os
-import dj_database_url
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+dirname = os.path.dirname
+PROJECT_ROOT = dirname(dirname(os.path.realpath(__file__)))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -19,7 +19,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         # django.db.backends.postgresql_psycopg2'
-        'NAME':  'book', # Or path to database file if using sqlite3.
+        'NAME': 'book', # Or path to database file if using sqlite3.
+        #'NAME': os.path.join(PROJECT_ROOT, 'book1.db'), # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'paralleltext',
         'PASSWORD': 'knight',
@@ -149,7 +150,7 @@ INSTALLED_APPS = (
     'books',
     'content_mgmt',
     'Languages',
-    'search'
+    'search',
 )
 
 # A sample logging configuration. The only tangible logging

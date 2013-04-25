@@ -5,8 +5,9 @@ class Translations(models.Model):
     definitionID = models.IntegerField()
     fromLang = models.CharField(max_length=2)
     toLang = models.CharField(max_length=2)
-    original = models.CharField(primary_key=True, max_length = 20)
-    definition = models.CharField(max_length = 200)
+    original = models.CharField(primary_key=True, max_length = 50)
+    definition = models.TextField()
+    #definition = models.CharField(max_length = 500)
     
     def save(self):
 		top = Translations.objects.order_by('definitionID')
@@ -18,6 +19,7 @@ class Translations(models.Model):
 			top = top[len(top)-1]
 			self.definitionID = top.definitionID + 1
 			super(Translations,self).save()
+			
 
 
 class UserDictionary(models.Model):
@@ -27,7 +29,7 @@ class UserDictionary(models.Model):
 class Languages(models.Model):
 	langID =models.AutoField(primary_key=True)
 	abbr = models.CharField(max_length=2)
-	name = models.CharField(max_length=20)
+	name = models.CharField(max_length=50)
 
 	class Meta:
 		unique_together = ('abbr', 'name')
