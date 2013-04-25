@@ -1,0 +1,272 @@
+************* Module tests
+F: 11,0: Unable to import 'home.views'
+C: 18,4:TestIndex.setUp: Invalid name "setUp" for type method (should match [a-z_][a-z0-9_]{2,30}$)
+R: 14,0:TestIndex: Too many public methods (46/20)
+************* Module settings
+C: 20,0: Line too long (108/80)
+C: 21,0: Line too long (99/80)
+C: 25,0: Line too long (106/80)
+C:119,0: Line too long (88/80)
+C:  6,0: Invalid name "dirname" for type constant (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+************* Module urls
+C: 10,0: Invalid name "urlpatterns" for type constant (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+************* Module wsgi
+C: 28,0: Invalid name "application" for type constant (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+************* Module bing
+W:  6,0: Unnecessary semicolon
+C: 15,0: Line too long (95/80)
+C: 21,0: Line too long (89/80)
+C: 33,0: Line too long (81/80)
+C: 34,0: Line too long (105/80)
+C:  2,0:getListTranslate: Comma not followed by a space
+def getListTranslate(text,frm,to, token):
+                         ^^
+C:  2,0:getListTranslate: Invalid name "getListTranslate" for type function (should match [a-z_][a-z0-9_]{2,30}$)
+C:  2,0:getListTranslate: Invalid name "to" for type argument (should match [a-z_][a-z0-9_]{2,30}$)
+C:  2,0:getListTranslate: Missing docstring
+C:  2,30:getListTranslate: Invalid name "to" for type variable (should match [a-z_][a-z0-9_]{2,30}$)
+C:  6,8:getListTranslate: Comma not followed by a space
+        trns[i] = translate(text[i],frm,to, token);
+                                   ^^
+W: 11,0: String statement has no effect
+C: 12,0:getToken: Invalid name "getToken" for type function (should match [a-z_][a-z0-9_]{2,30}$)
+C: 12,0:getToken: Missing docstring
+C: 21,4:getToken: Comma not followed by a space
+    oauth_junk = json.loads(requests.post(oauth_url,data=urllib.urlencode(args)).content)
+                                                   ^^
+E: 21,17:getToken: Undefined variable 'json'
+E: 21,28:getToken: Undefined variable 'requests'
+E: 21,57:getToken: Undefined variable 'urllib'
+C: 25,0:translate: Invalid name "myWord" for type argument (should match [a-z_][a-z0-9_]{2,30}$)
+C: 25,0:translate: Invalid name "to" for type argument (should match [a-z_][a-z0-9_]{2,30}$)
+C: 25,0:translate: Missing docstring
+C: 25,14:translate: Invalid name "myWord" for type variable (should match [a-z_][a-z0-9_]{2,30}$)
+C: 25,27:translate: Invalid name "to" for type variable (should match [a-z_][a-z0-9_]{2,30}$)
+C: 32,4:translate: Operator not preceded by a space
+    headers={'Authorization': 'Bearer '+oauth_junk['access_token']}
+           ^
+C: 34,4:translate: Comma not followed by a space
+    translation_result = requests.get(translation_url+urllib.urlencode(translation_args),headers=headers)
+                                                                                        ^^
+E: 34,25:translate: Undefined variable 'requests'
+E: 34,54:translate: Undefined variable 'urllib'
+************* Module test
+C: 36,0: Line too long (92/80)
+C: 18,4:TestPText.setUp: Invalid name "setUp" for type method (should match [a-z_][a-z0-9_]{2,30}$)
+C: 30,8:TestPText.test_num_paragraphs: Invalid name "parEN" for type variable (should match [a-z_][a-z0-9_]{2,30}$)
+C: 73,8:TestPText.test_popups: Invalid name "s" for type variable (should match [a-z_][a-z0-9_]{2,30}$)
+R: 13,0:TestPText: Too many public methods (47/20)
+************* Module forms
+F:  9,0: Unable to import 'users.models'
+W: 11,0:AccountCreateForm: Class has no __init__ method
+R: 64,4:AccountCreateForm.Meta: Too few public methods (0/2)
+E: 84,4:AccountCreateForm.save: Use of super on an old style class
+F: 11,0: Unable to import 'home.views'
+C: 18,4:TestIndex.setUp: Invalid name "setUp" for type method (should match [a-z_][a-z0-9_]{2,30}$)
+R: 14,0:TestIndex: Too many public methods (46/20)
+************* Module views
+R:  1,0: Similar lines in 2 files
+==tests:8
+==tests:8
+from django.test.client import RequestFactory
+import unittest
+from home.views import index
+#from mock import patch
+
+class TestIndex(unittest.TestCase):
+    """
+    This class is used to test the register module
+    """
+    def setUp(self):
+        """
+        Every test needs access to the request factory.
+
+        Pylint error: Invalid name "setUp" for type method
+                      (should match [a-z_][a-z0-9_]{2,30}$)
+        Comment: Do not change "setUp"; it will break testing otherwise
+                 with test error: ...object has no attribute 'factory'
+        """
+        self.factory = RequestFactory()
+
+    def test_home_page(self):
+        """
+        This simulates viewing the home page and verifies
+        that it receives a successful url request
+        """
+        request = self.factory.get('/')
+        response = index(request)
+        self.assertEqual(response.status_code, 200)
+
+R:  1,0: Similar lines in 4 files
+==views:3
+==views:3
+==views:3
+==views:3
+from django.shortcuts import render
+
+def index(request):
+    """
+    this method is responsible for drawing the homepage
+    """
+    return render(request, 'home/index.html',
+                  {'include_css': 'home.css', 'include_js':
+                    'slideshow.js', 'onload':
+                    'playImage(\'slideImg\')'})
+
+
+
+Report
+======
+154 statements analysed.
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |62    |0        |+62.00     |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |9.888 |0.000    |+9.89      |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |33     |2        |+31.00     |
++-----------+-------+---------+-----------+
+|refactor   |6      |3        |+3.00      |
++-----------+-------+---------+-----------+
+|warning    |3      |1        |+2.00      |
++-----------+-------+---------+-----------+
+|error      |6      |1        |+5.00      |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++-------+------+--------+---------+-----------+
+|module |error |warning |refactor |convention |
++=======+======+========+=========+===========+
+|bing   |83.33 |66.67   |0.00     |60.61      |
++-------+------+--------+---------+-----------+
+|forms  |16.67 |33.33   |16.67    |0.00       |
++-------+------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------+------------+
+|message id |occurrences |
++===========+============+
+|C0103      |16          |
++-----------+------------+
+|C0301      |9           |
++-----------+------------+
+|E0602      |5           |
++-----------+------------+
+|C0324      |4           |
++-----------+------------+
+|R0904      |3           |
++-----------+------------+
+|F0401      |3           |
++-----------+------------+
+|C0111      |3           |
++-----------+------------+
+|R0801      |2           |
++-----------+------------+
+|W0301      |1           |
++-----------+------------+
+|W0232      |1           |
++-----------+------------+
+|W0105      |1           |
++-----------+------------+
+|R0903      |1           |
++-----------+------------+
+|E1002      |1           |
++-----------+------------+
+|C0322      |1           |
++-----------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 5.32/10 (previous run: 8.67/10)
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |213    |34.75 |119      |+94.00     |
++----------+-------+------+---------+-----------+
+|docstring |221    |36.05 |104      |+117.00    |
++----------+-------+------+---------+-----------+
+|comment   |110    |17.94 |28       |+82.00     |
++----------+-------+------+---------+-----------+
+|empty     |69     |11.26 |40       |+29.00     |
++----------+-------+------+---------+-----------+
+
+
+
+External dependencies
+---------------------
+::
+
+    bs4 
+      \-BeautifulSoup (test)
+    django 
+      \-conf 
+      | \-urls 
+      |   \-include (urls)
+      |   \-patterns (urls)
+      |   \-url (urls)
+      \-contrib 
+      | \-admin (urls)
+      | \-auth 
+      |   \-forms 
+      |   | \-UserCreationForm (forms)
+      |   \-models 
+      |     \-User (forms)
+      \-core 
+      | \-management 
+      | | \-execute_from_command_line (manage)
+      | \-wsgi 
+      |   \-get_wsgi_application (wsgi)
+      \-forms (forms)
+      \-shortcuts 
+      | \-render (views)
+      \-test 
+        \-client 
+          \-RequestFactory (tests)
+
+
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |22     |5          |+17.00     |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |5      |5          |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |9      |8          |+1.00      |100.00      |33.33    |
++---------+-------+-----------+-----------+------------+---------+
+|function |7      |4          |+3.00      |57.14       |28.57    |
++---------+-------+-----------+-----------+------------+---------+
+
+
+

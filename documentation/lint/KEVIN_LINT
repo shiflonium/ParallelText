@@ -1,0 +1,147 @@
+************* Module forms
+F:  9,0: Unable to import 'users.models'
+W: 11,0:AccountCreateForm: Class has no __init__ method
+R: 64,4:AccountCreateForm.Meta: Too few public methods (0/2)
+E: 84,4:AccountCreateForm.save: Use of super on an old style class
+************* Module tests
+F: 11,0: Unable to import 'users.views'
+C: 18,4:TestRegister.setUp: Invalid name "setUp" for type method (should match [a-z_][a-z0-9_]{2,30}$)
+R: 14,0:TestRegister: Too many public methods (47/20)
+C: 55,4:TestLogin.setUp: Invalid name "setUp" for type method (should match [a-z_][a-z0-9_]{2,30}$)
+R: 51,0:TestLogin: Too many public methods (47/20)
+************* Module views
+F:  7,0: Unable to import 'users.forms'
+
+
+Report
+======
+83 statements analysed.
+
+External dependencies
+---------------------
+::
+
+    django 
+      \-contrib 
+      | \-auth 
+      |   \-authenticate (views)
+      |   \-forms 
+      |   | \-UserCreationForm (forms)
+      |   \-login (views)
+      |   \-logout (views)
+      |   \-models 
+      |     \-User (forms)
+      \-db 
+      | \-models (models)
+      \-forms (forms)
+      \-http 
+      | \-HttpResponseRedirect (views)
+      \-shortcuts 
+      | \-redirect (views)
+      | \-render (views)
+      \-test 
+        \-client 
+          \-RequestFactory (tests)
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |=          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |2      |1        |+1.00      |
++-----------+-------+---------+-----------+
+|refactor   |3      |0        |+3.00      |
++-----------+-------+---------+-----------+
+|warning    |1      |2        |-1.00      |
++-----------+-------+---------+-----------+
+|error      |1      |0        |+1.00      |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++-------+-------+--------+---------+-----------+
+|module |error  |warning |refactor |convention |
++=======+=======+========+=========+===========+
+|forms  |100.00 |100.00  |33.33    |0.00       |
++-------+-------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------+------------+
+|message id |occurrences |
++===========+============+
+|F0401      |3           |
++-----------+------------+
+|R0904      |2           |
++-----------+------------+
+|C0103      |2           |
++-----------+------------+
+|W0232      |1           |
++-----------+------------+
+|R0903      |1           |
++-----------+------------+
+|E1002      |1           |
++-----------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 8.67/10 (previous run: 8.50/10)
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |119    |40.89 |20       |+99.00     |
++----------+-------+------+---------+-----------+
+|docstring |104    |35.74 |46       |+58.00     |
++----------+-------+------+---------+-----------+
+|comment   |28     |9.62  |3        |+25.00     |
++----------+-------+------+---------+-----------+
+|empty     |40     |13.75 |12       |+28.00     |
++----------+-------+------+---------+-----------+
+
+
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |5      |3          |+2.00      |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |5      |0          |+5.00      |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |8      |0          |+8.00      |100.00      |25.00    |
++---------+-------+-----------+-----------+------------+---------+
+|function |4      |3          |+1.00      |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
