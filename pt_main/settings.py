@@ -149,7 +149,7 @@ INSTALLED_APPS = (
     'parallel_display',
     'books',
     'content_mgmt',
-    'Languages',
+    'languages',
     'search',
 )
 

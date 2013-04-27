@@ -1,5 +1,5 @@
 from django.db import models
-from Languages.models import Languages
+from languages.models import Languages
 
 # Create your models here.
 
