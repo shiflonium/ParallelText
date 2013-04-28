@@ -22,13 +22,17 @@ def main():
     global UserAccount
     global Languages
     for user in users:
-        u = User.objects.create_user(username="%s" % user[0],
-                                     email="%s" % user[4],
-                                     password="%s" % user[1],
-                                     first_name="%s" % user[2],
-                                     last_name="%s" % user[3])
-        u = User.objects.get(id=u.pk)
-        u.native_lang_id = "%s" % user[5]
-        u.save()
+        if User.objects.filter(username="%s" % user[0]).count():
+            #print "User \"" + user[0] + "\" exists in database. Skipping."
+            pass
+        else:
+            u = User.objects.create_user(username="%s" % user[0],
+                                         email="%s" % user[4],
+                                         password="%s" % user[1],
+                                         first_name="%s" % user[2],
+                                         last_name="%s" % user[3])
+            u = User.objects.get(id=u.pk)
+            u.native_lang_id = "%s" % user[5]
+            u.save()
 
 main()
