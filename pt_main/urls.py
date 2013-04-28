@@ -22,6 +22,8 @@ urlpatterns = patterns('',
     #url(r'^ptext/', 'ptext.views.popup_demo'),
     url(r'^parallel_display/', 'parallel_display.views.pdisplay'),
     url(r'^upload/', 'content_mgmt.views.upload'),
+    url(r'^upload_confirm/', 'content_mgmt.views.upload_confirm'),
+    url(r'^upload_fail/', 'content_mgmt.views.upload_fail'),
     url(r'^search/', 'search.views.search'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
