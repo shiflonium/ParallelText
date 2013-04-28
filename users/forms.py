@@ -4,10 +4,11 @@ on the webpage. The register forms determines the requirements and behavior of
 the input fields presented to the user.
 """
 from django import forms
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from users.models import UserAccount
-from django.core.exceptions import ValidationError
+#from django.core.exceptions import ValidationError
+from languages.models import Languages
 
 class AccountCreateForm(UserCreationForm):
     """
@@ -37,8 +38,9 @@ class AccountCreateForm(UserCreationForm):
         label = 'Last Name',
     )
 
-    native_lang = forms.ChoiceField(
-        choices = UserAccount.native_lang_choices,
+    native_lang = forms.ModelChoiceField(
+        queryset = Languages.objects.all(),
+        empty_label = None,
         required = True,
         label = 'Native Language'
     )
@@ -52,7 +54,7 @@ class AccountCreateForm(UserCreationForm):
         def __init__(self):
             pass
 
-        model = User
+        model = UserAccount
         fields = (
             'username',
             'password1',
@@ -91,8 +93,9 @@ class AccountManageForm(forms.ModelForm):
         label = 'Last Name',
     )
 
-    native_lang = forms.ChoiceField(
-        choices = UserAccount.native_lang_choices,
+    native_lang = forms.ModelChoiceField(
+        queryset = Languages.objects.all(),
+        empty_label = None,
         required = True,
         label = 'Native Language'
     )
@@ -106,7 +109,7 @@ class AccountManageForm(forms.ModelForm):
         def __init__(self):
             pass
 
-        model = User
+        model = UserAccount
         fields = (
             'email',
             'first_name',
@@ -154,7 +157,7 @@ class AccountManagePassForm(forms.ModelForm):
         def __init__(self):
             pass
 
-        model = User
+        model = UserAccount
         fields = (
             'pass_old',
             'pass_new1',
