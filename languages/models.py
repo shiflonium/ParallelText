@@ -1,10 +1,19 @@
 from django.db import models
 
+
+class Languages(models.Model):
+	langID =models.AutoField(primary_key=True)
+	abbr = models.CharField(max_length=2)
+	name = models.CharField(max_length=50)
+
+	class Meta:
+		unique_together = ('abbr', 'name')
+
 class Translations(models.Model):
     '''Dictionary object'''
     definitionID = models.IntegerField()
-    fromLang = models.CharField(max_length=2)
-    toLang = models.CharField(max_length=2)
+    fromLang = models.ForeignKey(Languages, related_name='tran_from')
+    toLang = models.ForeignKey(Languages, related_name='tran_to') 
     original = models.CharField(primary_key=True, max_length = 50)
     definition = models.TextField()
     #definition = models.CharField(max_length = 500)
@@ -26,10 +35,3 @@ class UserDictionary(models.Model):
 	userID = models.CharField(max_length=2)
 	definitionID = models.CharField(max_length=2)
 
-class Languages(models.Model):
-	langID =models.AutoField(primary_key=True)
-	abbr = models.CharField(max_length=2)
-	name = models.CharField(max_length=50)
-
-	class Meta:
-		unique_together = ('abbr', 'name')
