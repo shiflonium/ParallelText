@@ -54,7 +54,7 @@ class AccountCreateForm(UserCreationForm):
         def __init__(self):
             pass
 
-        model = User
+        model = UserAccount
         fields = (
             'username',
             'password1',
@@ -109,7 +109,7 @@ class AccountManageForm(forms.ModelForm):
         def __init__(self):
             pass
 
-        model = User
+        model = UserAccount
         fields = (
             'email',
             'first_name',
@@ -157,7 +157,7 @@ class AccountManagePassForm(forms.ModelForm):
         def __init__(self):
             pass
 
-        model = User
+        model = UserAccount
         fields = (
             'pass_old',
             'pass_new1',
