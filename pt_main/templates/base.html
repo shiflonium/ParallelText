@@ -8,9 +8,17 @@
         <meta name="author" content="">
 
         <link href="{{ STATIC_URL }}pt_main/bootstrap.css" rel="stylesheet">
-        <link href="{{ STATIC_URL }}/pt_main/bootstrap-responsive.css" rel="stylesheet">
-        <link href="{{ STATIC_URL }}/pt_main/docs.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}pt_main/bootstrap-responsive.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}pt_main/docs.css" rel="stylesheet">
         <!-- <link href="{{ STATIC_URL }}/js/google-code-prettify/prettify.css" rel="stylesheet"> -->
+        
+
+        <!-- LIRON -->
+        <link href="{{ STATIC_URL }}ptext/bootstrap.min.css" type="text/css" rel="stylesheet">
+        <script src="{{ STATIC_URL }}ptext/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}ptext/bootbox.min.js"></script>
+        <script src="{{ STATIC_URL }}ptext/jquery-1.9.1.min.js"></script>
+        <!-- END LIRON -->
 
         {% if include_css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{{ include_css }}">{% endif %}
         {% if include_js %}<script type="text/javascript" src="{{ STATIC_URL }}{{ include_js }}"></script>{% endif %}
