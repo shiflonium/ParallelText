@@ -7,14 +7,14 @@ from content_mgmt.models import UploadForm
 from django.template import Context, Template 
 
 def upload(request):
-    if False:
+    if request.method=="POST":
         form = UploadForm(request.POST)
         if form.is_valid():
+            newdoc = Document(docfile = request.FILES['file'])
             return HttpResponseRedirect('/uploadConfirm/')
         else:
-            1;
+            return HttpResponseRedirect('/uploadFailure/')
     else:
-
         form = UploadForm()
         return render(request, 'content_mgmt/upload.html', { 'form': form, 'title': "Upload Content"})
 
