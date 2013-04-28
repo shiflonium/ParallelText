@@ -4,10 +4,10 @@ on the webpage. The register forms determines the requirements and behavior of
 the input fields presented to the user.
 """
 from django import forms
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from users.models import UserAccount
-from django.core.exceptions import ValidationError
+#from django.core.exceptions import ValidationError
 from languages.models import Languages
 
 class AccountCreateForm(UserCreationForm):

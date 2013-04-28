@@ -27,9 +27,8 @@ def main():
                                      password="%s" % user[1],
                                      first_name="%s" % user[2],
                                      last_name="%s" % user[3])
-        #u.pk
         u = User.objects.get(id=u.pk)
-        u.native_lang = "%s" % user[5]
+        u.native_lang_id = "%s" % user[5]
         u.save()
 
 main()
