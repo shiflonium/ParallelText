@@ -22,10 +22,14 @@ def main():
     global UserAccount
     global Languages
     for user in users:
-        u = User.objects.create_user(user[0],
-                                     user[4],
-                                     user[1],
-                                     first_name=user[2],
-                                     last_name=user[3])
+        u = User.objects.create_user(username="%s" % user[0],
+                                     email="%s" % user[4],
+                                     password="%s" % user[1],
+                                     first_name="%s" % user[2],
+                                     last_name="%s" % user[3])
+        #u.pk
+        u = User.objects.get(id=u.pk)
+        u.native_lang = "%s" % user[5]
+        u.save()
 
 main()

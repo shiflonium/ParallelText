@@ -37,11 +37,11 @@ class AccountCreateForm(UserCreationForm):
         label = 'Last Name',
     )
 
-    native_lang = forms.ChoiceField(
-        choices = UserAccount.native_lang_choices,
-        required = True,
-        label = 'Native Language'
-    )
+    #native_lang = forms.ChoiceField(
+        #choices = UserAccount.native_lang_choices,
+        #required = True,
+        #label = 'Native Language'
+    #)
 
     class Meta:
         """
@@ -60,7 +60,7 @@ class AccountCreateForm(UserCreationForm):
             'email',
             'first_name',
             'last_name',
-            'native_lang',
+            #'native_lang',
         )
 
 
@@ -91,11 +91,11 @@ class AccountManageForm(forms.ModelForm):
         label = 'Last Name',
     )
 
-    native_lang = forms.ChoiceField(
-        choices = UserAccount.native_lang_choices,
-        required = True,
-        label = 'Native Language'
-    )
+    #native_lang = forms.ChoiceField(
+        #choices = UserAccount.native_lang_choices,
+        #required = True,
+        #label = 'Native Language'
+    #)
 
     class Meta:
         """
@@ -111,7 +111,7 @@ class AccountManageForm(forms.ModelForm):
             'email',
             'first_name',
             'last_name',
-            'native_lang',
+            #'native_lang',
         )
 
 
