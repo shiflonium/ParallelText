@@ -4,36 +4,7 @@ from languages.models import Translations
 from languages.models import Languages
 
 translations = [
-    ['HE', 'EN', '', ''], ]
- 
-def main():
-    global translations
-    global Translations
-    global Languages
-    for tran in translations:
-        from_lang = Languages.objects.get( abbr="%s" % 
-                                          tran[0].lower())
-        to_lang = Languages.objects.get(
-                    abbr="%s" %  tran[1].lower())
-        if (Translations.objects.filter(
-                fromLang=from_lang, 
-                toLang=to_lang,
-                original="%s" % tran[2],
-                definition="%s" % tran[3]).exists()
-            == False):
-            dj_translation = Translations (
-                    fromLang=from_lang, 
-                    toLang=to_lang,
-                    original="%s" % tran[2],
-                    definition="%s" % tran[3])
-            dj_translation.save()
-
-main()
-
-
-
-
-'''
+    ['HE', 'EN', '', ''], 
     ['HE', 'EN', 'Bible', ''],
     ['HE', 'EN', 'Genesis', ''],
     ['HE', 'EN', ':', ''],
@@ -259,6 +230,11 @@ main()
     ['HE', 'EN', 'וְאֵ֣ת', 'term used to indicate a direct object   ; et  ; אותי - me  ; אותך, אתכם, אתכן - you  ; אותו - him, it  ; אותה - her, it  ; אותנו - us  ; אותם, אותן - them;; you (female, singular],;; spade, shovel'],
     ['HE', 'EN', 'כָּל־נֶ֣פֶשׁ', 'to go on vacation, to relax'],
     ['HE', 'EN', 'הַֽחַיָּ֣ה', 'to resuscitate, to revive  ; to raise from the dead;; to be resuscitated, to be revived  ; to be raised from the dead;; animal  ; beast  ; (Jewish law], non-domesticated animal;; alive  ; alert, vivacious  ; raw, uncooked; fresh;; to live;; (biblical], life, soul'],
+
+
+
+
+
     ['HE', 'EN', '׀', ''],
     ['HE', 'EN', 'הָֽרֹמֶ֡שֶׂת', ''],
     ['HE', 'EN', 'אֲשֶׁר֩', 'that, which, whom  ; who  ; as regards, in regard to  ; באשר - with respect to, with regard to  ; מאשר - than, rather than, compared to;; bliss, happiness;; to approve;; Asher (Hebrew name],;; to confirm  ; to approve, to O.K.;; Asher (one of the twelve tribes of Israel],;; to fall, to drop  ; (education system], to drop out'],
@@ -483,6 +459,8 @@ main()
     ['HE', 'EN', 'וְהִשְׁקָ֖ה', 'to water, to irrigate  ; to give a drink to;; launching (a new boat, new product],  ; overlapping, interfacing; bringing together   ; (geometry], touching  ; (medicine], anastomosis;; to be given to drink;; to be launched'],
     ['HE', 'EN', 'אֶֽת־כָּל־פְּנֵֽי־הָֽאֲדָמָֽה׃', ''],
     ['HE', 'EN', ' וַיִּיצֶר֩', 'to produce, to create, to manufacture;; to be produced, to be created, to be manufactured'],
+
+
     ['HE', 'EN', 'יְהוָ֨ה', '(biblical], Jehovah, God, the Lord;; to constitute'],
     ['HE', 'EN', 'אֱלֹהִ֜ים', 'God;; God  ; האלוהים - God'],
     ['HE', 'EN', 'אֶת־הָֽאָדָ֗ם', ''],
@@ -504,6 +482,8 @@ main()
     ['HE', 'EN', 'וַיָּ֣שֶׂם', 'to implement;; to be implemented'],
     ['HE', 'EN', 'שָׁ֔ם', 'name  ; noun  ; reputation;; there  ; where  ; ibid.;; to put  ; to appoint;; to assess, to appraise'],
     ['HE', 'EN', 'אֶת־הָֽאָדָ֖ם', ''],
+
+
     ['HE', 'EN', 'אֲשֶׁ֥ר', 'that, which, whom  ; who  ; as regards, in regard to  ; באשר - with respect to, with regard to  ; מאשר - than, rather than, compared to;; bliss, happiness;; to approve;; Asher (Hebrew name],;; to confirm  ; to approve, to O.K.;; Asher (one of the twelve tribes of Israel],;; to fall, to drop  ; (education system], to drop out'],
     ['HE', 'EN', 'יָצָֽר׃', 'to create  ; to produce, to generate;; inclination, tendency, instinct  ; urge, drive;; to produce, to create, to manufacture;; to be produced, to be created, to be manufactured;; to narrow  ; (sewing], to take in'],
     ['HE', 'EN', ' וַיַּצְמַ֞ח', 'to grow, to develop  ; to sprout;; to accrue (income, revenue],  ; (talmudic], to grow'],
@@ -521,6 +501,7 @@ main()
     ['HE', 'EN', 'הַגָּ֔ן', 'to defend, to protect  ; to stand up for someone, to back up someone, to defend someone  ; to defend someone in court, to act as defense attorney;; garden;; kindergarten, nursery school;; gene;; to pronounce, to express  ; to say, to declare, to make a sound  ; to formulate an idea, to plan; to cogitate, to ponder  ; (literary], to study, to investigate'],
     ['HE', 'EN', 'וְעֵ֕ץ', 'tree  ; wood;; (flowery], to advise'],
     ['HE', 'EN', 'הַדַּ֖עַת', 'knowledge, wisdom  ; intelligence, understanding, common sense. logic  ; awareness, consciousness  ; בדעתו - to intend  ; לדעתו - in his opinion  ; מדעת - deliberately, knowing full well, knowingly'],
+
     ['HE', 'EN', 'טֹ֥וב', 'good, kind, thoughtful, moral  ; pleasant  ; appropriate, fitting, good for  ; successful  ; well behaved;; goodness  ; best part  ; בטובך - please, be so kind as to, please do me a favor;; good  ; (colloquial], good idea, good thing  ; feels good, pleased, satisfied;; well;; O.K., yes, agreed;; to be good'],
     ['HE', 'EN', 'וָרָֽע׃', 'bad, nasty  ; malicious  ; negative, wrong;; friend, comrade, buddy, colleague  ; neighbor, another;; bad, evil  ; villain  ; trouble, ill;; evil, wickedness;; (biblical], thought, idea'],
     ['HE', 'EN', ' וְנָהָר֙', 'river;; to throng, to surge, to flow (people],;; (literary], to glow, to sparkle, to shine'],
@@ -550,6 +531,8 @@ main()
     ['HE', 'EN', 'שָׁ֥ם', 'name  ; noun  ; reputation;; there  ; where  ; ibid.;; to put  ; to appoint;; to assess, to appraise'],
     ['HE', 'EN', 'הַבְּדֹ֖לַח', 'crystal'],
     ['HE', 'EN', 'וְאֶ֥בֶן', 'stone;; to petrify, immobilize, stun  ; to ossify, to turn to stone;; (flowery], bud, young shoot  ; באיבו - In the bud'],
+
+
     ['HE', 'EN', 'הַשֹּֽׁהַם׃', 'onyx  ; (biblical], one of the twelve precious stones in the High Priest\'s breast plate, aquamarine;; to postpone, to delay'],
     ['HE', 'EN', ' וְשֵֽׁם־הַנָּהָ֥ר', ''],
     ['HE', 'EN', 'הַשֵּׁנִ֖י', 'second  ; Monday;; difference;; (literary], scarlet, crimson;; dental'],
@@ -614,6 +597,8 @@ main()
     ['HE', 'EN', ' וַיִּצֶר֩', 'to create  ; to produce, to generate;; inclination, tendency, instinct  ; urge, drive;; to narrow  ; (sewing], to take in;; to produce, to create, to manufacture;; to be produced, to be created, to be manufactured'],
     ['HE', 'EN', 'יְהוָ֨ה', '(biblical], Jehovah, God, the Lord;; to constitute'],
     ['HE', 'EN', 'אֱלֹהִ֜ים', 'God;; God  ; האלוהים - God'],
+
+
     ['HE', 'EN', 'מִן־הָֽאֲדָמָ֗ה', ''],
     ['HE', 'EN', 'כָּל־חַיַּ֤ת', ''],
     ['HE', 'EN', 'הַשָּׂדֶה֙', 'field;; demon, genie, fiend;; chest of drawers'],
@@ -637,16 +622,24 @@ main()
     ['HE', 'EN', 'שֵׁמֹ֗ות', 'name  ; noun  ; reputation;; Exodus (book of the bible],;; to put  ; to appoint;; death  ; (slang], terrible  ; למוות - to death;; to assess, to appraise'],
     ['HE', 'EN', 'לְכָל־הַבְּהֵמָה֙', ''],
     ['HE', 'EN', 'וּלְעֹ֣וף', 'to fly;; bird  ; poultry  ; chicken, the flesh of the domestic fowl as food'],
+
+
     ['HE', 'EN', 'הַשָּׁמַ֔יִם', 'sky, heaven  ; (talmudic], God;; to put  ; to appoint;; Semite;; to assess, to appraise'],
     ['HE', 'EN', 'וּלְכֹ֖ל', 'all  ; any  ; every  ; כולו - (slang], only, merely  ; כולו - whole  ; מכל - of all;; to all, to everyone  ; of everything;; everything, all  ; everybody, everyone'],
-    ['HE', 'EN', 'חַיַּ֣ת', definition['Het (eighth letter of Hebrew alphabet],  ; Het-shaped (three sides of a rectangle],;; animal  ; beast  ; (Jewish law], non-domesticated animal;; (biblical], life, soul'],
+
+    ['HE', 'EN', 'חַיַּ֣ת', 'Het (eighth letter of Hebrew alphabet],  ; Het-shaped (three sides of a rectangle],;; animal  ; beast  ; (Jewish law], non-domesticated animal;; (biblical], life, soul'],
     ['HE', 'EN', 'הַשָּׂדֶ֑ה', 'field;; demon, genie, fiend;; chest of drawers'],
+
+
     ['HE', 'EN', 'וּלְאָדָ֕ם', 'man, person, human being  ; someone, somebody  ; האדם - mankind, humanity;; Adam (Hebrew name],;; red  ; (colloquial], Lipstick  ; ruby (precious stone],;; red (noun],;; red'],
     ['HE', 'EN', 'לֹֽא־מָצָ֥א', ''],
     ['HE', 'EN', 'עֵ֖זֶר', 'to help, to assist, to aid;; aid, assistance  ; aide, assistant  ; עזרים - aids, accessories'],
     ['HE', 'EN', 'כְּנֶגְדֹּֽו׃', 'against  ; as opposed to, compared to  ; in exchange for  ; in the event of, in preparation for, as protection against'],
     ['HE', 'EN', ' וַיַּפֵּל֩', 'to fall, to stumble  ; to drop, to decline  ; to collapse, to be defeated, to surrender, to be conquered  ; to be killed  ; to fall by the wayside (a proposal, plan],  ; (colloquial], to fall on (a day, date],  ; to descend  ; to be inferior to;; to be knocked over, to be made to fall, to be brought down (aircraft],  ; to be thrown, to be thrown down  ; to be thwarted, to be impeded, to be obstructed  ; to be shot down (argument, idea],'],
     ['HE', 'EN', 'יְהוָ֨ה', '(biblical], Jehovah, God, the Lord;; to constitute'],
+
+
+
     ['HE', 'EN', 'אֱלֹהִ֧ים', 'God;; God  ; האלוהים - God'],
     ['HE', 'EN', '׀', ''],
     ['HE', 'EN', 'תַּרְדֵּמָ֛ה', 'deep sleep  ; hibernation'],
@@ -662,6 +655,7 @@ main()
     ['HE', 'EN', 'יְהוָ֨ה', '(biblical], Jehovah, God, the Lord;; to constitute'],
     ['HE', 'EN', 'אֱלֹהִ֧ים', 'God;; God  ; האלוהים - God'],
     ['HE', 'EN', '׀', ''],
+
     ['HE', 'EN', 'אֶֽת־הַצֵּלָ֛ע', ''],
     ['HE', 'EN', 'אֲשֶׁר־לָקַ֥ח', ''],
     ['HE', 'EN', 'מִן־הָֽאָדָ֖ם', ''],
@@ -710,8 +704,10 @@ main()
     ['HE', 'EN', 'הָיָ֣ה', 'to be, to exist  ; to happen, to take place, to occur  ; to become, to develop into;; to have'],
     ['HE', 'EN', 'עָר֔וּם', 'naked, nude;; cunning, deceitful;; naked, nude  ; bereft;; piling, heaping, stacking;; to pile, to heap'],
     ['HE', 'EN', 'מִכֹּל֙', 'tank (gas, water, oil],  ; bin;; all  ; any  ; every  ; כולו - (slang], only, merely  ; כולו - whole  ; מכל - of all'],
-    ['HE', 'EN', 'חַיַּ֣ת', definition['Het (eighth letter of Hebrew alphabet],  ; Het-shaped (three sides of a rectangle],;; animal  ; beast  ; (Jewish law], non-domesticated animal;; (biblical], life, soul'],
+    ['HE', 'EN', 'חַיַּ֣ת', 'Het (eighth letter of Hebrew alphabet],  ; Het-shaped (three sides of a rectangle],;; animal  ; beast  ; (Jewish law], non-domesticated animal;; (biblical], life, soul'],
     ['HE', 'EN', 'הַשָּׂדֶ֔ה', 'field;; demon, genie, fiend;; chest of drawers'],
+
+
     ['HE', 'EN', 'אֲשֶׁ֥ר', 'that, which, whom  ; who  ; as regards, in regard to  ; באשר - with respect to, with regard to  ; מאשר - than, rather than, compared to;; bliss, happiness;; to approve;; Asher (Hebrew name],;; to confirm  ; to approve, to O.K.;; Asher (one of the twelve tribes of Israel],;; to fall, to drop  ; (education system], to drop out'],
     ['HE', 'EN', 'עָשָׂ֖ה', 'to do  ; to make  ; to produce, to create;; (talmudic, Jewish law], positive command;; (talmudic], to cause someone to do something'],
     ['HE', 'EN', 'יְהוָ֣ה', '(biblical], Jehovah, God, the Lord;; to constitute'],
@@ -874,7 +870,7 @@ main()
     ['HE', 'EN', 'אַתָּה֙', 'you (singular, male],;; with ...;; spade, shovel'],
     ['HE', 'EN', 'מִכָּל־הַבְּהֵמָ֔ה', ''],
     ['HE', 'EN', 'וּמִכֹּ֖ל', 'all  ; any  ; every  ; כולו - (slang], only, merely  ; כולו - whole  ; מכל - of all;; tank (gas, water, oil],  ; bin'],
-    ['HE', 'EN', 'חַיַּ֣ת', definition['Het (eighth letter of Hebrew alphabet],  ; Het-shaped (three sides of a rectangle],;; animal  ; beast  ; (Jewish law], non-domesticated animal;; (biblical], life, soul'],
+    ['HE', 'EN', 'חַיַּ֣ת', 'Het (eighth letter of Hebrew alphabet],  ; Het-shaped (three sides of a rectangle],;; animal  ; beast  ; (Jewish law], non-domesticated animal;; (biblical], life, soul'],
     ['HE', 'EN', 'הַשָּׂדֶ֑ה', 'field;; demon, genie, fiend;; chest of drawers'],
     ['HE', 'EN', 'עַל־גְּחֹנְךָ֣', ''],
     ['HE', 'EN', 'תֵלֵ֔ךְ', 'to go, to walk  ; to proceed  ; to leave, to pass, to disappear  ; to follow  ; (colloquial], to attend   ; to continue, to intensify  ; (colloquial], to happen  ; (colloquial], to be destroyed, to be lost  ; (slang], to die  ; (slang], to go for;; (archeology], barrow, man-made hill covering the remains of an ancient settlement  ; mound, knoll, down  ; (colloquial], heap, pile;; to hang, to hang up  ; to ascribe to, to associate  ; (colloquial], to be hung'],
@@ -1207,12 +1203,13 @@ main()
     ['HE', 'EN', 'וַיִּקְרָא֙', 'Leviticus (third book of Bible],;; to read  ; to call out to, to summon (ל],  ; to call, to name  ; to shout;; to be called, to be named  ; to be nicknamed  ; to be read  ; to be summoned;; to be read'],
     ['HE', 'EN', 'שֵׁ֣ם', 'name  ; noun  ; reputation;; there  ; where  ; ibid.;; to put  ; to appoint;; to assess, to appraise'],
     ['HE', 'EN', 'הָעִ֔יר', 'to remark, to comment;; to wake (someone up],;; city, metropolis  ; town  ; העיר - (slang], downtown  ; העירה - (slang], downtown;; donkey foal'],
-    ['HE', 'EN', 'כְּשֵׁ֖ם', 'inasmuch as, just as, in the same manner as;; name  ; noun  ; reputation;; to put  ; to appoint;; there  ; where  ; ibid.;; to assess, to appraise'],
-    ['HE', 'EN', 'בְּנֹ֥ו', 'in, at; with, by; for;; son  ; boy  ; member of group (nation, class, family],  ; native  ; בני - my son, son (usu. term of endearment],  ; הבן - junior, the second (title],;; to build, to construct  ; to build up, to develop  ; (geometry], to construct  ; (colloquial], to rely, to depend;; (flowery], to understand'],
-    ['HE', 'EN', 'חֲנֹֽוךְ׃', definition['Hanoch (Hebrew name],;; education;; to inaugurate, to dedicate, to consecrate;; to guide, to tutor, to educate  ; (biblical], to teach'],
-    ['HE', 'EN', ' וַיִּוָּלֵ֤ד', 'to give birth;; to be delivered (baby],  ; (biblical], to be born;; to be born  ; to be born to  ; to come into being, to be created'],
-    ['HE', 'EN', 'לַֽחֲנֹוךְ֙', 'to inaugurate, to dedicate, to consecrate;; to guide, to tutor, to educate  ; (biblical], to teach;; Hanoch (Hebrew name],;; education'],
-    ['HE', 'EN', 'אֶת־עִירָ֔ד', ''],
+     ['HE', 'EN', 'כְּשֵׁ֖ם', 'inasmuch as, just as, in the same manner as;; name  ; noun  ; reputation;; to put  ; to appoint;; there  ; where  ; ibid.;; to assess, to appraise'],
+     ['HE', 'EN', 'בְּנֹ֥ו', 'in, at; with, by; for;; son  ; boy  ; member of group (nation, class, family],  ; native  ; בני - my son, son (usu. term of endearment],  ; הבן - junior, the second (title],;; to build, to construct  ; to build up, to develop  ; (geometry], to construct  ; (colloquial], to rely, to depend;; (flowery], to understand'],
+
+     ['HE', 'EN', 'חֲנֹֽוךְ׃', 'Hanoch (Hebrew name],;; education;; to inaugurate, to dedicate, to consecrate;; to guide, to tutor, to educate  ; (biblical], to teach'],
+      ['HE', 'EN', ' וַיִּוָּלֵ֤ד', 'to give birth;; to be delivered (baby],  ; (biblical], to be born;; to be born  ; to be born to  ; to come into being, to be created'],
+      ['HE', 'EN', 'לַֽחֲנֹוךְ֙', 'to inaugurate, to dedicate, to consecrate;; to guide, to tutor, to educate  ; (biblical], to teach;; Hanoch (Hebrew name],;; education'],
+      ['HE', 'EN', 'אֶת־עִירָ֔ד', ''],
     ['HE', 'EN', 'וְעִירָ֕ד', ''],
     ['HE', 'EN', 'יָלַ֖ד', 'son, boy   ; child, kid  ; (colloquial], childish person;; to give birth;; to deliver (baby],;; to be delivered (baby],  ; (biblical], to be born'],
     ['HE', 'EN', 'אֶת־מְחֽוּיָאֵ֑ל', ''],
@@ -1326,5 +1323,34 @@ main()
      ['HE', 'EN', 'Genesis', ''],
      ['HE', 'EN', ':', ''],
      ['HE', 'EN', 'Chapter', ''],
- ]
-'''
+]
+
+ 
+def main():
+    global translations
+    global Translations
+    global Languages
+    for tran in translations:
+        from_lang = Languages.objects.get( abbr="%s" % 
+                                          tran[0].lower())
+        to_lang = Languages.objects.get(
+                    abbr="%s" %  tran[1].lower())
+        if (Translations.objects.filter(
+                fromLang=from_lang, 
+                toLang=to_lang,
+                original="%s" % tran[2],
+                definition="%s" % tran[3]).exists()
+            == False):
+            dj_translation = Translations (
+                    fromLang=from_lang, 
+                    toLang=to_lang,
+                    original="%s" % tran[2],
+                    definition="%s" % tran[3])
+            dj_translation.save()
+
+main()
+
+
+
+
+
