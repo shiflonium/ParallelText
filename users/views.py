@@ -4,9 +4,12 @@ views.py decides what to display on webpage based on current conditions.
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from users.forms import AccountCreateForm, AccountManageForm, AccountManagePassForm
+from users.forms import AccountCreateForm, AccountManageForm
+from users.forms import AccountManagePassForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from users.models import UserAccount
+from languages.models import Languages
 
 def user_reg(request):
     """
@@ -18,7 +21,18 @@ def user_reg(request):
     if request.method == 'POST':
         if form.is_valid():
             #user = form.save(commit=False)
-            form.save()
+            new_user = User.objects.create_user(
+                username=request.POST.get('username'),
+                email=request.POST.get('email'),
+                password=request.POST.get('password1'),
+                first_name=request.POST.get('first_name'),
+                last_name=request.POST.get('last_name'))
+            lang = Languages.objects.get(langID=request.POST.get('native_lang'))
+            print lang
+            #u_id = User.objects.get(pk=new_user.pk)
+            extra_info = UserAccount(user_id=new_user.pk, native_lang=lang)
+            print extra_info
+            extra_info.save()
             return HttpResponseRedirect('/')
     else:
         form = AccountCreateForm()
@@ -74,10 +88,13 @@ def user_acct(request):
     """
     status = ""
 
-    username = User.objects.get(username=request.user)
+    username = User.objects.get(username=request.user.username)
+    user_extra = UserAccount.objects.get(id=request.user.pk)
+    print user_extra.native_lang_id
 
     if request.method == 'POST':
-        form = AccountManageForm(data=request.POST, instance=request.user)
+        form = AccountManageForm(data=request.POST, instance=request.user,
+            initial={'native_lang': user_extra.native_lang_id})
         if form.is_valid():
             #user = form.save(commit=False)
             form.save()
