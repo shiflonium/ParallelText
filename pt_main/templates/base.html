@@ -13,12 +13,12 @@
         <!-- <link href="{{ STATIC_URL }}/js/google-code-prettify/prettify.css" rel="stylesheet"> -->
         
 
-        <!-- LIRON -->
-        <link href="{{ STATIC_URL }}ptext/bootstrap.min.css" type="text/css" rel="stylesheet">
-        <script src="{{ STATIC_URL }}ptext/bootstrap.min.js"></script>
-        <script src="{{ STATIC_URL }}ptext/bootbox.min.js"></script>
-        <script src="{{ STATIC_URL }}ptext/jquery-1.9.1.min.js"></script>
-        <!-- END LIRON -->
+        
+         <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}ptext/bootstrap.min.css">
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+         <script src="{{STATIC_URL}}ptext/bootstrap.min.js"></script>
+         <script src="{{STATIC_URL}}ptext/bootbox.min.js"></script>
+        
 
         {% if include_css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{{ include_css }}">{% endif %}
         {% if include_js %}<script type="text/javascript" src="{{ STATIC_URL }}{{ include_js }}"></script>{% endif %}
