@@ -1,39 +1,17 @@
 <html>
   <head>
-    <title> Upload Content </title>
+    <title> {{ title }}  </title>
   </head>
   <body>
-
     <p>Use this page to upload a text to the library</p>
     <p>Two rules  must be followed</p>
     <ol>
       <li>All Chapters MUST be separated by the string "[CHAPTER]" on a separate line</li>
       <li>All Paragraphs MUST be separated by at least two blank lines</li>
     </ol>
-    
-    <form action="">
-      <label for="lang"> Text Language: </label>
-      <select name="lang" id="title">
-	<option name="EN" id="EN" value="EN"> English</option>
-	<option name="AR" id="AR" value="AR"> Arabic</option>
-	<option name="ZH" id="ZH" value="ZH"> Chinese</option>
-	<option name="FR" id="FR" value="FR"> French</option>
-	<option name="EL" id="EL" value="EL"> Greek</option>
-	<option name="HE" id="HE" value="HE"> Spanish</option>
-	<option name="KO" id="KO" value="KO"> Korean</option>
-	<option name="LA" id="LA" value="LA"> Latin</option>
-	<option name="PT" id="PT" value="PT"> Portuguese</option>
-	<option name="RU" id="RU" value="RU"> Russian</option>
-	<option name="ES" id="ES" value="ES"> Spanish</option>
-	<option name="TH" id="TH" value="TH"> Thai</option>
-	<option name="UK" id="UK" value="UK"> Ukranian</option>
-      </select>
-      <br>
-      <label for="title"> Title: </label>
-      <input type="text" id="title" name="title">
-      <br>
-      <label for="upload:">Choose File:</label>
-      <input type="file" name="filename" accept=".txt">
+
+    <form action="/upload/" method="post">{% csrf_token %}
+      {{ form.as_p }}
     </form>
   </body>
 </html>
