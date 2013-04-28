@@ -4,14 +4,7 @@ This renders the homepage
 from django.shortcuts import render
 import content_mgmt.scripts.parse_text_to_html 
 from content_mgmt.models import UploadForm
-
-def index(request):
-    """ 
-    this method is responsible for drawing the homepage
-    """
-    return render(request, '/upload.html')
-
-
+from django.template import Context, Template 
 
 def upload(request):
     if False:
@@ -21,9 +14,9 @@ def upload(request):
         else:
             1;
     else:
-        print "moo"
+
         form = UploadForm()
-    return render(request, 'content_mgmt/upload.html', { 'form': form, })
+        return render(request, 'content_mgmt/upload.html', { 'form': form, 'title': "Upload Content"})
 
 
 if __name__=='__main__':
