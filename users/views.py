@@ -96,6 +96,8 @@ def user_acct(request):
             extra_info.save()
             form.save()
             status = "Your account information has been saved."
+        else:
+            status = "Form is not valid."
     else:
         form = AccountManageForm(instance=request.user,
                                  initial={'native_lang': lang_name})
@@ -123,6 +125,8 @@ def user_acct_pass(request):
             username.set_password(request.POST.get('pass_new1'))
             username.save()
             status = "Your account information has been saved."
+        else:
+            status = "Form is not valid."
     else:
         form = AccountManagePassForm()
 
