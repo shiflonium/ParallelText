@@ -20,7 +20,6 @@ def user_reg(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            #user = form.save(commit=False)
             new_user = User.objects.create_user(
                 username=request.POST.get('username'),
                 email=request.POST.get('email'),
@@ -92,13 +91,11 @@ def user_acct(request):
     if request.method == 'POST':
         form = AccountManageForm(data=request.POST, instance=request.user)
         if form.is_valid():
-            #user = form.save(commit=False)
             extra_info = UserAccount.objects.get(user_id=user.pk)
             extra_info.native_lang_id = request.POST.get('native_lang')
             extra_info.save()
             form.save()
             status = "Your account information has been saved."
-            #return HttpResponseRedirect('/account/')
     else:
         form = AccountManageForm(instance=request.user,
                                  initial={'native_lang': lang_name})
@@ -124,10 +121,8 @@ def user_acct_pass(request):
     if request.method == 'POST':
         if form.is_valid():
             username.set_password(request.POST.get('pass_new1'))
-            #user = form.save(commit=False)
             username.save()
             status = "Your account information has been saved."
-            #return HttpResponseRedirect('/')
     else:
         form = AccountManagePassForm()
 
