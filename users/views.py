@@ -28,10 +28,7 @@ def user_reg(request):
                 first_name=request.POST.get('first_name'),
                 last_name=request.POST.get('last_name'))
             lang = Languages.objects.get(langID=request.POST.get('native_lang'))
-            print lang
-            #u_id = User.objects.get(pk=new_user.pk)
             extra_info = UserAccount(user_id=new_user.pk, native_lang=lang)
-            print extra_info
             extra_info.save()
             return HttpResponseRedirect('/')
     else:
@@ -89,19 +86,20 @@ def user_acct(request):
     status = ""
 
     username = User.objects.get(username=request.user.username)
-    user_extra = UserAccount.objects.get(id=request.user.pk)
-    print user_extra.native_lang_id
+    lang_id = UserAccount.objects.get(user_id=request.user.pk).native_lang_id
+    lang_name = Languages.objects.get(langID=lang_id)
+    print lang_name
+    #print user_extra.native_lang_id
 
     if request.method == 'POST':
-        form = AccountManageForm(data=request.POST, instance=request.user,
-            initial={'native_lang': user_extra.native_lang_id})
+        form = AccountManageForm(data=request.POST, instance=request.use)
         if form.is_valid():
             #user = form.save(commit=False)
             form.save()
             status = "Your account information has been saved."
             #return HttpResponseRedirect('/account/')
     else:
-        form = AccountManageForm(instance=request.user)
+        form = AccountManageForm(instance=request.user, initial={'native_lang': lang_name})
 
     return render(request, 'users/account.html',
                   {'form': form,
