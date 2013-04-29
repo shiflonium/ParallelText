@@ -62,8 +62,8 @@ right_lang = (
 class Texts(forms.Form):
     book_dd = forms.ChoiceField(label = "Book",choices = book)
     chapter_dd = forms.ChoiceField(label = "Chapters",choices = chapters)
-    right_lang_dd = forms.ChoiceField(label = "From Language",choices = right_lang)
-    left_lang_dd = forms.ChoiceField(label = "To Language",choices = left_lang)
+    right_lang_dd = forms.ChoiceField(label = "Right Language",choices = right_lang)
+    left_lang_dd = forms.ChoiceField(label = "Left Language",choices = left_lang)
     search_field = forms.CharField(label = "Search Texts")
 
 
