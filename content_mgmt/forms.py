@@ -9,6 +9,7 @@ from languages.models import Languages
 # Create your models here.
 
 class UploadForm (forms.Form):
+#    import pdb; pdb.set_trace()
     choices = Languages.objects.all().values_list('abbr', 'name')
     language=forms.ChoiceField(choices)
     title=forms.CharField(label="Book Title: ")

@@ -3,7 +3,7 @@ This renders the homepage
 """
 from django.shortcuts import render
 from content_mgmt.scripts.parse_text_to_html import convert_book_to_html
-from content_mgmt.models import UploadForm
+from content_mgmt.forms import UploadForm
 from django.template import Context, Template 
 from django.http import HttpResponseRedirect
 import re
