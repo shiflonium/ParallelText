@@ -19,14 +19,14 @@ def user_reg(request):
     form = AccountCreateForm(request.POST)
 
     if request.method == 'POST':
-        if form.is_valid():
+        #if form.is_valid():
             new_user = User.objects.create_user(
                 username=request.POST.get('username'),
                 email=request.POST.get('email'),
                 password=request.POST.get('password1'),
                 first_name=request.POST.get('first_name'),
                 last_name=request.POST.get('last_name'))
-            lang = Languages.objects.get(langID=request.POST.get('native_lang'))
+            lang = Languages.objects.get(name=request.POST.get('native_lang'))
             extra_info = UserAccount(user_id=new_user.pk, native_lang=lang)
             extra_info.save()
             return HttpResponseRedirect('/')
@@ -86,7 +86,9 @@ def user_acct(request):
 
     user = User.objects.get(username=request.user.username)
     lang_id = UserAccount.objects.get(user_id=request.user.pk).native_lang_id
+    print lang_id
     lang_name = Languages.objects.get(langID=lang_id)
+    print lang_name
 
     if request.method == 'POST':
         form = AccountManageForm(data=request.POST, instance=request.user)
