@@ -53,17 +53,19 @@
 	</form> -->
 	</div> 
 	<div>
-        <table border="2" width="100%">
+        <table border="2" width="100%" style="vertical-align: top;">
 			
             <tr>
-                <td align="{{ text1Dir }}" width=50% style="vertical-align: top;">
+                <!-- <td align="{{ text1Dir }}" width=50% style="vertical-align: top;"> -->
+                <td style="width:50%">
                     <div class="scroll">
                         {% block page1 %}
                         {% endblock %}
                     </div>
                 </td>
                 
-                <td align="{{ text2Dir }}" style="vertical-align: top;">
+                <!-- <td align="{{ text2Dir }}" style="vertical-align: top;"> -->
+                <td>
                     <div class="scroll">
                         {% block page2 %}
                         {% endblock %}
