@@ -142,3 +142,4 @@ def del_acct(request):
     username.delete()
     return HttpResponseRedirect('/')
 
+
