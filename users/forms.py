@@ -38,10 +38,9 @@ class AccountCreateForm(UserCreationForm):
         label = 'Last Name',
     )
 
-    native_lang = forms.ModelChoiceField(
-        queryset = Languages.objects.all(),
-        empty_label = None,
-        required = True,
+    native_lang = forms.ModelMultipleChoiceField(
+        widget = forms.Select,
+        queryset = Languages.objects.all().values_list('name', flat=True),
         label = 'Native Language'
     )
 
@@ -94,9 +93,8 @@ class AccountManageForm(forms.ModelForm):
     )
 
     native_lang = forms.ModelChoiceField(
+        widget = forms.Select,
         queryset = Languages.objects.all(),
-        empty_label = None,
-        required = True,
         label = 'Native Language'
     )
 
