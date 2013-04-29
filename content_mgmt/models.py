@@ -9,7 +9,7 @@ from languages.models import Languages
 # Create your models here.
 
 class UploadForm (forms.Form):
-    language=forms.ModelMultipleChoiceField(widget=forms.Select,
-        queryset=Languages.objects.all().values_list('name', flat=True))
+    choices = Languages.objects.all().values_list('abbr', 'name')
+    language=forms.ChoiceField(choices)
     title=forms.CharField(label="Book Title: ")
     file=forms.FileField(label="Upload File: ")

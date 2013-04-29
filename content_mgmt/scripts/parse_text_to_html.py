@@ -12,7 +12,7 @@ import os
 
 BASEDIR = "../../"
 #BASEDIR = os.getcwd() + "/"
-TEXTDIR = BASEDIR + "texts/"
+#TEXTDIR = BASEDIR + "texts/"
 
 #-t "Bible Genesis" -l EN -f "temp/Bible_Genesis_EN.txt" -d "Bible_Genesis"
 parser = argparse.ArgumentParser (description="Convert Book Text File to Html")
@@ -56,9 +56,12 @@ LANG_ABBREV_TO_FULL = {
 
 
 
-def convert_book_to_html (book_subdir, lang, book_name, 
-                          book_text):
-    output_dir = TEXTDIR + book_subdir + "/" + lang + "/"
+def convert_book_to_html (book_subdir, lang, book_name, book_text):
+    lang=str(lang)
+    dirname = os.path.dirname
+    PROJECT_ROOT = dirname(dirname(os.path.realpath(__file__)))
+    TEXT_DIR = os.path.join(PROJECT_ROOT, 'texts')
+    output_dir = TEXT_DIR + "/" + book_subdir + "/" + lang + "/"
     if (os.path.exists(output_dir)==False):
               os.makedirs(output_dir)
      

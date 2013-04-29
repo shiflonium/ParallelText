@@ -2,10 +2,12 @@
 This renders the homepage
 """
 from django.shortcuts import render
-import content_mgmt.scripts.parse_text_to_html 
+from content_mgmt.scripts.parse_text_to_html import convert_book_to_html
 from content_mgmt.models import UploadForm
 from django.template import Context, Template 
 from django.http import HttpResponseRedirect
+import re
+
 
 def upload_fail(request):
     return render(request, 'content_mgmt/upload_fail.html')
@@ -15,15 +17,17 @@ def upload_confirm(request):
 
 def upload(request):
     if request.method=="POST":
-        form = UploadForm(request.POST)
+        form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
-            newdoc = Document(docfile = request.FILES['file'])
+            newdoc =  request.FILES['file']
+            lang = request.POST['language']
+            title = request.POST['title']
+            bookdir = re.sub("\s*", "_", title)
+            convert_book_to_html(bookdir, lang, title,  newdoc.read())
             return HttpResponseRedirect('/upload_confirm/')
-        else:
-            return HttpResponseRedirect('/upload_fail/', {'form':form, 'dog' : "shorty" })
     else:
         form = UploadForm()
-        return render(request, 'content_mgmt/upload.html', { 'form': form, 'title': "Upload Content"})
+    return render(request, 'content_mgmt/upload.html', { 'form': form, 'title': "Upload Content"})
 
 
 if __name__=='__main__':
