@@ -22,7 +22,7 @@ def upload(request):
             newdoc =  request.FILES['file']
             lang = request.POST['language']
             title = request.POST['title']
-            bookdir = re.sub("\s*", "_", title)
+            bookdir = re.sub("\s+", "_", title)
             convert_book_to_html(bookdir, lang, title,  newdoc.read())
             return HttpResponseRedirect('/upload_confirm/')
     else:
