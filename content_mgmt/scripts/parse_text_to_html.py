@@ -9,6 +9,9 @@ import codecs
 import sys
 import argparse
 import os
+from languages.models import Languages
+from books.models import BookInfo, BookTranslation
+
 
 BASEDIR = "../../"
 #BASEDIR = os.getcwd() + "/"
@@ -21,38 +24,6 @@ parser.add_argument("--lang", "-l", required=True, help="language")
 parser.add_argument("--file", "-f",  required=True, help="input file")
 parser.add_argument("--dir", "-d",  required=True, help="output directory")
 
-LANGUAGES = [
-    "AR" ,
-    "EL",
-    "English" ,
-    "Spanish",
-    "Hebrew" ,
-    "KO",
-    "LA",
-    "PT",
-    "RU",
-    "TH",
-    "UK"  ,
-    "ZH",
-    "ZHMINNAN", 
-    ]
-
-
-LANG_ABBREV_TO_FULL = {
-    "AR" : "Arabic",
-    "EL" : "Greek",
-    "EN":     "English",
-    "ES" : "Spanish",
-    "HE":    "Hebrew",
-    "KO" : "Korean",
-    "LA" : "Latin",
-    "PT" : "Portugese",
-     "RU" : "Russian",
-    "TH" : "Thai",
-     "UK"  : "Ukranian",
-    "ZH" : "Chinese",
-}
-
 
 
 
@@ -60,18 +31,37 @@ def convert_book_to_html (book_subdir, lang, book_name, book_text):
     lang=str(lang)
     dirname = os.path.dirname
     PROJECT_ROOT = dirname(dirname(os.path.realpath(__file__)))
-    TEXT_DIR = os.path.join(PROJECT_ROOT, 'texts')
-    output_dir = TEXT_DIR + "/" + book_subdir + "/" + lang + "/"
+    TEXT_DIR = os.path.join(PROJECT_ROOT, '..', 'texts')
+    output_dir = os.path.join(TEXT_DIR, book_subdir, lang.upper())
     if (os.path.exists(output_dir)==False):
               os.makedirs(output_dir)
      
-    chapters=book_text.split("[Chapter]")
+    chapters=re.split("\[Chapter\]", book_text, flags=re.I) 
+#    chapters=book_text.split("[Chapter]")
     chap_num=1
     for chapter in (chapters):
         if re.search("\w", chapter, re.UNICODE):     #  no blank chapters
             convert_chapter_to_html (output_dir, lang, book_name,
                                  chapter, chap_num)
             chap_num+=1
+    # add to db
+    dj_book=""
+    if (BookInfo.objects.filter(
+            title="%s" % book_name,
+             chaps="%d" % chap_num).exists()
+        == False):
+        dj_book = BookInfo(title="%s" % book_name,
+                           chaps="%d" % chap_num)
+        dj_book.save()
+    if (dj_book == ""):
+        dj_book= BookInfo.objects.get(title="%s" % book_name)
+    tran_lang = Languages.objects.get(abbr="%s" % lang.lower())
+    if (BookTranslation.objects.filter(
+            book_id=dj_book, language_id=tran_lang).exists()
+        == False):
+        dj_tran = BookTranslation (
+            book_id=dj_book, language_id=tran_lang)
+        dj_tran.save()
 
     
 def convert_chapter_to_html (output_dir, lang, book_name,
@@ -80,8 +70,10 @@ def convert_chapter_to_html (output_dir, lang, book_name,
     '''
     this processes each chapter for each language
     '''
-    output_filename = output_dir + "ch_" + str(chap_num) + ".html"
-    output_file = open(output_filename, 'w')
+    output_filename =  "ch_" + str(chap_num) + ".html"
+    full_filename = os.path.join(output_dir, output_filename)
+
+    output_file = open(full_filename, 'w')
 
 
     para_sub = "qua~~!!!~~qua"
@@ -92,7 +84,8 @@ def convert_chapter_to_html (output_dir, lang, book_name,
     contents=re.sub("(%s){2,}" % para_sub ,"\n", contents)
     contents=re.sub(para_sub," ", contents)
 
-    full_lang = LANG_ABBREV_TO_FULL[lang]
+    db_lang=Languages.objects.get(abbr="%s" % lang.lower())
+    full_lang = db_lang.name
 
     output = u'''
 <!DOCTYPE html> 
