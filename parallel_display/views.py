@@ -16,6 +16,7 @@ localhost/parallel_display/Bible_Genesis/ch_1/ENHE/
 
 """
 import re
+from books.models import BookInfo
 from django.shortcuts import render
 from django.core.context_processors import csrf
 from bs4 import BeautifulSoup
@@ -59,8 +60,10 @@ right_lang = (
         ("ar","Arabic"),
         )
 
+
+
 class Texts(forms.Form):
-    book_dd = forms.ChoiceField(label = "Book",choices = book)
+    book_dd = forms.ModelChoiceField(empty_label="Select Book",label = "Book",queryset=(BookInfo.objects.all().values_list('title',flat=True)))
     chapter_dd = forms.ChoiceField(label = "Chapters",choices = chapters)
     right_lang_dd = forms.ChoiceField(label = "Right Language",choices = right_lang)
     left_lang_dd = forms.ChoiceField(label = "Left Language",choices = left_lang)
@@ -68,11 +71,10 @@ class Texts(forms.Form):
 
 
     #class Texts end
-
-dropdowns = {'Book':book, 'chapter_dd':chapters, 'right_lang_dd':right_lang,
-'left_lang_dd':left_lang
-}
-visual_dropdown = Texts(dropdowns,auto_id = False)
+#dropdowns = {'Book':book_dd, 'chapter_dd':chapters, 'right_lang_dd':right_lang,
+#'left_lang_dd':left_lang
+#}
+visual_dropdown = Texts(auto_id = False)
 #print visual_dropdown
 def get_page(page):
     """
