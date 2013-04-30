@@ -2,11 +2,9 @@
  Django settings for paralleltext project.
 """
 import os
-#import dj_database_url
+import dj_database_url
 
-dirname = os.path.dirname
-PROJECT_ROOT = dirname(dirname(os.path.realpath(__file__)))
-#PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
