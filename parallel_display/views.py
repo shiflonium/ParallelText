@@ -25,21 +25,7 @@ from django import forms
 from django.utils.safestring import mark_safe
 page = ""
 
-book = (
-        ("Bible_Genesis","Bible Genesis"),
-        ("Koran","Koran"),
-        )
 
-
-chapters = (
-            ("ch_1","Chapter 1"),
-            ("ch_2","Chapter 2"),
-            ("ch_3","Chapter 3"),
-            ("ch_4","Chapter 4"),
-            ("ch_5","Chapter 5"),
-            ("ch_6","Chapter 6"),
-            ("ch_7","Chapter 7"),
-        )
 left_lang = (
         ("en","English"),
         ("he","Hebrew"),
@@ -63,18 +49,23 @@ right_lang = (
 
 
 class Texts(forms.Form):
+    b=BookInfo.objects.filter(title="Quran")
+    chap_num_str=b[0].chaps
+    chap_num=int(chap_num_str)
+    chap_choices=[]
+    for i in range (1,chap_num):
+        chap_choices.append(("ch_"+str(i),"Chapter "+str(i)))
+    choices_final=tuple(chap_choices)
     book_dd = forms.ModelChoiceField(empty_label="Select Book",label = "Book",queryset=(BookInfo.objects.all().values_list('title',flat=True)))
-    chapter_dd = forms.ChoiceField(label = "Chapters",choices = chapters)
-    right_lang_dd = forms.ChoiceField(label = "Right Language",choices = right_lang)
+    chapter_dd = forms.ChoiceField(label = "Chapter",required=False,choices=choices_final)
+    right_lang_dd = forms.ChoiceField(label = "Right Language",choices=right_lang)
     left_lang_dd = forms.ChoiceField(label = "Left Language",choices = left_lang)
     search_field = forms.CharField(label = "Search Texts")
-
-
     #class Texts end
-#dropdowns = {'Book':book_dd, 'chapter_dd':chapters, 'right_lang_dd':right_lang,
-#'left_lang_dd':left_lang
-#}
-visual_dropdown = Texts(auto_id = False)
+
+
+   
+#visual_dropdown = Texts(auto_id = False)
 #print visual_dropdown
 def get_page(page):
     """
@@ -124,6 +115,7 @@ def pdisplay(request):
     if request.method == "POST":
         #posted_form = Texts(request.POST)
         book = request.POST["book_dd"]
+        print book
         chapter = request.POST['chapter_dd']
         from_lang = request.POST['left_lang_dd']
         to_lang = request.POST['right_lang_dd']
