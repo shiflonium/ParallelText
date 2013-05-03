@@ -11,9 +11,6 @@ parser.add_argument("--definition", "-d", required=True, help="Definiton Languag
 parser.add_argument("--file", "-f",  required=True, help="input file")
 
 
-
-processed_words = {}
-
 language_dictionaries = {
     'SQ': 1,       # Albanian
     'AR': 2,       # Arabic
@@ -42,18 +39,8 @@ language_dictionaries = {
     'HE': 25 ,     # Hebrew
 }
 
-
-def initialize_dictionary():
-    # select original from language_dictionary 
-    # where original_lang=blahblah and definitionlang=blahblah
-    # for result in (result_set)
-    # processed_words[result]=1
-    
-    1
-
 def translateWordUsingMorfix_EN_2_HE(word):
     dictionary_request = "http://www.morfix.co.il/" + word 
-    print dictionary_request
     r = requests.get(dictionary_request)
     response_text = r.text
     soup = BeautifulSoup(response_text)
@@ -67,15 +54,32 @@ def translateWordUsingMorfix_EN_2_HE(word):
         all_definitions = all_definitions [3:]
     return all_definitions
 
-
-def translateWordUsingMorfix_HE_2_EN(word):
+def translateWordUsingMorfix_EN_2_HE(word):
     dictionary_request = "http://www.morfix.co.il/" + word 
+  #  print dictionary_request
     r = requests.get(dictionary_request)
     response_text = r.text
     soup = BeautifulSoup(response_text)
-    
-    
-    definition_soup = soup.find_all('div' , {"class": "translation translation_he heTrans"})
+    definition_soup = soup.find_all('div') # , {"class": "translation translation_he heTrans"})
+    definition_soup = soup.find("div", {"class": "translation translation_he heTrans" })
+#definition_soup = soup.find_all('div' , {"class":"translation translation_he heTrans"})
+    all_definitions= ""
+    print str(definition_soup)
+    if (definition_soup != None):
+        for definition in (definition_soup):
+            all_definitions += unicode(definition)
+    if (len(all_definitions) > 3):
+        all_definitions = all_definitions [3:]
+    return all_definitions
+
+
+def translateWordUsingMorfix_HE_2_EN(word):
+    dictionary_request = "http://www.morfix.co.il/" + word
+    r = requests.get(dictionary_request)
+    response_text = r.text
+    soup = BeautifulSoup(response_text)
+
+    definition_soup = soup.find_all('div' , {"class": "default_trans"})
     all_definitions= ""
     for definition in (definition_soup):
         all_definitions = all_definitions + ";; "+ definition.string
@@ -88,7 +92,7 @@ def translateWordUsingLingvozone(from_lang, to_lang, word):
     from_lang_id = str(language_dictionaries[from_lang])
     to_lang_id = str(language_dictionaries[to_lang])
     dictionary_request="http://www.lingvozone.com/dictionary?action=translation_ajax&language_id_from=" + from_lang_id + "&language_id_to=" + to_lang_id + "&word=" + word
-    print dictionary_request
+#    print dictionary_request
 
     r = requests.get(dictionary_request)
     response_text = r.text
@@ -102,6 +106,25 @@ def translateWordUsingLingvozone(from_lang, to_lang, word):
         all_definitions = all_definitions [2:]
     return all_definitions
 
+def is_untranslated(left,  right,  original):
+    from_lang = Languages.objects.get( abbr="%s" % 
+                                          left.lower())
+    to_lang = Languages.objects.get (
+                    abbr="%s" %  right.lower())
+    if (Translations.objects.filter(
+               fromLang=from_lang, 
+                toLang=to_lang,
+                original="%s" % tran[2],
+                definition="%s" % tran[3]).exists()
+            == False):
+                    dj_translation = Translations (
+                    fromLang=from_lang, 
+                    toLang=to_lang,
+                    original="%s" % tran[2],
+                    definition="%s" % tran[3])
+            dj_translation.save()
+
+
 
 def main():
     args=parser.parse_args()
@@ -114,16 +137,13 @@ def main():
     all_words = re.split("\s*", contents)
     db_name = original + "_2_" + definition
     for word in (all_words):
-        word = re.sub ("\s*", "", word)
-        if (processed_words[word] != 1):
-            translation = ''
-        # make this smarter using function pointers
-            translation = translateWordUsingMorfix_HE_2_EN(word)
-        #        translation = translateWordUsingLingvozone(original, definition, word)
-            print "INSERT IGNORE INTO %s (`original`, `definition`) VALUES (\'%s\', \'%s\')" % 
-            (db_name, word, translation)
-            processed_words[word]=1
-        
+        if ((re.match("[a-zA-Z]",  word)) and
+            is_untranslated(word)):
+            word = re.sub ("\s*", "", word)
+            translation = translateWordUsingMorfix_EN_2_HE(word)
+#        translation = translateWordUsingLingvozone(original, definition, word)
+
+ #          print "INSERT IGNORE INTO %s (`original`, `definition`) VALUES (\'%s\', \'%s\')" % (db_name, word, translation)
             
         
 
