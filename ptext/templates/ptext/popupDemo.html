@@ -1,7 +1,9 @@
 {% extends "parallel_display/display.html" %}
 {% load customList %}
+{% load dajaxice_templatetags %}
 
 {% block page1 %}
+{% dajaxice_js_import %}
   <table style="vertical-align: top;">
     {% for word in text1 %}
       {% if word == "<p>" %}
@@ -33,6 +35,8 @@
 
 
 {% block page2 %}	
+{% dajaxice_js_import %}
+<h1 onclick="Dajaxice.parallel_display.multiply(callback, {'a':'1','b':'1'})"> TEST <h1>
   <td><table style="vertical-align: top;">
     {% for word in text2 %}
       {% if word == "<p>" %}
@@ -73,5 +77,8 @@ $(document).on("hover",".alert",function(e){
 $("a").popover();
 });
 
+function callback(data){
+    alert(data.result);
+}
 </script>
 {% endblock %}  

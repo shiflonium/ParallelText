@@ -6,7 +6,10 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from dajaxice.core import dajaxice_autodiscover, dajaxice_config
+
 admin.autodiscover()
+dajaxice_autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -25,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^upload_confirm/', 'content_mgmt.views.upload_confirm'),
     url(r'^upload_fail/', 'content_mgmt.views.upload_fail'),
     url(r'^search/', 'search.views.search'),
+    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
