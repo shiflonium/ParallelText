@@ -12,17 +12,20 @@ def insertWord(request, word):
 	#Check if the user is connected
 	auth = request.user.is_authenticated()
 	print "AUTH:" + str(auth)
+	word = word.replace(' ','')
+	print "ORIGINAL WORD: '" + word +"'"
+
 
 	#USERNAME
 	if(auth):
 		username = request.user
 		currentUser = User.objects.get(username=username)
-		uniword = word.decode('utf8')
-		print "WORD:" + uniword
-		currentWord = Translations.objects.get(fromLang = uniword)
-		print "USERNAME:" + username
-		print "currentUser:" + currentUser
-		print 'currentWord:' + currentWord
+		uniword = unicode(word)
+		print "UNIWORD:" + uniword
+		currentWord = Translations.objects.get(original = uniword)
+		print "USERNAME:" + str(username)
+		print "currentUser:" + str(currentUser)
+		print 'currentWord:' + str(currentWord)
 		savedDefinition = UserDictionary(userID=currentUser.id, definitionID=currentWord.definitionID)
 		savedDefinition.save();
 		return simplejson.dumps({'result':auth, 'word':word})
