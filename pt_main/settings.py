@@ -2,7 +2,7 @@
  Django settings for paralleltext project.
 """
 import os
-import dj_database_url
+#import dj_database_url
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -134,7 +134,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    #'django.contrib.sites',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
@@ -151,6 +151,8 @@ INSTALLED_APPS = (
     'content_mgmt',
     'languages',
     'search',
+    'dajax',
+    'dajaxice',
 )
 
 # A sample logging configuration. The only tangible logging
