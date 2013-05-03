@@ -7,7 +7,7 @@
   <table style="vertical-align: top;">
     {% for word in text1 %}
       {% if word == "<p>" %}
-        <tr><td align="{{ text1Dir }}" width=100% style="vertical-align: top; height:7em">
+        <tr><td align="{{ text1Dir }}" width=100% style="vertical-align: top; height:5em">
         {{ word }}
       {% elif word == "</p>" %}
         {{word}}
@@ -36,11 +36,10 @@
 
 {% block page2 %}	
 {% dajaxice_js_import %}
-<h1 onclick="Dajaxice.parallel_display.multiply(callback, {'a':'1','b':'1'})"> TEST <h1>
   <td><table style="vertical-align: top;">
     {% for word in text2 %}
       {% if word == "<p>" %}
-        <tr><td align= "{{ text2Dir }}" width=100% style="vertical-align: top; height:7em">
+        <tr><td align= "{{ text2Dir }}" width=100% style="vertical-align: top; height:5em">
         {{ word }}
       {%elif word == "</p>" %}
         {{word}}
