@@ -64,12 +64,14 @@
     </table>
 
 
-<script src="{{STATIC_URL}}/ptext/bootbox.min.js"></script>
+<!-- <script src="{{STATIC_URL}}/ptext/bootbox.min.js"></script> -->
 
 <script>
 $(document).on("click", ".alert", function(e) {
 bootbox.confirm("Do you want to add the word \"" + e.target.text + "\" to your dictionary?!", function(yesNo) {
-    Dajaxice.parallel_display.multiply(my_callback, {'word':e.target.text, 'a':'1','b':'1'})
+  if (yesNo){
+      Dajaxice.parallel_display.insertWord(my_callback,{"word":e.target.text});
+    }
 });
 });
 
