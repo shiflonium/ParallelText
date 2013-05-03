@@ -112,17 +112,17 @@ def is_untranslated(left,  right,  original):
     to_lang = Languages.objects.get (
                     abbr="%s" %  right.lower())
     if (Translations.objects.filter(
-               fromLang=from_lang, 
-                toLang=to_lang,
-                original="%s" % tran[2],
-                definition="%s" % tran[3]).exists()
-            == False):
-                    dj_translation = Translations (
-                    fromLang=from_lang, 
-                    toLang=to_lang,
-                    original="%s" % tran[2],
-                    definition="%s" % tran[3])
-            dj_translation.save()
+            fromLang=from_lang, 
+            toLang=to_lang,
+            original="%s" % tran[2],
+            definition="%s" % tran[3]).exists()
+        == False):
+        dj_translation = Translations (
+            fromLang=from_lang, 
+            toLang=to_lang,
+            original="%s" % tran[2],
+            definition="%s" % tran[3])
+        dj_translation.save()
 
 
 
