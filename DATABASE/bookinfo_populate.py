@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from books.models import BookInfo
 
 books = [

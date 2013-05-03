@@ -37,5 +37,5 @@ class Translations(models.Model):
 
 class UserDictionary(models.Model):
 	userID = models.CharField(max_length=2)
-	definitionID = models.CharField(max_length=2)
+	definitionID = models.IntegerField()
 
