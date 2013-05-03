@@ -1,14 +1,14 @@
 """
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
+these are tests for the books module
 """
 
-from django.test import TestCase
+#from django.test import TestCase
 
 
 class SimpleTest(TestCase):
+    '''
+    this is for testing the books
+    '''
     def test_basic_addition(self):
         """
         Tests that 1 + 1 always equals 2.

@@ -64,8 +64,8 @@
 
 <script>
 $(document).on("click", ".alert", function(e) {
-bootbox.confirm("Do you want to \"" + e.target.text + "\" word to your dictionary?!", function() {
-bootbox.alert(e.target.text);
+bootbox.confirm("Do you want to add the word \"" + e.target.text + "\" to your dictionary?!", function() {
+bootbox.alert(e.target.text + " has been added to your dictionary.");
 });
 });
 
