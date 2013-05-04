@@ -4,13 +4,13 @@
 
 {% block page1 %}
 {% dajaxice_js_import %}
-  <table style="vertical-align: top;">
+  <table id="left_table" style="vertical-align: top;">
     {% for word in text1 %}
       {% if word == "<p>" %}
         <tr><td align="{{ text1Dir }}" width=100% style="vertical-align: top; height:5em">
         {{ word }}
       {% elif word == "</p>" %}
-        {{word}}
+        {{ word }}
         </td></tr>
       {% else %}
         <a class="alert" 
@@ -36,13 +36,13 @@
 
 {% block page2 %}	
 {% dajaxice_js_import %}
-  <td><table style="vertical-align: top;">
+  <td><table id="right_table" style="vertical-align: top;">
     {% for word in text2 %}
       {% if word == "<p>" %}
         <tr><td align= "{{ text2Dir }}" width=100% style="vertical-align: top; height:5em">
         {{ word }}
-      {%elif word == "</p>" %}
-        {{word}}
+      {% elif word == "</p>" %}
+        {{ word }}
         </td></tr>
       {% else %}
         <a class="alert" 
