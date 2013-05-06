@@ -23,6 +23,8 @@ from bs4 import BeautifulSoup
 from ptext.views import strip_page
 from django import forms
 from django.utils.safestring import mark_safe
+from django.contrib.auth.models import User
+
 page = ""
 
 
@@ -64,7 +66,7 @@ class Texts(forms.Form):
     #class Texts end
 
 
-   
+
 #visual_dropdown = Texts(auto_id = False)
 #print visual_dropdown
 def get_page(page):
@@ -129,9 +131,14 @@ def pdisplay(request):
     page1 = strip_page(parse_html(path1))
     page2 = strip_page(parse_html(path2))
     form_test = Texts()
+
+    username = User.objects.get(username=request.user).username
+
     return render (request,
                    "ptext/popupDemo.html",
                    {'myTitle':'Demo', 'css_url':'parallel_display/popup.css',
                     'text1':page1, 'text2':page2,
                     'img_url':'parallel_display/Info.png',
-                    'text1Dir':'left',  'text2Dir':'right','form':form_test})
+                    'text1Dir':'left',  'text2Dir':'right','form':form_test,
+                    'username': username})
+
