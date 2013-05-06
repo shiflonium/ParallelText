@@ -40,11 +40,15 @@ class TestRegister(unittest.TestCase):
         This simulates the creation of a new user and verifies
         that it receives a successful url request
         """
-        request = self.factory.post('/register/', POST={
+        request = self.factory.post('/register/', {
             'username': 'dummyuser',
+            'email': 'dummyemail@example.com',
             'password1': 'dummypass',
             'password2': 'dummypass',
-            })
+            'first_name': 'dummyfirst',
+            'last_name': 'dummylast',
+            'native_lang': 'English',
+        })
         response = user_reg(request)
         self.assertEqual(response.status_code, 200)
 
@@ -77,10 +81,10 @@ class TestLogin(unittest.TestCase):
         This simulates the login of an existing user and
         verifies that it receives a successful url request
         """
-        request = self.factory.post('/login/', POST={
+        request = self.factory.post('/login/', {
             'username': 'dummyuser',
             'password': 'dummypass',
-            })
+        })
         response = user_auth(request)
         self.assertEqual(response.status_code, 200)
 
