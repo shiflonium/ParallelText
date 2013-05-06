@@ -9,6 +9,5 @@ def search(request):
     else:
         username = ''
 
-    username = User.objects.get(username=request.user).username
     return render(request, 'search/search.html', {'username': username})
 
