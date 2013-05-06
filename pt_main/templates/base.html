@@ -42,8 +42,6 @@
     <body data-spy="scroll" data-target=".bs-docs-sidebar"{% if onload %} onLoad="{{ onload }}"{% endif %}>
         {% include 'header.html' %} 
         <div class="container">
-            {% include 'mainnav.html' %}
-
             {% autoescape off %}
             {% block bodycontent %}
             {% endblock %}
