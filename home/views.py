@@ -13,6 +13,7 @@ def index(request):
                   {'include_css': 'home/home.css',
                    'include_js': 'home/slideshow.js',
                    'onload': 'playImage(\'slideImg\')',
+                   'homepage': True,
                    'username': username
                   })
 
