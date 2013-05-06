@@ -8,7 +8,11 @@ def index(request):
     """
     this method is responsible for drawing the homepage
     """
-    username = User.objects.get(username=request.user).username
+    if request.user.is_authenticated():
+        username = User.objects.get(username=request.user).username
+    else:
+        username = ''
+
     return render(request, 'home/index.html',
                   {'include_css': 'home/home.css',
                    'include_js': 'home/slideshow.js',

@@ -132,7 +132,10 @@ def pdisplay(request):
     page2 = strip_page(parse_html(path2))
     form_test = Texts()
 
-    username = User.objects.get(username=request.user).username
+    if request.user.is_authenticated():
+        username = User.objects.get(username=request.user).username
+    else:
+        username = ''
 
     return render (request,
                    "ptext/popupDemo.html",
