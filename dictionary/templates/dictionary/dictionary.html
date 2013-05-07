@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load customList %}
 {% block bodycontent %}
 
 <h2>Dictionary</h2>
@@ -16,11 +16,14 @@
             </form>
         </th>
     </tr>
+    {% for word in words %}
     <tr>
-        <td>word_1</td>
-        <td>definition of word_1 in native language</td>
-        <td>definition of word_1 in custom language</td>
+        <td>{{ words|get_original:forloop.counter0 }}</td>
+        <td>{{ words|get_definition:forloop.counter0 }}</td>
+        <td border="none"></td>
+        
     </tr>
+    {% endfor %}
 </table>
 
 {% endblock %}
