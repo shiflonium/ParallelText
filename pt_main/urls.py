@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^upload_confirm/', 'content_mgmt.views.upload_confirm'),
     url(r'^upload_fail/', 'content_mgmt.views.upload_fail'),
     url(r'^search/', 'search.views.search'),
+    url(r'^dictionary/', 'dictionary.views.viewdict'),
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
