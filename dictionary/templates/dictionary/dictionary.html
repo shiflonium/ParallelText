@@ -4,16 +4,17 @@
 
 <h2>Dictionary</h2>
 <div>
-    <form method="get">
-        <input type="text" name="lang">
-        <input type="submit" value="Submit">
-    </form>
 </div>
-<table>
+<table width="100%" border=1>
     <tr>
-        <th>Original Word</th>
-        <th>Definition (Native Language)</th>
-        <th>Definition (Custom Language)</th>
+        <th width="20%">Original Word</th>
+        <th width="40%">Definition (Native Language)</th>
+        <th width="40%">
+            <form method="GET" style="display:inline">
+                Dictionary (Language: {{ form.dict_lang }} )
+                <input type="submit" value="Submit">
+            </form>
+        </th>
     </tr>
     <tr>
         <td>word_1</td>
