@@ -81,7 +81,13 @@ $("a").popover();
 function my_callback(data) {
   if (data.result == true)
   {
-    bootbox.alert(data.word + " has been added to your dictionary.");
+    if (data.word == '|||'){
+      bootbox.alert("This word is already in your dictionary.");
+
+    }
+    else{
+      bootbox.alert(data.word + " has been added to your dictionary.");
+    }
   }
   else
   {

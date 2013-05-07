@@ -31,9 +31,20 @@ def insert_word(request, word):
 		#print "USERNAME:" + str(username)
 		#print "currentUser:" + str(currentUser)
 		#print 'currentWord:' + str(currentWord)
-        saved_definition = UserDictionary(
-        	userID=current_user.id, definitionID=current_word.definitionID)
-        saved_definition.save()
-        return simplejson.dumps({'result':auth, 'word':word})
+        
+        #Check if word exists in the user table
+        existence_check = UserDictionary.objects.filter(userID=current_user.id, definitionID=current_word.definitionID)
+
+        if (existence_check.count() == 0):
+            saved_definition = UserDictionary(
+            	userID=current_user.id, definitionID=current_word.definitionID)
+            saved_definition.save()
+
+            return simplejson.dumps({'result':auth, 'word':word})
+
+        else:
+            return simplejson.dumps({'result':auth, 'word':'|||'})
+
+        
     else:
         return simplejson.dumps({'result':auth})
