@@ -4,6 +4,8 @@ This renders the user's dictionary pages
 
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from languages.models import Languages
+from dictionary.forms import DictLangForm
 
 def viewdict(request):
     """
@@ -14,6 +16,9 @@ def viewdict(request):
     else:
         username = ''
 
-    return render(request, 'dictionary/dictionary.html', {'username': username})
+    form = DictLangForm(request.GET)
 
+    return render(request, 'dictionary/dictionary.html',
+            {'form': form,
+             'username': username})
 
