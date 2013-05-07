@@ -15,6 +15,7 @@ def viewdict(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     else:
+        username = User.objects.get(username=request.user).username
         form = DictLangForm(request.GET)
         return render(request, 'dictionary/dictionary.html',
                       {'form': form,
