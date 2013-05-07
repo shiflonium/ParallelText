@@ -2,6 +2,7 @@
 This renders the user's dictionary pages
 """
 
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from languages.models import Languages
@@ -11,14 +12,11 @@ def viewdict(request):
     """
     This show all words the user has saved in their dictionary.
     """
-    if request.user.is_authenticated():
-        username = User.objects.get(username=request.user).username
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
     else:
-        username = ''
-
-    form = DictLangForm(request.GET)
-
-    return render(request, 'dictionary/dictionary.html',
-            {'form': form,
-             'username': username})
+        form = DictLangForm(request.GET)
+        return render(request, 'dictionary/dictionary.html',
+                      {'form': form,
+                       'username': username})
 
