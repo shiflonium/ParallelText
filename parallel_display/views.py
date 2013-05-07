@@ -28,45 +28,74 @@ from django.contrib.auth.models import User
 page = ""
 
 
-left_lang = (
-        ("en","English"),
-        ("he","Hebrew"),
-        ("el","Greek"),
-        ("es","Spanish"),
+left_lang_g = (
+        ("en","English"),("la","Latin"),
+        ("he","Hebrew"),("ko","Korean"),
+        ("el","Greek"),("uk","Ukrainian"),
+        ("es","Spanish"),("th","Thai"),
         ("pt","Portuguese"),
         ("ru","Russian"),
         ("ar","Arabic"),
         )
 
-right_lang = (
-        ("en","English"),
-        ("he","Hebrew"),
-        ("el","Greek"),
-        ("es","Spanish"),
+right_lang_g = (
+        ("en","English"),("la","Latin"),
+        ("he","Hebrew"),("ko","Korean"),
+        ("el","Greek"),("uk","Ukrainian"),
+        ("es","Spanish"),("th","Thai"),
         ("pt","Portuguese"),
         ("ru","Russian"),
         ("ar","Arabic"),
         )
 
+left_lang_q = (
+        ("en","English"),("bs","Bosnian"),
+        ("he","Hebrew"),("de","German"),
+        ("el","Greek"),("fr","French"),("ms","Malay"),
+        ("es","Spanish"),("hr","Hungarian"),("pl","Polish"),
+        ("id","Indonisian"),("sw","Swahili"),("tr","Turkish"),
+        ("ru","Russian"),("it","Italian"),("zh","Chinese"),
+        ("ar","Arabic"),("ja","Japanese"),
+        )
+
+right_lang_q = (
+        ("en","English"),("bs","Bosnian"),
+        ("he","Hebrew"),("de","German"),
+        ("el","Greek"),("fr","French"),("ms","Malay"),
+        ("es","Spanish"),("hr","Hungarian"),("pl","Polish"),
+        ("id","Indonisian"),("sw","Swahili"),("tr","Turkish"),
+        ("ru","Russian"),("it","Italian"),("zh","Chinese"),
+        ("ar","Arabic"),("ja","Japanese"),
+        )
 
 
-class Search(forms.Form):
-    book_dd = forms.CharField(label="Search Book")
+
 
 class Texts(forms.Form):
     b=BookInfo.objects.filter(title="Quran")
     chap_num_str=b[0].chaps
     chap_num=int(chap_num_str)
     chap_choices=[]
-    for i in range (1,chap_num):
-        chap_choices.append(("ch_"+str(i),"Chapter "+str(i)))
+    for i in range (0,chap_num+1):
+        chap_choices.append(("ch_"+str(i+1),"Chapter "+str(i+1)))
     choices_final=tuple(chap_choices)
-    
-    chapter_dd = forms.ChoiceField(label = "Chapter",required=False,choices=choices_final)
-    right_lang_dd = forms.ChoiceField(label = "Right Language",choices=right_lang)
-    left_lang_dd = forms.ChoiceField(label = "Left Language",choices = left_lang)
-    search_field = forms.CharField(label = "Search Texts")
+    book_dd_q = "Quran"
+    chapter_dd_q = forms.ChoiceField(label = "Chapter",required=False,choices=choices_final)
+    right_lang_dd_q = forms.ChoiceField(label = "Right Language",choices=right_lang_q)
+    left_lang_dd_q = forms.ChoiceField(label = "Left Language",choices = left_lang_q)
+    #search_field_q = forms.CharField(label = "Search Texts")
     #class Texts end
+    g=BookInfo.objects.filter(title="Bible_Genesis")
+    chap_num_str_g=g[0].chaps
+    chap_num_g=int(chap_num_str_g)
+    chap_choices_g=[]
+    for k in range (0,chap_num_g):
+        chap_choices_g.append(("ch_"+str(k+1),"Chapter "+str(k+1)))
+    choices_final_g=tuple(chap_choices_g)
+    book_dd_g = "Genesis"
+    chapter_dd_g = forms.ChoiceField(label = "Chapter",required=False,choices=choices_final_g)
+    right_lang_dd_g = forms.ChoiceField(label = "Right Language",choices=right_lang_g)
+    left_lang_dd_g = forms.ChoiceField(label = "Left Language",choices = left_lang_g)
 
 
 
@@ -93,6 +122,8 @@ def parse_html(filepath):
     return p_tag_string
 
 
+
+
 def pdisplay(request):
     """
     This function takes the two texts, parses them both,
@@ -112,28 +143,38 @@ def pdisplay(request):
     to_lang = ""
     path1 = ""
     path2 = ""
+    right_header=''
+    left_header=''
 
 
 
-
-
-    if request.method == "POST":
+    form=Texts(request.POST)
+    if request.method == "POST" and form.is_valid():       
+        if "quran_submit" in request.POST:
+            
         #posted_form = Texts(request.POST)
-        book = request.POST["book_dd"]
-        print book
-        chapter = request.POST['chapter_dd']
-        from_lang = request.POST['left_lang_dd']
-        to_lang = request.POST['right_lang_dd']
-        path1 = "texts/"+book+"/"+from_lang.upper()+"/"+chapter+".html"
-        path2 = "texts/"+book+"/"+to_lang.upper()+"/"+chapter+".html"
-        print path1
+        #book = request.POST["book_dd"]
+            book="Quran"
+            chapter = request.POST['chapter_dd_q']
+            from_lang = request.POST['left_lang_dd_q']
+            to_lang = request.POST['right_lang_dd_q']
+            path1 = "texts/"+book+"/"+from_lang.upper()+"/"+chapter+".html"
+            path2 = "texts/"+book+"/"+to_lang.upper()+"/"+chapter+".html"
+        if "genesis_submit" in request.POST:
+            book="Bible_Genesis"
+            chapter = request.POST['chapter_dd_g']
+            from_lang = request.POST['left_lang_dd_g']
+            to_lang = request.POST['right_lang_dd_g']
+            path1 = "texts/"+book+"/"+from_lang.upper()+"/"+chapter+".html"
+            path2 = "texts/"+book+"/"+to_lang.upper()+"/"+chapter+".html"
+            
     else:
         path1 = "texts/Bible_Genesis/EN/ch_1.html"
         path2 = "texts/Bible_Genesis/HE/ch_1.html"
 
     page1 = strip_page(parse_html(path1))
     page2 = strip_page(parse_html(path2))
-    form_test = Search()
+    form_test = Texts()
 
     if request.user.is_authenticated():
         username = User.objects.get(username=request.user).username
@@ -146,5 +187,5 @@ def pdisplay(request):
                     'text1':page1, 'text2':page2,
                     'img_url':'parallel_display/Info.png',
                     'text1Dir':'left',  'text2Dir':'right','form':form_test,
-                    'username': username})
+                    'username': username,'right_header':right_header})
 
