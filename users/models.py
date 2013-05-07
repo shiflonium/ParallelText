@@ -14,4 +14,5 @@ class UserAccount(models.Model):
     user = models.ForeignKey(User, unique=True)
     is_contentmgr = models.BooleanField(default=False)
     native_lang = models.ForeignKey(Languages)
+    #learn_lang = models.ForeignKey(Languages)
 

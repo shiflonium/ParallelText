@@ -4,10 +4,8 @@ on the webpage. The register forms determines the requirements and behavior of
 the input fields presented to the user.
 """
 from django import forms
-#from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from users.models import UserAccount
-#from django.core.exceptions import ValidationError
 from languages.models import Languages
 
 class AccountCreateForm(UserCreationForm):
@@ -44,6 +42,12 @@ class AccountCreateForm(UserCreationForm):
         label = 'Native Language'
     )
 
+    #learn_lang = forms.ModelChoiceField(
+        #widget = forms.Select,
+        #queryset = Languages.objects.all(),
+        #label = 'Learning Language'
+    #)
+
     class Meta:
         """
         Model metadata used to identify attributes in POST data when submitting
@@ -62,6 +66,7 @@ class AccountCreateForm(UserCreationForm):
             'first_name',
             'last_name',
             'native_lang',
+            #'learn_lang',
         )
 
 
@@ -98,6 +103,12 @@ class AccountManageForm(forms.ModelForm):
         label = 'Native Language'
     )
 
+    #learn_lang = forms.ModelChoiceField(
+        #widget = forms.Select,
+        #queryset = Languages.objects.all(),
+        #label = 'Learning Language'
+    #)
+
     class Meta:
         """
         Model metadata used to identify attributes in POST data when submitting
@@ -113,6 +124,7 @@ class AccountManageForm(forms.ModelForm):
             'first_name',
             'last_name',
             'native_lang',
+            #'learn_lang',
         )
 
 
