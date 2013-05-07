@@ -50,6 +50,9 @@ right_lang = (
 
 
 
+class Search(forms.Form):
+    book_dd = forms.CharField(label="Search Book")
+
 class Texts(forms.Form):
     b=BookInfo.objects.filter(title="Quran")
     chap_num_str=b[0].chaps
@@ -58,7 +61,7 @@ class Texts(forms.Form):
     for i in range (1,chap_num):
         chap_choices.append(("ch_"+str(i),"Chapter "+str(i)))
     choices_final=tuple(chap_choices)
-    book_dd = forms.ModelChoiceField(empty_label="Select Book",label = "Book",queryset=(BookInfo.objects.all().values_list('title',flat=True)))
+    
     chapter_dd = forms.ChoiceField(label = "Chapter",required=False,choices=choices_final)
     right_lang_dd = forms.ChoiceField(label = "Right Language",choices=right_lang)
     left_lang_dd = forms.ChoiceField(label = "Left Language",choices = left_lang)
@@ -130,7 +133,7 @@ def pdisplay(request):
 
     page1 = strip_page(parse_html(path1))
     page2 = strip_page(parse_html(path2))
-    form_test = Texts()
+    form_test = Search()
 
     if request.user.is_authenticated():
         username = User.objects.get(username=request.user).username
