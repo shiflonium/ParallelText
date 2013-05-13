@@ -16,7 +16,10 @@ localhost/parallel_display/Bible_Genesis/ch_1/ENHE/
 
 """
 import re
-from books.models import BookInfo
+from books.models import BookInfo,BookTranslation
+from languages.models import Languages
+from parallel_display.forms import Book, Texts
+import re
 from django.shortcuts import render
 from django.core.context_processors import csrf
 from bs4 import BeautifulSoup
@@ -24,83 +27,10 @@ from ptext.views import strip_page
 from django import forms
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 
 page = ""
 
-
-left_lang_g = (
-        ("en","English"),("la","Latin"),
-        ("he","Hebrew"),("ko","Korean"),
-        ("el","Greek"),("uk","Ukrainian"),
-        ("es","Spanish"),("th","Thai"),
-        ("pt","Portuguese"),
-        ("ru","Russian"),
-        ("ar","Arabic"),
-        )
-
-right_lang_g = (
-        ("en","English"),("la","Latin"),
-        ("he","Hebrew"),("ko","Korean"),
-        ("el","Greek"),("uk","Ukrainian"),
-        ("es","Spanish"),("th","Thai"),
-        ("pt","Portuguese"),
-        ("ru","Russian"),
-        ("ar","Arabic"),
-        )
-
-left_lang_q = (
-        ("en","English"),("bs","Bosnian"),
-        ("he","Hebrew"),("de","German"),
-        ("el","Greek"),("fr","French"),("ms","Malay"),
-        ("es","Spanish"),("hr","Hungarian"),("pl","Polish"),
-        ("id","Indonisian"),("sw","Swahili"),("tr","Turkish"),
-        ("ru","Russian"),("it","Italian"),("zh","Chinese"),
-        ("ar","Arabic"),("ja","Japanese"),
-        )
-
-right_lang_q = (
-        ("en","English"),("bs","Bosnian"),
-        ("he","Hebrew"),("de","German"),
-        ("el","Greek"),("fr","French"),("ms","Malay"),
-        ("es","Spanish"),("hr","Hungarian"),("pl","Polish"),
-        ("id","Indonisian"),("sw","Swahili"),("tr","Turkish"),
-        ("ru","Russian"),("it","Italian"),("zh","Chinese"),
-        ("ar","Arabic"),("ja","Japanese"),
-        )
-
-
-
-
-class Texts(forms.Form):
-    b=BookInfo.objects.filter(title="Quran")
-    chap_num_str=b[0].chaps
-    chap_num=int(chap_num_str)
-    chap_choices=[]
-    for i in range (0,chap_num+1):
-        chap_choices.append(("ch_"+str(i+1),"Chapter "+str(i+1)))
-    choices_final=tuple(chap_choices)
-    book_dd_q = "Quran"
-    chapter_dd_q = forms.ChoiceField(label = "Chapter",required=False,choices=choices_final)
-    right_lang_dd_q = forms.ChoiceField(label = "Right Language",choices=right_lang_q)
-    left_lang_dd_q = forms.ChoiceField(label = "Left Language",choices = left_lang_q)
-    #search_field_q = forms.CharField(label = "Search Texts")
-    #class Texts end
-    g=BookInfo.objects.filter(title="Bible_Genesis")
-    chap_num_str_g=g[0].chaps
-    chap_num_g=int(chap_num_str_g)
-    chap_choices_g=[]
-    for k in range (0,chap_num_g):
-        chap_choices_g.append(("ch_"+str(k+1),"Chapter "+str(k+1)))
-    choices_final_g=tuple(chap_choices_g)
-    book_dd_g = "Genesis"
-    chapter_dd_g = forms.ChoiceField(label = "Chapter",required=False,choices=choices_final_g)
-    right_lang_dd_g = forms.ChoiceField(label = "Right Language",choices=right_lang_g)
-    left_lang_dd_g = forms.ChoiceField(label = "Left Language",choices = left_lang_g)
-
-
-
-#visual_dropdown = Texts(auto_id = False)
-#print visual_dropdown
 def get_page(page):
     """
     This function grabs the page and turns it into a
@@ -120,6 +50,30 @@ def parse_html(filepath):
     p_tag_list = re.findall('<p.*?</p>' , page , re.DOTALL)
     p_tag_string = "" . join(p_tag_list)
     return p_tag_string
+
+def selectBook(request):
+    book_list = []
+    selected_book = ""
+    form = Book(request.POST)
+    all_books = BookInfo.objects.all()
+    for book in all_books:
+        title= book.title
+        title_regex = re.sub("_", " ",title)
+        book_list.append((title,title_regex))
+    selects = tuple(book_list)
+    form.fields['book_dd'].choices = selects
+    if request.method == "POST":
+        selected_book = request.POST['book_dd']
+        return HttpResponseRedirect(selected_book)
+    return render(request,
+                   "parallel_display/select_book.html",{'form':form})
+
+def selectChapLang(request):
+    form = Texts()
+    chap_list = []
+    lang_list = []
+
+
 
 
 
@@ -145,32 +99,11 @@ def pdisplay(request):
     path2 = ""
     right_header=''
     left_header=''
+    form=Texts()
 
-
-
-    form=Texts(request.POST)
-    if request.method == "POST" and form.is_valid():       
-        if "quran_submit" in request.POST:
-            
-        #posted_form = Texts(request.POST)
-        #book = request.POST["book_dd"]
-            book="Quran"
-            chapter = request.POST['chapter_dd_q']
-            from_lang = request.POST['left_lang_dd_q']
-            to_lang = request.POST['right_lang_dd_q']
-            path1 = "texts/"+book+"/"+from_lang.upper()+"/"+chapter+".html"
-            path2 = "texts/"+book+"/"+to_lang.upper()+"/"+chapter+".html"
-        if "genesis_submit" in request.POST:
-            book="Bible_Genesis"
-            chapter = request.POST['chapter_dd_g']
-            from_lang = request.POST['left_lang_dd_g']
-            to_lang = request.POST['right_lang_dd_g']
-            path1 = "texts/"+book+"/"+from_lang.upper()+"/"+chapter+".html"
-            path2 = "texts/"+book+"/"+to_lang.upper()+"/"+chapter+".html"
-            
-    else:
-        path1 = "texts/Bible_Genesis/EN/ch_1.html"
-        path2 = "texts/Bible_Genesis/HE/ch_1.html"
+   
+    path1 = "texts/Bible_Genesis/EN/ch_1.html"
+    path2 = "texts/Bible_Genesis/HE/ch_1.html"
 
     page1 = strip_page(parse_html(path1))
     page2 = strip_page(parse_html(path2))
