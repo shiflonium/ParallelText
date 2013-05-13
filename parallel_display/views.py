@@ -20,15 +20,18 @@ from books.models import BookInfo,BookTranslation
 from languages.models import Languages
 from parallel_display.forms import Book, Texts
 import re
-from django.shortcuts import render
+import argparse
+from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse 
 from django.core.context_processors import csrf
 from bs4 import BeautifulSoup
 from ptext.views import strip_page
 from django import forms
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-
+from django.http import HttpResponseRedirect, HttpResponse
+import pdb 
+#pdb.set_trace()
 page = ""
 
 def get_page(page):
@@ -42,6 +45,10 @@ def get_page(page):
     soup = BeautifulSoup(open(page))
     return soup
 
+def selectLang(request,book_from_form):
+    #url = reverse('selectLang', args=(), kwargs={'book_from_form': selected_book})
+    return render(request,'parallel_display/select_lang.html')
+
 def parse_html(filepath):
     """parse_html takes an html file path and strips
     all tags from it besides <p> tags. the <p> tags are added
@@ -54,7 +61,8 @@ def parse_html(filepath):
 def selectBook(request):
     book_list = []
     selected_book = ""
-    form = Book(request.POST)
+    form = Book()
+    form2 = Texts()
     all_books = BookInfo.objects.all()
     for book in all_books:
         title= book.title
@@ -63,8 +71,9 @@ def selectBook(request):
     selects = tuple(book_list)
     form.fields['book_dd'].choices = selects
     if request.method == "POST":
-        selected_book = request.POST['book_dd']
-        return HttpResponseRedirect(selected_book)
+       selected_book = request.POST['book_dd']
+       return selectLang(request,selected_book)
+
     return render(request,
                    "parallel_display/select_book.html",{'form':form})
 
@@ -89,7 +98,6 @@ def pdisplay(request):
     Importantly, we must pass along information here about
     whether the text flows Right To Left or Left To Right
     """
-
     #GET variables initialization
     book = ""
     chapter = ""
@@ -100,15 +108,11 @@ def pdisplay(request):
     right_header=''
     left_header=''
     form=Texts()
-
-   
     path1 = "texts/Bible_Genesis/EN/ch_1.html"
     path2 = "texts/Bible_Genesis/HE/ch_1.html"
-
     page1 = strip_page(parse_html(path1))
     page2 = strip_page(parse_html(path2))
     form_test = Texts()
-
     if request.user.is_authenticated():
         username = User.objects.get(username=request.user).username
     else:
