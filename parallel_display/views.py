@@ -175,13 +175,8 @@ def select_book(request):
             chosen_chapter = chap_dict[final_chapter]
             right_lang_header = lang_dict[right]
             left_lang_header = lang_dict[left]
-
             text1_dir = det_text_dir(left)
             text2_dir = det_text_dir(right)
-
-            print text1_dir
-            print text2_dir
-
             if request.user.is_authenticated():
                 username = User.objects.get(username=request.user).username
             else:
