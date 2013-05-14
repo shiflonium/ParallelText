@@ -6,7 +6,7 @@ fields presented to the user.
 from django import forms
 
 class Texts(forms.Form):
-    chapter_dd = forms.ChoiceField(label = "Chapter",required=False)
+    chapter_dd = forms.ChoiceField(label = "Chapter")
     right_lang_dd = forms.ChoiceField(label = "Right Language")
     left_lang_dd = forms.ChoiceField(label = "Left Language")
 

@@ -57,36 +57,8 @@ def parse_html(filepath):
     p_tag_string = "" . join(p_tag_list)
     return p_tag_string
 
-
-def selectBook(request):
-    book_list = []
-    selected_book = ""
-    book_form = Book()
-    form2 = Texts()
-    all_books = BookInfo.objects.all()
-    for book in all_books:
-        title= book.title
-        title_regex = re.sub("_", " ",title)
-        book_list.append((title,title_regex))
-    selects = tuple(book_list)
-    book_form.fields['book_dd'].choices = selects
-    if request.method == "POST":
-        #lang_form = Texts()
-        selected_book = request.POST['book_dd']
-        #selectLang(request, selected_book, lang_form)
-        #request.session['book_temp'] == selected_book
-        return selectLang(request,selected_book)
-        
-        #return HttpResponseRedirect(reverse('parallel_display.views.selectLang', args=(selected_book,)))
-       #return reverse('selectLang', args=(), kwargs={'book_from_form': selected_book})
-
-
-    return render(request,
-                   "parallel_display/select_book.html",{'form':book_form})
-
-def selectLang(request,book_from_form):
+def selectLang(request,book_from_form,form):
     #url = reverse('selectLang', args=(), kwargs={'book_from_form': selected_book})
-    form = Texts()
     lang_choices = []
     chap_choices = []
     chap_num = BookInfo.objects.filter(title = book_from_form)
@@ -101,11 +73,75 @@ def selectLang(request,book_from_form):
     form.fields['chapter_dd'].choices = tuple(chap_choices)
     form.fields['right_lang_dd'].choices = tuple(lang_choices)
     form.fields['left_lang_dd'].choices = tuple(lang_choices)
-    #if request.method == 'POST':
-      #  if form.is_valid():
-      #      selected_chapter = form.cleaned_data["chapter_dd"]
-     #       print selected_chapter
-    return render(request,'parallel_display/select_lang.html',{'form':form})
+    
+def getLangName(book_name):
+    id_of_book= BookInfo.objects.filter(title = book_name)
+    all_translations = BookTranslation.objects.filter(book_id = int(id_of_book[0].id))
+    for tran in all_translations:
+        lang = tran.language_id
+        lang_name = lang.name
+        lang_abbr = lang.abbr
+        lang_choices.append((lang_abbr,lang_name))
+
+
+
+def selectBook(request):
+    book_list = []
+    selected_book = ""
+    book_form = Book()
+    lang_form = Texts()
+    jj=[]
+    #form2 = Texts()
+    all_books = BookInfo.objects.all()
+    for book in all_books:
+        title= book.title
+        title_regex = re.sub("_", " ",title)
+        book_list.append((title,title_regex))
+    selects = tuple(book_list)
+    book_form.fields['book_dd'].choices = selects
+    if request.method == "POST":
+        if "book_submit" in request.POST:
+            selected_book = request.POST['book_dd']
+            request.session['jj'] = selected_book
+            #print selected_book
+            selectLang(request,selected_book,lang_form)
+            #selectLang(request, selected_book, lang_form)
+            #request.session['book_temp'] == selected_book
+            book_title = re.sub("_", " ",selected_book)
+            return render(request,'parallel_display/select_lang.html',{'form':lang_form,'book_header':book_title})
+        if "chap_lang_submit" in request.POST:
+            final_book = request.session.get('jj')
+            #print lang_form.data['chapter_dd']
+            print jj
+            final_chapter = request.POST['chapter_dd']
+            right = request.POST['right_lang_dd']
+            left = request.POST['left_lang_dd']
+            print selected_book
+            path_right = "texts/%s/%s/%s.html" % (final_book, right.upper(), final_chapter)
+            path_left = "texts/%s/%s/%s.html" % (final_book, left.upper(), final_chapter)
+            page1 = strip_page(parse_html(path_right))
+            page2 = strip_page(parse_html(path_left))
+            if request.user.is_authenticated():
+                username = User.objects.get(username=request.user).username
+            else:
+                username = ''
+            return render (request,
+                   "ptext/popupDemo.html",
+                   {'myTitle':'Demo', 'css_url':'parallel_display/popup.css',
+                    'text1':page1, 'text2':page2,
+                    'img_url':'parallel_display/Info.png',
+                    'text1Dir':'left',  'text2Dir':'right',
+                    'username': username})
+
+        
+        #return HttpResponseRedirect(reverse('parallel_display.views.selectLang', args=(selected_book,)))
+       #return reverse('selectLang', args=(), kwargs={'book_from_form': selected_book})
+
+
+    return render(request,
+                   "parallel_display/select_book.html",{'form':book_form})
+
+
 
 def selectChapLang(request):
     form = Texts()

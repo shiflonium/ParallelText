@@ -8,18 +8,8 @@
 				{% csrf_token %}
 			<table>
 				<tr>
-					<td> <!-- {{form.book_dd.label}} -->{{form.book_dd_q}} </td>
-					<td>  <!-- {{form.chapter_dd_q.label}} --> {{form.chapter_dd_q}} </td>
-					<td>  {{form.left_lang_dd_q.label}}{{form.left_lang_dd_q}} </td>
-					<td>  {{form.right_lang_dd_q.label}}{{form.right_lang_dd_q}} </td>
-					<td><input type="submit" value="Submit" name="quran_submit"></td>
 				</tr>
                 <tr>
-                    <td> <!-- {{form.book_dd.label}} -->{{form.book_dd_g}} </td>
-                    <td>  <!-- {{form.chapter_dd_g.label}} --> {{form.chapter_dd_g}} </td>
-                    <td>  {{form.left_lang_dd_g.label}}{{form.left_lang_dd_g}} </td>
-                    <td>  {{form.right_lang_dd_g.label}}{{form.right_lang_dd_g}} </td>
-                    <td><input type="submit" value="Submit" name="genesis_submit"></td>
                 </tr>
 			</table>
 		</form>
