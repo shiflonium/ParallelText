@@ -20,8 +20,9 @@ from books.models import BookInfo,BookTranslation
 from languages.models import Languages
 from parallel_display.forms import Book, Texts
 import re
+from django.views.generic import TemplateView
 import argparse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.core.urlresolvers import reverse 
 from django.core.context_processors import csrf
 from bs4 import BeautifulSoup
@@ -45,9 +46,7 @@ def get_page(page):
     soup = BeautifulSoup(open(page))
     return soup
 
-def selectLang(request,book_from_form):
-    #url = reverse('selectLang', args=(), kwargs={'book_from_form': selected_book})
-    return render(request,'parallel_display/select_lang.html')
+
 
 def parse_html(filepath):
     """parse_html takes an html file path and strips
@@ -58,10 +57,11 @@ def parse_html(filepath):
     p_tag_string = "" . join(p_tag_list)
     return p_tag_string
 
+
 def selectBook(request):
     book_list = []
     selected_book = ""
-    form = Book()
+    book_form = Book()
     form2 = Texts()
     all_books = BookInfo.objects.all()
     for book in all_books:
@@ -69,13 +69,43 @@ def selectBook(request):
         title_regex = re.sub("_", " ",title)
         book_list.append((title,title_regex))
     selects = tuple(book_list)
-    form.fields['book_dd'].choices = selects
+    book_form.fields['book_dd'].choices = selects
     if request.method == "POST":
-       selected_book = request.POST['book_dd']
-       return selectLang(request,selected_book)
+        #lang_form = Texts()
+        selected_book = request.POST['book_dd']
+        #selectLang(request, selected_book, lang_form)
+        #request.session['book_temp'] == selected_book
+        return selectLang(request,selected_book)
+        
+        #return HttpResponseRedirect(reverse('parallel_display.views.selectLang', args=(selected_book,)))
+       #return reverse('selectLang', args=(), kwargs={'book_from_form': selected_book})
+
 
     return render(request,
-                   "parallel_display/select_book.html",{'form':form})
+                   "parallel_display/select_book.html",{'form':book_form})
+
+def selectLang(request,book_from_form):
+    #url = reverse('selectLang', args=(), kwargs={'book_from_form': selected_book})
+    form = Texts()
+    lang_choices = []
+    chap_choices = []
+    chap_num = BookInfo.objects.filter(title = book_from_form)
+    all_translations = BookTranslation.objects.filter(book_id = int(chap_num[0].id))
+    for i in range(0,int(chap_num[0].chaps)):
+        chap_choices.append(("ch_"+str(i+1),"Chapter "+str(i+1)))
+    for tran in all_translations:
+        lang = tran.language_id
+        lang_name = lang.name
+        lang_abbr = lang.abbr
+        lang_choices.append((lang_abbr,lang_name))
+    form.fields['chapter_dd'].choices = tuple(chap_choices)
+    form.fields['right_lang_dd'].choices = tuple(lang_choices)
+    form.fields['left_lang_dd'].choices = tuple(lang_choices)
+    #if request.method == 'POST':
+      #  if form.is_valid():
+      #      selected_chapter = form.cleaned_data["chapter_dd"]
+     #       print selected_chapter
+    return render(request,'parallel_display/select_lang.html',{'form':form})
 
 def selectChapLang(request):
     form = Texts()
@@ -87,7 +117,7 @@ def selectChapLang(request):
 
 
 
-def pdisplay(request):
+def pdisplay(request, final_book, chap, right, left):
     """
     This function takes the two texts, parses them both,
     and inserts them into the right and left windows.
@@ -98,21 +128,25 @@ def pdisplay(request):
     Importantly, we must pass along information here about
     whether the text flows Right To Left or Left To Right
     """
+
+
     #GET variables initialization
-    book = ""
-    chapter = ""
-    from_lang = ""
-    to_lang = ""
-    path1 = ""
-    path2 = ""
-    right_header=''
-    left_header=''
-    form=Texts()
-    path1 = "texts/Bible_Genesis/EN/ch_1.html"
-    path2 = "texts/Bible_Genesis/HE/ch_1.html"
-    page1 = strip_page(parse_html(path1))
-    page2 = strip_page(parse_html(path2))
-    form_test = Texts()
+    #book = ""
+    #chapter = ""
+    #from_lang = ""
+    #to_lang = ""
+    #path1 = ""
+    #path2 = ""
+    #right_header=''
+    #left_header=''
+    #form=Texts()
+    #path1 = "texts/Bible_Genesis/EN/ch_1.html"
+    path_right = "texts/book/right/chap.html"
+    #path2 = "texts/Bible_Genesis/HE/ch_1.html"
+    path_left = "texts/book/left/chap.html"
+    page1 = strip_page(parse_html(path_right))
+    page2 = strip_page(parse_html(path_left))
+    #form_test = Texts()
     if request.user.is_authenticated():
         username = User.objects.get(username=request.user).username
     else:
@@ -123,6 +157,6 @@ def pdisplay(request):
                    {'myTitle':'Demo', 'css_url':'parallel_display/popup.css',
                     'text1':page1, 'text2':page2,
                     'img_url':'parallel_display/Info.png',
-                    'text1Dir':'left',  'text2Dir':'right','form':form_test,
+                    'text1Dir':'left',  'text2Dir':'right',
                     'username': username,'right_header':right_header})
 
