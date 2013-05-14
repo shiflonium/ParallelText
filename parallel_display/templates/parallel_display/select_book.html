@@ -1,0 +1,18 @@
+    {% extends 'base.html' %}
+
+    {% autoescape off %}
+    {% block bodycontent %}
+        <h3 style="color:DarkMagenta;">Select Books</h3>   
+	<div>
+		<form method='post' action="/parallel_display/bbb">
+				{% csrf_token %}
+			<table>
+				<tr>
+					<td> {{form.book_dd.label}}{{form.book_dd}} </td>
+					<td><input type="submit" value="Submit Book" name="book_submit"></td>
+				</tr>
+			</table>
+		</form>
+	</div> 
+    {% endblock %}
+    {% endautoescape %}
