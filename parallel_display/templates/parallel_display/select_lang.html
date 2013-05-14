@@ -6,8 +6,6 @@
 	<div>
 		<form method='post' action="">
 				{% csrf_token %}
-				{{ form.errors }}
-{{ form.non_field_errors }}
 			<table>
 				<tr>
 					<td> {{form.chapter_dd.label}}{{form.chapter_dd}}</td>

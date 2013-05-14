@@ -4,27 +4,14 @@
     {% block bodycontent %}
         <h3 style="color:DarkMagenta;">Reading Books</h3>   
 	<div>
-		<form method='post' action="">
-				{% csrf_token %}
-			<table>
-				<tr>
-				</tr>
-                <tr>
-                </tr>
-			</table>
-		</form>
-	</div> 
-	<div>
         <table border="2" width="100%" style="vertical-align: top;">
-            <tr>
+            <tr> 
                 <td style="width:50%">
                     <div class="scroll">
                         {% block page1 %}
                         {% endblock %}
                     </div>
                 </td>
-                
-                
                 <td>
                     <div class="scroll">
                         {% block page2 %}
