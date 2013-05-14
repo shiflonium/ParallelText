@@ -39,6 +39,17 @@ def get_page(page):
     soup = BeautifulSoup(open(page))
     return soup
 
+def det_text_dir(language):
+    """
+    this function is a helper function to determine 
+    text direction depending on the selected language 
+    in the parallel display
+    """
+    right_dir_lang = ['he','ar']
+    if language.lower() in right_dir_lang:
+        return 'right'
+    else:
+        return 'left'
 
 
 def parse_html(filepath):
@@ -94,6 +105,26 @@ def get_lang_name(book_name): #for future generation of language headers
     lang_dictionary = dict((x, y) for x, y in lang_tuple)
     return lang_dictionary
 
+def get_chap_name(book_name):
+
+    """
+    this function is a helper function to create a dictionary
+    of chapters and their chapter values from dropdown. we are going to use this function
+    for generating headers for our parallel display
+    this function returns a dictionary
+    """
+
+    chap_choices = []
+    chap_num = BookInfo.objects.filter(title = book_name)
+    all_translations = BookTranslation.objects.filter(
+        book_id = int(chap_num[0].id))
+    for i in range(0, int(chap_num[0].chaps)):
+        chap_choices.append(("ch_" + str(i + 1), "Chapter " + str(i + 1)))
+    chap_tuple = tuple(chap_choices)
+    chap_dictionary = dict((x, y) for x, y in chap_tuple)
+    return chap_dictionary
+
+
 
 def select_book(request):
 
@@ -136,22 +167,32 @@ def select_book(request):
             right.upper(), final_chapter)
             path_left = "texts/%s/%s/%s.html" % (final_book,
                 left.upper(), final_chapter)
-            page1 = strip_page(parse_html(path_right))
-            page2 = strip_page(parse_html(path_left))
-            #lang_dict = get_lang_name(final_book) 
-            #right_lang_header = lang_dict[right]
-            #left_lang_header = lang_dict[left]
+            right_page = strip_page(parse_html(path_right))
+            left_page = strip_page(parse_html(path_left))
+            lang_dict = get_lang_name(final_book) 
+            chap_dict = get_chap_name(final_book)
+            chosen_book = re.sub("_", " ", final_book)
+            chosen_chapter = chap_dict[final_chapter]
+            right_lang_header = lang_dict[right]
+            left_lang_header = lang_dict[left]
+
+            text1_dir = det_text_dir(left)
+            text2_dir = det_text_dir(right)
+
+            print text1_dir
+            print text2_dir
+
             if request.user.is_authenticated():
                 username = User.objects.get(username=request.user).username
             else:
                 username = ''
             return render (request,
-                   "ptext/popupDemo.html",
-                   {'myTitle':'Demo', 'css_url':'parallel_display/popup.css',
-                    'text1':page1, 'text2':page2,
-                    'img_url':'parallel_display/Info.png',
-                    'text1Dir':'left',  'text2Dir':'right',
-                    'username': username})
+            "ptext/popupDemo.html",
+            {'myTitle':'Demo', 'css_url':'parallel_display/popup.css',
+            'chosen_chapter':chosen_chapter, 'text1':left_page, 'text2':right_page,
+            'img_url':'parallel_display/Info.png','chosen_book':chosen_book,
+            'text1Dir':text1_dir, 'text2Dir':text2_dir, 'left_lang':left_lang_header,
+            'username': username, 'right_lang':right_lang_header})
     return render(request,
                    "parallel_display/select_book.html", {'form':book_form})
 
