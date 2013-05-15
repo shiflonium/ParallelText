@@ -80,11 +80,11 @@ class TestPDSearch(unittest.TestCase):
         selecting its available language and store those in a list. 
         after that we compare it with the actual number of languages
         we get from the dropdown which was populated from the database"""
+        
         error_msg = """
         you have a different number of languages for the selected book
         in your dropdown than in your database
         """
-
         lang_choices = []
         browser = mechanize.Browser()
         url = 'http://parallel-text.herokuapp.com/parallel_display/'
