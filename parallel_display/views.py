@@ -17,7 +17,6 @@ localhost/parallel_display/Bible_Genesis/ch_1/ENHE/
 """
 import re
 from books.models import BookInfo, BookTranslation
-from languages.models import Languages
 from parallel_display.forms import Book, Texts
 from django.shortcuts import render 
 from django.core.context_processors import csrf
@@ -26,8 +25,6 @@ from ptext.views import strip_page
 from django import forms
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
-
-page = ""
 
 def get_page(page):
     """
@@ -62,7 +59,7 @@ def parse_html(filepath):
     p_tag_string = "" . join(p_tag_list)
     return p_tag_string
 
-def selectLang(book_from_form, form):
+def select_lang(book_from_form, form):
     
     """
     This function is a helper function to populate our language and chapters form
@@ -117,8 +114,6 @@ def get_chap_name(book_name):
 
     chap_choices = []
     chap_num = BookInfo.objects.filter(title = book_name)
-    all_translations = BookTranslation.objects.filter(
-        book_id = int(chap_num[0].id))
     for i in range(0, int(chap_num[0].chaps)):
         chap_choices.append(("ch_" + str(i + 1), "Chapter " + str(i + 1)))
     chap_tuple = tuple(chap_choices)
@@ -154,7 +149,7 @@ def select_book(request):
         if "book_submit" in request.POST:
             selected_book = request.POST['book_dd']
             request.session['saved_book_name'] = selected_book
-            selectLang(selected_book, lang_form)
+            select_lang(selected_book, lang_form)
             book_title = re.sub("_", " ", selected_book)
             return render(request, 'parallel_display/select_lang.html',
             {'form':lang_form, 'book_header':book_title})
@@ -183,11 +178,11 @@ def select_book(request):
                 username = ''
             return render (request,
             "ptext/popupDemo.html",
-            {'myTitle':'Demo', 'css_url':'parallel_display/popup.css',
-            'chosen_chapter':chosen_chapter, 'text1':left_page, 'text2':right_page,
-            'img_url':'parallel_display/Info.png','chosen_book':chosen_book,
-            'text1Dir':text1_dir, 'text2Dir':text2_dir, 'left_lang':left_lang_header,
-            'username': username, 'right_lang':right_lang_header})
+    {'myTitle':'Demo', 'css_url':'parallel_display/popup.css',
+    'chosen_chapter':chosen_chapter, 'text1':left_page, 'text2':right_page,
+    'img_url':'parallel_display/Info.png','chosen_book':chosen_book,
+    'text1Dir':text1_dir, 'text2Dir':text2_dir, 'left_lang':left_lang_header,
+    'username': username, 'right_lang':right_lang_header})
     return render(request,
                    "parallel_display/select_book.html", {'form':book_form})
 
