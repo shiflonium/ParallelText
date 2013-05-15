@@ -17,14 +17,14 @@ from  books.models import BookInfo, BookTranslation
 
 class TestPDSearch(unittest.TestCase):
     '''
-    This class designed to test the search module inside parallel_display.
+    This class designed to test the search module (serach bar) inside parallel_display.
     '''
     def setUp(self):
         '''
         This sets up the test of the select book dropdown
         '''
         self.html = BeautifulSoup(urllib2.urlopen (
-            'http://127.0.0.1:8000/parallel_display/').read())
+            'http://parallel-text.herokuapp.com/parallel_display/').read())
 
 
     def test_book_dropdown(self):
@@ -46,8 +46,11 @@ class TestPDSearch(unittest.TestCase):
             self.assertTrue(flag, error)
 
     def test_chap_form(self):
-        """this is a unti test for the chapters dropdown to
-        check that it is populated with the correct amount of chapters"""
+        """this is a unit test for the chapters dropdown to
+        check that it is populated with the correct amount of chapters this
+        can be done by comapring the number of chapters in the db book_for
+        the selected book and then, comaring it with the actual number of
+        chapters in the chapters' dropdown"""
 
         error_msg = """
         you have a different number of chapters
@@ -55,7 +58,7 @@ class TestPDSearch(unittest.TestCase):
         """
         books_from_db = BookInfo.objects.values_list('chaps', flat = True)
         browser = mechanize.Browser()
-        url = 'http://127.0.0.1:8000/parallel_display/'
+        url = 'http://parallel-text.herokuapp.com/parallel_display/'
         browser.open(url)
         browser.select_form(name = 'book_form')
         browser.submit()
@@ -68,10 +71,10 @@ class TestPDSearch(unittest.TestCase):
         int_chap_db = int(books_from_db[0])
         self.assertEqual(int_chap_db, int_chap_dd, error_msg)
 
-        	
+            
 
     def test_left_lang_form(self):
-        """this is a unti test for the available left side languages dropdown
+        """this is a unit test for the available left side languages dropdown
         to check that it is populated with the correct amount of languages
         this can be done by selecting a book from the database and then 
         selecting its available language and store those in a list. 
@@ -83,9 +86,8 @@ class TestPDSearch(unittest.TestCase):
         """
 
         lang_choices = []
-        #books_from_db = BookInfo.objects.values_list('chaps', flat = True)
         browser = mechanize.Browser()
-        url = 'http://127.0.0.1:8000/parallel_display/'
+        url = 'http://parallel-text.herokuapp.com/parallel_display/'
         browser.open(url)
         browser.select_form(name = 'book_form')
         selected_book = str(browser.form['book_dd'][0])
@@ -105,21 +107,20 @@ class TestPDSearch(unittest.TestCase):
         self.assertEqual(len(num_of_langs), len(lang_choices), error_msg)
 
     def test_right_lang_form(self):
-        """this is a unti test for the available right side languages dropdown
+        """this is a unit test for the available right side languages dropdown
         to check that it is populated with the correct amount of languages
         this can be done by selecting a book from the database and then 
         selecting its available language and store those in a list. 
         after that we compare it with the actual number of languages
         we get from the dropdown which was populated from the database"""
+        
         lang_choices = []
         error_msg = """
         you have a different number of languages for the selected book
         in your dropdown than in your database
         """
-       
-        #books_from_db = BookInfo.objects.values_list('chaps', flat = True)
         browser = mechanize.Browser()
-        url = 'http://127.0.0.1:8000/parallel_display/'
+        url = 'http://parallel-text.herokuapp.com/parallel_display/'
         browser.open(url)
         browser.select_form(name = 'book_form')
         selected_book = str(browser.form['book_dd'][0])
