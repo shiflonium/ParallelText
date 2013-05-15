@@ -3,113 +3,25 @@ F: 11,0: Unable to import 'home.views'
 C: 18,4:TestIndex.setUp: Invalid name "setUp" for type method (should match [a-z_][a-z0-9_]{2,30}$)
 R: 14,0:TestIndex: Too many public methods (46/20)
 ************* Module settings
-C: 20,0: Line too long (108/80)
-C: 21,0: Line too long (99/80)
-C: 25,0: Line too long (106/80)
-C:119,0: Line too long (88/80)
-C:  6,0: Invalid name "dirname" for type constant (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+C: 20,0: Line too long (120/80)
+C: 23,0: Line too long (101/80)
+C: 27,0: Line too long (115/80)
+C:127,0: Line too long (88/80)
+C:179,0: Operator not preceded by a space
+DEBUG=True
+     ^
 ************* Module urls
-C: 10,0: Invalid name "urlpatterns" for type constant (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+C: 41,0: Line too long (101/80)
+C: 42,0: Line too long (99/80)
+F:  9,0: Unable to import 'dajaxice.core'
+C: 14,0: Invalid name "urlpatterns" for type constant (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
 ************* Module wsgi
-C: 28,0: Invalid name "application" for type constant (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+C: 29,0: Invalid name "application" for type constant (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
 
 
 Report
 ======
-56 statements analysed.
-
-Messages by category
---------------------
-
-+-----------+-------+---------+-----------+
-|type       |number |previous |difference |
-+===========+=======+=========+===========+
-|convention |8      |8        |=          |
-+-----------+-------+---------+-----------+
-|refactor   |1      |1        |=          |
-+-----------+-------+---------+-----------+
-|warning    |0      |0        |=          |
-+-----------+-------+---------+-----------+
-|error      |0      |0        |=          |
-+-----------+-------+---------+-----------+
-
-
-
-Messages
---------
-
-+-----------+------------+
-|message id |occurrences |
-+===========+============+
-|C0301      |4           |
-+-----------+------------+
-|C0103      |4           |
-+-----------+------------+
-|R0904      |1           |
-+-----------+------------+
-|F0401      |1           |
-+-----------+------------+
-
-
-
-Global evaluation
------------------
-Your code has been rated at 8.39/10 (previous run: 8.39/10)
-
-Duplication
------------
-
-+-------------------------+------+---------+-----------+
-|                         |now   |previous |difference |
-+=========================+======+=========+===========+
-|nb duplicated lines      |0     |0        |=          |
-+-------------------------+------+---------+-----------+
-|percent duplicated lines |0.000 |0.000    |=          |
-+-------------------------+------+---------+-----------+
-
-
-
-External dependencies
----------------------
-::
-
-    django 
-      \-conf 
-      | \-urls 
-      |   \-include (urls)
-      |   \-patterns (urls)
-      |   \-url (urls)
-      \-contrib 
-      | \-admin (urls)
-      \-core 
-      | \-management 
-      | | \-execute_from_command_line (manage)
-      | \-wsgi 
-      |   \-get_wsgi_application (wsgi)
-      \-shortcuts 
-      | \-render (views)
-      \-test 
-        \-client 
-          \-RequestFactory (tests)
-
-
-
-Raw metrics
------------
-
-+----------+-------+------+---------+-----------+
-|type      |number |%     |previous |difference |
-+==========+=======+======+=========+===========+
-|code      |84     |29.17 |84       |=          |
-+----------+-------+------+---------+-----------+
-|docstring |106    |36.81 |106      |=          |
-+----------+-------+------+---------+-----------+
-|comment   |75     |26.04 |75       |=          |
-+----------+-------+------+---------+-----------+
-|empty     |23     |7.99  |23       |=          |
-+----------+-------+------+---------+-----------+
-
-
+67 statements analysed.
 
 Statistics by type
 ------------------
@@ -127,4 +39,103 @@ Statistics by type
 +---------+-------+-----------+-----------+------------+---------+
 
 
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |109    |31.41 |109      |=          |
++----------+-------+------+---------+-----------+
+|docstring |125    |36.02 |125      |=          |
++----------+-------+------+---------+-----------+
+|comment   |84     |24.21 |84       |=          |
++----------+-------+------+---------+-----------+
+|empty     |29     |8.36  |29       |=          |
++----------+-------+------+---------+-----------+
+
+
+
+External dependencies
+---------------------
+::
+
+    django 
+      \-conf 
+      | \-settings (urls)
+      | \-urls 
+      |   \-include (urls)
+      |   \-patterns (urls)
+      |   \-url (urls)
+      \-contrib 
+      | \-admin (urls)
+      | \-auth 
+      |   \-models 
+      |     \-User (views)
+      \-core 
+      | \-management 
+      | | \-execute_from_command_line (manage)
+      | \-wsgi 
+      |   \-get_wsgi_application (wsgi)
+      \-shortcuts 
+      | \-render (views)
+      \-test 
+        \-client 
+          \-RequestFactory (tests)
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |=          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |10     |10       |=          |
++-----------+-------+---------+-----------+
+|refactor   |1      |1        |=          |
++-----------+-------+---------+-----------+
+|warning    |0      |0        |=          |
++-----------+-------+---------+-----------+
+|error      |0      |0        |=          |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------+------------+
+|message id |occurrences |
++===========+============+
+|C0301      |6           |
++-----------+------------+
+|C0103      |3           |
++-----------+------------+
+|F0401      |2           |
++-----------+------------+
+|R0904      |1           |
++-----------+------------+
+|C0322      |1           |
++-----------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 8.36/10 (previous run: 8.36/10)
 
