@@ -4,7 +4,7 @@
     {% block bodycontent %}
         <h3 style="color:DarkMagenta;">{{book_header}}: Select Chapter and Language</h3>   
 	<div>
-		<form method='post' action="">
+		<form method='post' action="", name = "lang_form">
 				{% csrf_token %}
 			<table>
 				<tr>
