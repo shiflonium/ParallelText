@@ -1,5 +1,5 @@
 """
-This is the init for the popup demo
-this entire module should be destroyed 
-and integrated into the parallel display
+This is the init for the popup.
+Initialize customList and enables the ability
+to send a dictionary to django templates
 """

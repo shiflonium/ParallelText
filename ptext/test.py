@@ -22,11 +22,10 @@ class TestPText(unittest.TestCase):
         This sets up the test of thepopups
         '''
         self.driver = webdriver.Firefox()
-        #self.base_url = "http://parallel-text.herokuapp.com" #"http://127.0.0.1:8000"
+        #self.base_url = "http://parallel-text.herokuapp.com"
         self.base_url = "http://127.0.0.1:8000"
-        self.verificationErrors = []
         self.accept_next_alert = True
-        #self.html = ""
+
         #Getting the source code
         driver = self.driver
         driver.get(self.base_url + "/")
@@ -59,8 +58,11 @@ class TestPText(unittest.TestCase):
         This test checks if the content has 2 tables
         '''
 
-        num_of_tables = re.findall(r"<table.*?/table>",self.html.encode('utf-8'),re.DOTALL)
-        self.assertEqual(2, len(num_of_tables), "The content doesn't have 2 tables." )
+        num_of_tables = re.findall(
+            r"<table.*?/table>",self.html.encode('utf-8'),re.DOTALL)
+        
+        self.assertEqual(2, 
+            len(num_of_tables), "The content doesn't have 2 tables." )
 
     def test_num_paragraphs_left(self):
         '''
@@ -124,7 +126,7 @@ class TestPText(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
-        self.assertEqual([], self.verificationErrors)
+        
 
 
 if __name__ ==  '__main__':
