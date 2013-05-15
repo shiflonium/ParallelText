@@ -15,6 +15,7 @@ def viewdict(request):
     """
     This show all words the user has saved in their dictionary.
     """
+    import pdb; pdb.set_trace()
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     else:

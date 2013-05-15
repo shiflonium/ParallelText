@@ -67,7 +67,7 @@
 
 <script>
 $(document).on("click", ".alert", function(e) {
-bootbox.confirm("Do you want to add the word \"" + e.target.text + "\" to your dictionary?!", function(yesNo) {
+bootbox.confirm("Do you want to add the word \"" + e.target.text + "\" to your dictionary?", function(yesNo) {
   if (yesNo){
       Dajaxice.parallel_display.insert_word(my_callback,{"word":e.target.text});
     }

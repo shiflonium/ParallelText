@@ -16,8 +16,11 @@ book_translations = [
     ["Bible_Genesis", "zh"],
     ["Bible_Genesis", "en"],
 
+    ["Quran", "ar"],
     ["Quran", "bs"],
     ["Quran", "de"],
+    ["Quran", "en"],
+    ["Quran", "es"],
     ["Quran", "fr"],
     ["Quran", "hr"],
     ["Quran", "id"],
@@ -27,6 +30,8 @@ book_translations = [
     ["Quran", "pl"],
     ["Quran", "sw"],
     ["Quran", "tr"],
+    ["Quran", "zh"],
+
 
     ]
 
