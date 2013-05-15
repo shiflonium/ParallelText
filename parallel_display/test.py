@@ -6,7 +6,7 @@ import urllib2
 from bs4 import BeautifulSoup
 import os, sys
 import re
-import mechanize
+from mechanize import Browser
 sys.path.append('/home/2bz2/Desktop/pdisplay/paralleltext')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'pt_main.settings'
 from  books.models import BookInfo, BookTranslation
@@ -57,7 +57,7 @@ class TestPDSearch(unittest.TestCase):
         in your dropdown than in your database
         """
         books_from_db = BookInfo.objects.values_list('chaps', flat = True)
-        browser = mechanize.Browser()
+        browser = Browser()
         url = 'http://parallel-text.herokuapp.com/parallel_display/'
         browser.open(url)
         browser.select_form(name = 'book_form')
@@ -86,7 +86,7 @@ class TestPDSearch(unittest.TestCase):
         in your dropdown than in your database
         """
         lang_choices = []
-        browser = mechanize.Browser()
+        browser = Browser()
         url = 'http://parallel-text.herokuapp.com/parallel_display/'
         browser.open(url)
         browser.select_form(name = 'book_form')
@@ -119,7 +119,7 @@ class TestPDSearch(unittest.TestCase):
         you have a different number of languages for the selected book
         in your dropdown than in your database
         """
-        browser = mechanize.Browser()
+        browser = Browser()
         url = 'http://parallel-text.herokuapp.com/parallel_display/'
         browser.open(url)
         browser.select_form(name = 'book_form')

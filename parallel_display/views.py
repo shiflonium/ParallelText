@@ -4,26 +4,27 @@
 This file is responsible for taking the two texts and
 displaying them in a parallel layout.
 
-We need to generalize this function to take any two texts
+an example would be 
 
 localhost/parallel_display/Bible_Genesis/ch_1/ENHE/
-
-    (1) ENHE is separated into "EN" and "HE"
-    (2) We then look in
+    (1) Bible_Genesis is the selected book
+    (2) ch_1 is the selected chapter for reading
+    (2) ENHE is separated into "EN" and "HE"
+    (3) We then look in
 
     .. (a) localhost/texts/Bible_Genesis/EN/ch_1.html for the left text
     .. (b) localhost/texts/Bible_Genesis/HE/ch_1.html for the right text
+
+    after we obtain the 2 texts we load each text to a table and make
+    sure it is diaplyed in parallel mode
 
 """
 import re
 from books.models import BookInfo, BookTranslation
 from parallel_display.forms import Book, Texts
 from django.shortcuts import render 
-from django.core.context_processors import csrf
 from bs4 import BeautifulSoup
 from ptext.views import strip_page
-from django import forms
-from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 
 def get_page(page):
