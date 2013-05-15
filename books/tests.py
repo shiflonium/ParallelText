@@ -2,7 +2,7 @@
 these are tests for the books module
 """
 
-#from django.test import TestCase
+from django.test import TestCase
 
 
 class SimpleTest(TestCase):
