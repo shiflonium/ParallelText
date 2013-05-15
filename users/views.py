@@ -54,7 +54,8 @@ def user_auth(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                status = "You have successfully logged in!"
+                #status = "You have successfully logged in!"
+                return HttpResponseRedirect('/')
             else:
                 status = "You have logged in but your account is inactive.\
                   Please contact an administrator."
@@ -62,7 +63,7 @@ def user_auth(request):
             status = "Your username and/or password were incorrect."
 
     return render(request, 'users/login.html',
-                  {'status': status, 'username': username})
+                  {'status': status})
 
 
 
@@ -82,32 +83,33 @@ def user_acct(request):
     This function allows the current user to view their account information
     and perform any changes to them, if necessary.
     """
-    status = ""
-
-    user = User.objects.get(username=request.user.username)
-    lang_id = UserAccount.objects.get(user_id=request.user.pk).native_lang_id
-    print lang_id
-    lang_name = Languages.objects.get(langID=lang_id)
-    print lang_name
-
-    if request.method == 'POST':
-        form = AccountManageForm(data=request.POST, instance=request.user)
-        if form.is_valid():
-            extra_info = UserAccount.objects.get(user_id=user.pk)
-            extra_info.native_lang_id = request.POST.get('native_lang')
-            extra_info.save()
-            form.save()
-            status = "Your account information has been saved."
-        else:
-            status = "Form is not valid."
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
     else:
-        form = AccountManageForm(instance=request.user,
-                                 initial={'native_lang': lang_name})
+        status = ""
 
-    return render(request, 'users/account.html',
-                  {'form': form,
-                   'status': status,
-                   'username': user.username})
+        user = User.objects.get(username=request.user)
+        lang_id = UserAccount.objects.get(user_id=request.user.pk).native_lang_id
+        lang_name = Languages.objects.get(langID=lang_id)
+
+        if request.method == 'POST':
+            form = AccountManageForm(data=request.POST, instance=request.user)
+            if form.is_valid():
+                extra_info = UserAccount.objects.get(user_id=user.pk)
+                extra_info.native_lang_id = request.POST.get('native_lang')
+                extra_info.save()
+                form.save()
+                status = "Your account information has been saved."
+            else:
+                status = "Form is not valid."
+        else:
+            form = AccountManageForm(instance=request.user,
+                                     initial={'native_lang': lang_name})
+
+        return render(request, 'users/account.html',
+                      {'form': form,
+                       'status': status,
+                       'username': user.username})
 
 
 
@@ -116,26 +118,29 @@ def user_acct_pass(request):
     This function allows the current user to view their account information
     and perform any changes to them, if necessary.
     """
-    status = ""
-
-    username = User.objects.get(username=request.user)
-
-    form = AccountManagePassForm(request.POST)
-
-    if request.method == 'POST':
-        if form.is_valid():
-            username.set_password(request.POST.get('pass_new1'))
-            username.save()
-            status = "Your account information has been saved."
-        else:
-            status = "Form is not valid."
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
     else:
-        form = AccountManagePassForm()
+        status = ""
 
-    return render(request, 'users/account_pass.html',
-                  {'form': form,
-                   'status': status,
-                   'username': username})
+        user = User.objects.get(username=request.user)
+
+        form = AccountManagePassForm(request.POST)
+
+        if request.method == 'POST':
+            if form.is_valid():
+                user.set_password(request.POST.get('pass_new1'))
+                user.save()
+                status = "Your account information has been saved."
+            else:
+                status = "Form is not valid."
+        else:
+            form = AccountManagePassForm()
+
+        return render(request, 'users/account_pass.html',
+                      {'form': form,
+                       'status': status,
+                       'username': user.username})
 
 
 
@@ -144,8 +149,11 @@ def del_acct(request):
     This function allows the current user to delete their account from the
     system.
     """
-    username = User.objects.get(username=request.user)
-    username.delete()
-    return HttpResponseRedirect('/')
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/login/')
+    else:
+        user = User.objects.get(username=request.user)
+        user.delete()
+        return HttpResponseRedirect('/')
 
 

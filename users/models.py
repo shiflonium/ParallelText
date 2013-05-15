@@ -12,5 +12,7 @@ class UserAccount(models.Model):
     This is an extension of the user_auth table in the database.
     """
     user = models.ForeignKey(User, unique=True)
+    is_contentmgr = models.BooleanField(default=False)
     native_lang = models.ForeignKey(Languages)
+    #learn_lang = models.ForeignKey(Languages)
 

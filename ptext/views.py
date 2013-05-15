@@ -74,7 +74,6 @@ def strip_page(page):
     text = remove_commas(text, "',")
     text = remove_commas(text, '",')
 
-
     #Enocde text to html
     for i in range (0, len(text)):
         text[i] = text[i].decode('string_escape')

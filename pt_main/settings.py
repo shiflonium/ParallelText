@@ -2,7 +2,7 @@
  Django settings for paralleltext project.
 """
 import os
-import dj_database_url
+#import dj_database_url
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -95,6 +95,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'dajaxice.finders.DajaxiceFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -104,7 +105,7 @@ SECRET_KEY = 'p7$=$+!cilo2l5r^4c-dqx22)w(t)sjc1+^t-d3=iankwx(kl='
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-     # 'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -134,7 +135,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    #'django.contrib.sites',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
@@ -151,6 +152,22 @@ INSTALLED_APPS = (
     'content_mgmt',
     'languages',
     'search',
+    'dajax',
+    'dajaxice',
+    'dictionary',
+#    'django_extensions',
+
+)
+
+#Dajaxice Installation
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -186,5 +203,3 @@ AUTH_PROFILE_MODULE = 'users.UserAccount'
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-

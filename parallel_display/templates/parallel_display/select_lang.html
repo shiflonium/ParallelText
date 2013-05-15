@@ -1,0 +1,20 @@
+    {% extends 'base.html' %}
+
+    {% autoescape off %}
+    {% block bodycontent %}
+        <h3 style="color:DarkMagenta;">{{book_header}}: Select Chapter and Language</h3>   
+	<div>
+		<form method='post' action="", name = "lang_form">
+				{% csrf_token %}
+			<table>
+				<tr>
+					<td> {{form.chapter_dd.label}}{{form.chapter_dd}}</td>
+					<td> {{form.left_lang_dd.label}}{{form.left_lang_dd}}</td>
+					<td> {{form.right_lang_dd.label}}{{form.right_lang_dd}}</td>
+					<td><input type="submit" value="Submit" name="chap_lang_submit"></td>
+				</tr>
+			</table>
+		</form>
+	</div> 
+    {% endblock %}
+    {% endautoescape %}

@@ -1,49 +1,63 @@
+'''
+This set of functions converts html to django DB statements
+'''
 import re
 import codecs
 from Languages.models import Languages
 
-# fileObj = codecs.open("LangsAbbr/abbr.sql","r","utf-8");
-fileObj = codecs.open("workfile.txt","r","utf-8");
-x = fileObj.read()
-#f=open('workfile.txt', 'w');
 
-#f.write('#coding: utf-8\nfrom django.db import models\nfrom ptext.models import AvailLangs\n\n')
+FILE_OBJ = codecs.open("workfile.txt", "r", "utf-8")
+FILE = FILE_OBJ.read()
+MY_FILE = open('workfile.txt', 'w')
 
 
 
-def HE_2_EN():
-	a = re.findall(r'VALUES \(.*?\'\)',x,re.DOTALL)
 
-	for i in range (0, len(a)):
-		a[i] = a[i].replace('VALUES','')
-		a[i] = re.sub(r'\(\'','(original=\'',a[i])
-		a[i] = re.sub(r'\, \'',', defininion=\'',a[i])
-		a[i] = re.sub(r'\(original=','(fromLang=\'HE\', toLang=\'EN\', original=', a[i])
-		f.write("a=Translations"+a[i].encode('utf8')+"\na.save()\n")
+def he_2_en():
+    '''
+	This function convert html strings to django DB statements 
+	(hebrew to english)
+	'''
+    arr = re.findall(r'VALUES \(.*?\'\)', FILE, re.DOTALL)
 
-	f.close()
+    for i in range (0, len(arr)):
+        arr[i] = arr[i].replace('VALUES', '')
+        arr[i] = re.sub(r'\(\'', '(original=\'', arr[i])
+        arr[i] = re.sub(r'\, \'', ', defininion=\'', arr[i])
+        arr[i] = re.sub(
+        	r'\(original=','(fromLang=\'HE\', toLang=\'EN\', original=', arr[i])
+        MY_FILE.write("a=Translations" + arr[i].encode('utf8') + "\na.save()\n")
+    MY_FILE.close()
 
-def abbrTable():
-	a = re.findall(r'VALUES \(.*?\'\)', x, re.DOTALL)
-	for i in range (0,len(a)):
-		a[i] = re.sub(r'VALUES', '', a[i])
-		a[i] = re.sub(r'\(\'', '(abbr= \'', a[i])
-		a[i] = re.sub(r'\, \'', ', name= \'', a[i])
-		a[i] = re.sub(r' \'\)', '\')', a[i])
-		f.write('a=AvailLangs'+a[i].encode('utf8')+'\na.save()\n')
+def abbr_table():
+    '''
+    This function converts text file with languages abbreviations to 
+    django DB statements
+    '''
+    arr = re.findall(r'VALUES \(.*?\'\)', FILE, re.DOTALL)
 
-def uppercaseAbbrInDatabase():
-	length = Languages.objects.count()
-	for i in range(1,length):
-		abb = Languages.objects.get(langID=i)
-		abb.abbr = str(abb.abbr).upper()
-		abb.delete()
-		abb.save()
+    for i in range (0, len(arr)):
+        arr[i] = re.sub(r'VALUES', '', arr[i])
+        arr[i] = re.sub(r'\(\'', '(abbr= \'', arr[i])
+        arr[i] = re.sub(r'\, \'', ', name= \'', arr[i])
+        arr[i] = re.sub(r' \'\)', '\')', arr[i])
+        MY_FILE.write('a=AvailLangs'+arr[i].encode('utf8')+'\na.save()\n')
+
+def uppercase_abbr_in_database():
+    '''
+    Convert the abbreviations in the database to uppercasse
+    '''
+    length = Languages.objects.count()
+    for i in range(1, length):
+        abb = Languages.objects.get(langID=i)
+        abb.abbr = str(abb.abbr).upper()
+        abb.delete()
+        abb.save()
 
 
 if __name__ == '__main__':
 	#abbrTable()
-	uppercaseAbbrInDatabase()
+    uppercase_abbr_in_database()
 
 
 

@@ -16,57 +16,16 @@ localhost/parallel_display/Bible_Genesis/ch_1/ENHE/
 
 """
 import re
-from books.models import BookInfo
-from django.shortcuts import render
+from books.models import BookInfo, BookTranslation
+from parallel_display.forms import Book, Texts
+from django.shortcuts import render 
 from django.core.context_processors import csrf
 from bs4 import BeautifulSoup
 from ptext.views import strip_page
 from django import forms
 from django.utils.safestring import mark_safe
-page = ""
+from django.contrib.auth.models import User
 
-
-left_lang = (
-        ("en","English"),
-        ("he","Hebrew"),
-        ("el","Greek"),
-        ("es","Spanish"),
-        ("pt","Portuguese"),
-        ("ru","Russian"),
-        ("ar","Arabic"),
-        )
-
-right_lang = (
-        ("en","English"),
-        ("he","Hebrew"),
-        ("el","Greek"),
-        ("es","Spanish"),
-        ("pt","Portuguese"),
-        ("ru","Russian"),
-        ("ar","Arabic"),
-        )
-
-
-
-class Texts(forms.Form):
-    b=BookInfo.objects.filter(title="Quran")
-    chap_num_str=b[0].chaps
-    chap_num=int(chap_num_str)
-    chap_choices=[]
-    for i in range (1,chap_num):
-        chap_choices.append(("ch_"+str(i),"Chapter "+str(i)))
-    choices_final=tuple(chap_choices)
-    book_dd = forms.ModelChoiceField(empty_label="Select Book",label = "Book",queryset=(BookInfo.objects.all().values_list('title',flat=True)))
-    chapter_dd = forms.ChoiceField(label = "Chapter",required=False,choices=choices_final)
-    right_lang_dd = forms.ChoiceField(label = "Right Language",choices=right_lang)
-    left_lang_dd = forms.ChoiceField(label = "Left Language",choices = left_lang)
-    search_field = forms.CharField(label = "Search Texts")
-    #class Texts end
-
-
-   
-#visual_dropdown = Texts(auto_id = False)
-#print visual_dropdown
 def get_page(page):
     """
     This function grabs the page and turns it into a
@@ -78,6 +37,19 @@ def get_page(page):
     soup = BeautifulSoup(open(page))
     return soup
 
+def det_text_dir(language):
+    """
+    this function is a helper function to determine 
+    text direction depending on the selected language 
+    in the parallel display
+    """
+    right_dir_lang = ['he','ar']
+    if language.lower() in right_dir_lang:
+        return 'right'
+    else:
+        return 'left'
+
+
 def parse_html(filepath):
     """parse_html takes an html file path and strips
     all tags from it besides <p> tags. the <p> tags are added
@@ -87,51 +59,132 @@ def parse_html(filepath):
     p_tag_string = "" . join(p_tag_list)
     return p_tag_string
 
+def select_lang(book_from_form, form):
+    
+    """
+    This function is a helper function to populate our language and chapters form
+    it makes a call to our database using saved information from the first form
+    """
 
-def pdisplay(request):
+    lang_choices = []
+    chap_choices = []
+    chap_num = BookInfo.objects.filter(title = book_from_form)
+    all_translations = BookTranslation.objects.filter(
+        book_id = int(chap_num[0].id))
+    for i in range(0, int(chap_num[0].chaps)):
+        chap_choices.append(("ch_" + str(i + 1), "Chapter " + str(i + 1)))
+    for tran in all_translations:
+        lang = tran.language_id
+        lang_name = lang.name
+        lang_abbr = lang.abbr
+        lang_choices.append((lang_abbr, lang_name))
+    form.fields['chapter_dd'].choices = tuple(chap_choices)
+    form.fields['right_lang_dd'].choices = tuple(lang_choices)
+    form.fields['left_lang_dd'].choices = tuple(lang_choices)
+    
+def get_lang_name(book_name): #for future generation of language headers
+
+    """
+    this function is a helper function to create a lang_dictionary
+    of languages and their language codes. we are going to use this function
+    for generating headers for our parallel display
+    this function returns a dictionary
+    """
+    lang_choices = []
+    id_of_book = BookInfo.objects.filter(title = book_name)
+    all_translations = BookTranslation.objects.filter(
+        book_id = int(id_of_book[0].id))
+    for tran in all_translations:
+        lang = tran.language_id
+        lang_name = lang.name
+        lang_abbr = lang.abbr
+        lang_choices.append((lang_abbr, lang_name))
+    lang_tuple = tuple(lang_choices)
+    lang_dictionary = dict((x, y) for x, y in lang_tuple)
+    return lang_dictionary
+
+def get_chap_name(book_name):
+
+    """
+    this function is a helper function to create a dictionary
+    of chapters and their chapter values from dropdown. we are going to use this function
+    for generating headers for our parallel display
+    this function returns a dictionary
+    """
+
+    chap_choices = []
+    chap_num = BookInfo.objects.filter(title = book_name)
+    for i in range(0, int(chap_num[0].chaps)):
+        chap_choices.append(("ch_" + str(i + 1), "Chapter " + str(i + 1)))
+    chap_tuple = tuple(chap_choices)
+    chap_dictionary = dict((x, y) for x, y in chap_tuple)
+    return chap_dictionary
+
+
+def select_book(request):
+
     """
     This function takes the two texts, parses them both,
     and inserts them into the right and left windows.
 
-    Right now, it is too specific.  It must be made more general
-    to include any two texts
+    this function is built from 2 forms dependent on each other.
+    it populates the forms from the database
 
     Importantly, we must pass along information here about
     whether the text flows Right To Left or Left To Right
     """
 
-    #GET variables initialization
-    book = ""
-    chapter = ""
-    from_lang = ""
-    to_lang = ""
-    path1 = ""
-    path2 = ""
-
-
-
-
-
+    book_list = []
+    selected_book = ""
+    book_form = Book()
+    lang_form = Texts()
+    all_books = BookInfo.objects.all()
+    for book in all_books:
+        title = book.title
+        title_regex = re.sub("_", " ", title)
+        book_list.append((title, title_regex))
+    selects = tuple(book_list)
+    book_form.fields['book_dd'].choices = selects
     if request.method == "POST":
-        #posted_form = Texts(request.POST)
-        book = request.POST["book_dd"]
-        print book
-        chapter = request.POST['chapter_dd']
-        from_lang = request.POST['left_lang_dd']
-        to_lang = request.POST['right_lang_dd']
-        path1 = "texts/"+book+"/"+from_lang.upper()+"/"+chapter+".html"
-        path2 = "texts/"+book+"/"+to_lang.upper()+"/"+chapter+".html"
-        print path1
-    else:
-        path1 = "texts/Bible_Genesis/EN/ch_1.html"
-        path2 = "texts/Bible_Genesis/HE/ch_1.html"
+        if "book_submit" in request.POST:
+            selected_book = request.POST['book_dd']
+            request.session['saved_book_name'] = selected_book
+            select_lang(selected_book, lang_form)
+            book_title = re.sub("_", " ", selected_book)
+            return render(request, 'parallel_display/select_lang.html',
+            {'form':lang_form, 'book_header':book_title})
+        if "chap_lang_submit" in request.POST:
+            final_book = request.session.get('saved_book_name')
+            final_chapter = request.POST['chapter_dd']
+            right = request.POST['right_lang_dd']
+            left = request.POST['left_lang_dd']
+            path_right = "texts/%s/%s/%s.html" % (final_book,
+            right.upper(), final_chapter)
+            path_left = "texts/%s/%s/%s.html" % (final_book,
+                left.upper(), final_chapter)
+            right_page = strip_page(parse_html(path_right))
+            left_page = strip_page(parse_html(path_left))
+            lang_dict = get_lang_name(final_book) 
+            chap_dict = get_chap_name(final_book)
+            chosen_book = re.sub("_", " ", final_book)
+            chosen_chapter = chap_dict[final_chapter]
+            right_lang_header = lang_dict[right]
+            left_lang_header = lang_dict[left]
+            text1_dir = det_text_dir(left)
+            text2_dir = det_text_dir(right)
+            if request.user.is_authenticated():
+                username = User.objects.get(username=request.user).username
+            else:
+                username = ''
+            return render (request,
+            "ptext/popupDemo.html",
+    {'myTitle':'Demo', 'css_url':'parallel_display/popup.css',
+    'chosen_chapter':chosen_chapter, 'text1':left_page, 'text2':right_page,
+    'img_url':'parallel_display/Info.png','chosen_book':chosen_book,
+    'text1Dir':text1_dir, 'text2Dir':text2_dir, 'left_lang':left_lang_header,
+    'username': username, 'right_lang':right_lang_header})
+    return render(request,
+                   "parallel_display/select_book.html", {'form':book_form})
 
-    page1 = strip_page(parse_html(path1))
-    page2 = strip_page(parse_html(path2))
-    form_test = Texts()
-    return render (request,
-                   "ptext/popupDemo.html",
-                   {'myTitle':'Demo', 'css_url':'parallel_display/popup.css',
-                    'text1':page1, 'text2':page2,
-                    'img_url':'parallel_display/Info.png',
-                    'text1Dir':'left',  'text2Dir':'right','form':form_test})
+
+

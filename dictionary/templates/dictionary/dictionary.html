@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load customList %}
+{% block bodycontent %}
+
+<h2>Dictionary</h2>
+<div>
+</div>
+<table width="100%" border=1>
+    <tr>
+        <th width="20%">Original Word</th>
+        <th width="40%">Definition (Native Language)</th>
+        <th width="40%">
+            <form method="GET" style="display:inline">
+                Dictionary (Language: {{ form.dict_lang }} )
+                <input type="submit" value="Submit">
+            </form>
+        </th>
+    </tr>
+    {% for word in words %}
+    <tr>
+        <td>{{ words|get_original:forloop.counter0 }}</td>
+        <td>{{ words|get_definition:forloop.counter0 }}</td>
+        <td border="none"></td>
+        
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
+
