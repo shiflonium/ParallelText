@@ -155,6 +155,8 @@ INSTALLED_APPS = (
     'dajax',
     'dajaxice',
     'dictionary',
+    'django_extensions',
+
 )
 
 #Dajaxice Installation

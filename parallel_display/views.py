@@ -26,6 +26,7 @@ from ptext.views import strip_page
 from django import forms
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
+
 page = ""
 
 def get_page(page):
@@ -123,7 +124,6 @@ def get_chap_name(book_name):
     chap_tuple = tuple(chap_choices)
     chap_dictionary = dict((x, y) for x, y in chap_tuple)
     return chap_dictionary
-
 
 
 def select_book(request):
