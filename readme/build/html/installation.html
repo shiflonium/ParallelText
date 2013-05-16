@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation and Getting Started &mdash; Parallel-Text 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Parallel-Text 1.0.1 documentation" href="index.html" />
+    <link rel="next" title="Structure" href="architecture.html" />
+    <link rel="prev" title="Welcome to Parallel-Text’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="Structure"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Parallel-Text’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Parallel-Text 1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installation-and-getting-started">
+<span id="installation"></span><h1>Installation and Getting Started<a class="headerlink" href="#installation-and-getting-started" title="Permalink to this headline">¶</a></h1>
+<p>This guide will walk you through the installation process of Parallel-Text Project.</p>
+<div class="section" id="id1">
+<h2>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Visit the Bitbucket.com  site:</p>
+<div class="figure align-center">
+<img alt="_images/visitBB.png" src="_images/visitBB.png" />
+</div>
+<p>You can sign up:</p>
+<div class="figure align-center">
+<img alt="_images/signin.png" src="_images/signin.png" />
+</div>
+<p>Once you have create one, search Parallel-Text on the search bar.</p>
+<div class="figure align-center">
+<img alt="_images/searchBar.png" src="_images/searchBar.png" />
+</div>
+<p>After that you have to visit our master repo:</p>
+<div class="figure align-center">
+<img alt="_images/visitMasterRepo.png" src="_images/visitMasterRepo.png" />
+</div>
+<p>This time you have to fork the master repo:</p>
+<div class="figure align-center">
+<img alt="_images/forkingTheMaster.png" src="_images/forkingTheMaster.png" />
+</div>
+<p>Forking the repo:</p>
+<div class="figure align-center">
+<img alt="_images/forking.png" src="_images/forking.png" />
+</div>
+<p>Cloning the repo:</p>
+<div class="figure align-center">
+<img alt="_images/clone.png" src="_images/clone.png" />
+</div>
+<p>Cloning the repo to the local machine:</p>
+<div class="figure align-center">
+<img alt="colningonthelocalmachine.png" src="colningonthelocalmachine.png" />
+</div>
+<p>Installing Pip:</p>
+<div class="figure align-center">
+<img alt="_images/pipInstall.png" src="_images/pipInstall.png" />
+</div>
+<p>Open the terminal and navigate to parallelText directory:</p>
+<p>Change the directory to the parallelText directory:</p>
+<div class="figure align-center">
+<img alt="_images/cdToParallelText.png" src="_images/cdToParallelText.png" />
+</div>
+<p>Once you there please type the the following:</p>
+<div class="highlight-python"><pre>&gt; virtualenv .</pre>
+</div>
+<p>This will instantiate the virtual environment in the current directory. Now that we have a virtual environment, let&#8217;s activate it:</p>
+<div class="highlight-python"><pre>&gt; source bin/activate</pre>
+</div>
+<p>Next naviate to the <tt class="docutils literal"><span class="pre">parallelText/requirements</span></tt> directory and execute the following command to install project dependencies inside the current virtual environment:</p>
+<div class="highlight-python"><pre>&gt; pip install -r requirements.txt</pre>
+</div>
+<p>Run the local Server:</p>
+<div class="figure align-center">
+<img alt="_images/runServer.png" src="_images/runServer.png" />
+</div>
+<p>Visit the localhost:</p>
+<div class="figure align-center">
+<img alt="_images/runserverOnTheServer.png" src="_images/runserverOnTheServer.png" />
+</div>
+<p>Now you are ready to run the django server and start using the application. <em>But first you must navigate back to the project root folder</em>:</p>
+<div class="highlight-python"><pre>&gt; python manage.py runserver</pre>
+</div>
+<p>Congratulations! That was pretty simple, wasn&#8217;t it? In the next paragraph you can see the project structure in a tree-style format.</p>
+<p>Done! Now you can start implementing additional stuff to the project.</p>
+</div>
+<div class="section" id="project-tree-structure">
+<h2>Project tree structure<a class="headerlink" href="#project-tree-structure" title="Permalink to this headline">¶</a></h2>
+<p>Our project uses the starter-app project template provided by the Pinax 0.9a2. Below is the tree diagram of the folder structure of EZStyler:</p>
+<div class="highlight-python"><pre>.
+├── acceptanceTest
+│   ├── deleteaccount.py
+│   ├── dictionary.py
+│   ├── ......
+│   └── invalidSignin.py
+├── books
+│   ├── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+├── bs4
+│   ├── __init__.py
+│   ├── builder
+│   │   └── __init_.py
+│   │   └── _html5lib
+│   │   └── _htmlparser.py
+│   │   └── _lxml.py
+│   ├── dammit.py
+│   ├── element.py
+│   ├── testing.py
+│   └── tests
+│   │   └── __init__.py
+│   │   └── test_builder_registry.py
+│   │   └── test_docs.py
+│   │   └── ........
+│   │   └── test_tree.py
+├── content_mgmt
+│   ├── __init__.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── README.txt
+│   ├── scripts
+│   │   └── __init__.py
+│   │   └── ......
+│   │   └── parse_text_to_html.py
+│   ├── templates
+│   │   └── content_mgmt
+│   ├── test.py
+│   └── views.py
+├── dajax
+│   ├── __init__.py
+│   ├── core.py
+│   ├── models.py
+│   └── static
+│   │   └── dajax
+├── dataxice
+│   ├── __init__.py
+│   ├── core
+│   │   └── __init__.py
+│   │   └── Dajaxice.py
+│   ├── decorators.py
+│   ├── exceptions.py
+│   ├── finders.py
+│   ├── models.py
+│   ├── templates
+│   │   └── dajaxice
+│   ├── templatestags
+│   │   └── __init__.py
+│   │   └── dajaxice_templatetags.py
+│   ├── urls.py
+│   ├── utils.py
+│   └──  views.py
+├── DATABASE
+│   ├── book_translation_populate.py
+│   ├── bookinfo_populate.py
+│   ├── languages_populate.py
+│   ├── POPULATE_ALL_TABLES.py
+│   ├── users_populate.py
+│   └── word_translation_populate.py
+├── dictionary
+│   ├── __init__.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── templates
+│   │   └── dictionary
+│   ├── tests.py
+│   └── views.py
+├── documentation
+│   ├── code_samples
+│   │   └── dictionaryGrabber.py
+│   └── lint
+│   │   └── ADMIN_LINT
+│   │   └── GLOBAL_LINT
+│   │   └── KEVIN_LINT
+│   │   └── lint.sh
+│   │   └── LIRON_LINT
+│   │   └── YOHATAN_LINT
+├── help
+│   ├── __init__.py
+│   ├── models.py
+│   ├── templates
+│   │   └── help
+│   ├── tests.py
+│   └── views.py
+├── home
+│   ├── __init__.py
+│   ├── models.py
+│   ├── README.txt
+│   ├── templates
+│   │   └── home
+│   ├── tests.py
+│   └── views.py
+├── languages
+│   ├── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+├── manage.py
+├── parallel_display
+│   ├── __init__.py
+│   ├── ajax.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── README.txt
+│   ├── templates
+│   │   └── parallel_display
+│   ├── test.py
+│   └── views.py
+├── pt_main
+│   ├── __init__.py
+│   ├── book1.db
+│   ├── README.txt
+│   ├── settings.py
+│   ├── static
+│   │   └── home
+│   │   └── parallel_display
+│   ├── templates
+│   │   └── pt_main
+│   ├── urls.py
+│   └── wsgi.py
+├── ptext
+│   ├── __init__.py
+│   ├── models.db
+│   ├── READM
+│   ├── templates
+│   ├── templatestags
+│   ├── test.py
+│   └── views.py
+├── readme
+│   ├── build
+│   ├── Makefile
+│   └── source
+├── search
+│   ├── __init__.py
+│   ├── models.py
+│   ├── README.txt
+│   ├── templates
+│   ├── tests.py
+│   └── views.py
+├── texts
+│   ├── Bible_Genesis
+│   └── Quran
+├── users
+│   ├── __init__.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── README.txt
+│   ├── templates
+│   ├── tests.py
+│   └── views.py
+├── dataxice
+│   ├── deleteaccount.py
+│   ├── dictionary.py
+│   ├── ......
+│   └── invalidSignin.py
+├── dataxice
+│   ├── media
+│   │   └── products
+│   └── static
+│       ├── admin
+│       │   ├── css
+│       │   ├── img
+│       │   │   ├── admin
+│       │   │   └── gis
+│       │   └── js
+│       │       └── admin
+│       ├── css
+│       ├── images
+│       │   ├── misc
+│       │   └── orbit
+│       ├── img
+│       ├── js
+│       ├── pinax
+│       │   └── js
+│       └── products
+├── static
+│   ├── css
+│   ├── img
+│   └── js
+└── templates
+    ├── about
+    ├── outfits
+    └── profiles</pre>
+</div>
+<p>All django applications are stored in the apps folder. Note that none of the applications use app-specific templates or static files. Templates, javascript, css, and images are located in the project-level <tt class="docutils literal"><span class="pre">templates</span></tt> and <tt class="docutils literal"><span class="pre">static</span></tt> directories respectively.</p>
+<p>Fixtures folder contains initial configuration data in the JSON format. One example of such config data is the <em>Site&#8217;s name</em>. When you run <tt class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">syncdb</span></tt>, Django uses a JSON file from the <tt class="docutils literal"><span class="pre">fixtures</span></tt> directory to pre-configure the database with initial values.</p>
+<p>Media folder contains dynamically-generated images of products and outfits.</p>
+<p>Static folder is pretty self-explanatory. It contains project-wide stylesheets, javascripts and images, e.g. site logo.</p>
+<p>Last but not least, templates folder contains Django templates. Global templates are located at the root of the <tt class="docutils literal"><span class="pre">templates</span></tt> folder, while app-specific templates are located in the their respective folder inside the <tt class="docutils literal"><span class="pre">templates</span></tt> directory.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation and Getting Started</a><ul>
+<li><a class="reference internal" href="#id1">Installation</a></li>
+<li><a class="reference internal" href="#project-tree-structure">Project tree structure</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to Parallel-Text&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="architecture.html"
+                        title="next chapter">Structure</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/installation.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="Structure"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Parallel-Text’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">Parallel-Text 1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Emdad Ahmed, Mitchell Verter, Kevin Chan, Liron Shimrony &amp; Jonathan Shimrony.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
