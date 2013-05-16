@@ -1,0 +1,1268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API &mdash; Parallel-Text 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Parallel-Text 1.0.1 documentation" href="index.html" />
+    <link rel="next" title="Functions Documentation" href="functions.html" />
+    <link rel="prev" title="Architecture" href="architecture.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="functions.html" title="Functions Documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="Architecture"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Parallel-Text 1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="api">
+<span id="id1"></span><h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<p>This page will walk you through each method in <strong>outfits &gt; views.py</strong> file. It contains pretty much the entire logic behind EZStyler.</p>
+<div class="section" id="product-add-with-image-processing">
+<span id="outfits-views"></span><h2>Product Add with Image Processing<a class="headerlink" href="#product-add-with-image-processing" title="Permalink to this headline">¶</a></h2>
+<p>This is function gets called by ajax to add the product image to the outfit.
+In this Function we user image processing to remove the background of the image in the code below:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&quot;pening file&quot;</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">backRemove</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;finishes prosessing&quot;</span>
+
+<span class="k">def</span> <span class="nf">dajax_save_product</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">sel_image</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sel_image</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">price</span> <span class="o">!=</span> <span class="s">&quot;Enter Product Price&quot;</span><span class="p">:</span>
+                        <span class="n">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;$&#39;</span><span class="p">)</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="n">Product</span><span class="p">(</span>
+                                        <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="p">,</span>
+                                        <span class="n">price</span> <span class="o">=</span> <span class="n">price</span><span class="p">,</span>
+                                        <span class="n">url</span> <span class="o">=</span> <span class="n">url</span><span class="p">,</span>
+                        <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="n">Product</span><span class="p">(</span>
+                                        <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="p">,</span>
+                                        <span class="n">url</span> <span class="o">=</span> <span class="n">url</span><span class="p">,</span>
+                        <span class="p">)</span>
+
+                <span class="n">p</span><span class="o">.</span><span class="n">outfit_id</span> <span class="o">=</span> <span class="nb">id</span>
+
+                <span class="n">image</span><span class="o">=</span><span class="n">sel_image</span>
+
+                <span class="k">if</span> <span class="n">image</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;/&quot;</span><span class="p">:</span>
+                        <span class="k">while</span> <span class="n">image</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;/&quot;</span><span class="p">:</span>
+                                <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                        <span class="n">image</span> <span class="o">=</span> <span class="s">&quot;http://&quot;</span> <span class="o">+</span> <span class="n">image</span>
+
+                <span class="c"># r = requests.get(image)</span>
+                <span class="c"># print r</span>
+                <span class="c"># data = r.content</span>
+                <span class="c"># re = urllib.urlretrieve(image)</span>
+                <span class="c"># print re</span>
+                <span class="k">try</span><span class="p">:</span>
+                        <span class="n">input_file</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span><span class="n">e</span><span class="p">:</span> <span class="k">print</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+                <span class="n">output_file</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
+
+                <span class="c">######  Background Removal ######</span>
+                <span class="k">print</span> <span class="s">&quot;pening file&quot;</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">backRemove</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+                <span class="k">print</span> <span class="s">&quot;finishes prosessing&quot;</span>
+
+                <span class="n">img</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">((</span><span class="mi">300</span><span class="p">,</span><span class="mi">300</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+                <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span><span class="s">&quot;PNG&quot;</span><span class="p">)</span>
+                <span class="c">#img.save(output_file,&quot;JPEG&quot;)</span>
+
+                <span class="c">#filename2 = urlparse(image).path.split(&#39;/&#39;)[-1]</span>
+                <span class="c">#print filename2</span>
+                <span class="c">#filename2 = filename2.replace (&quot;-&quot;, &quot;_&quot;)</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="n">filename</span> <span class="o">=</span>  <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;.png&quot;</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ContentFile</span><span class="p">(</span><span class="n">output_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()),</span> <span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                <span class="n">prod_id</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">outfit_id</span>
+                <span class="n">outfit</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Outfit</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">prod_id</span><span class="p">)</span>
+                <span class="n">action</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">verb</span><span class="o">=</span><span class="s">&#39;added product to &#39;</span><span class="p">,</span> <span class="n">action_object</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">outfit</span><span class="p">)</span>
+                <span class="c">#action.send(request.user, verb=&#39;added product to &#39;, action_object=outfit, target=p)</span>
+                <span class="n">outfit</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Outfit</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+                <span class="n">product</span> <span class="o">=</span> <span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">outfit</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;-id&#39;</span><span class="p">)</span>
+
+                <span class="n">l</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+                <span class="n">data64</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
+                <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">product</span><span class="p">:</span>
+                        <span class="nb">file</span><span class="o">=</span> <span class="s">&quot;https://s3.amazonaws.com/ezstyler/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">images</span><span class="p">)</span>
+                        <span class="c">#asset=urllib.urlopen(file).read().encode(&quot;base64&quot;).replace(&quot;\n&quot;, &quot;&quot;)</span>
+                        <span class="n">filetype</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">data_uri</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&quot;base64&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+                        <span class="c">#img_tag = &#39;&lt;img alt=&quot;sample&quot; src=&quot;data:image/jpeg;base64,{0}&quot;/&gt;&#39;.format(data_uri)</span>
+                        <span class="n">datauri</span> <span class="o">=</span> <span class="s">&#39;data:image/&#39;</span> <span class="o">+</span> <span class="n">filetype</span> <span class="o">+</span> <span class="s">&#39;;base64,&#39;</span> <span class="o">+</span> <span class="n">data_uri</span>
+                        <span class="n">data64</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">datauri</span>
+                        <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+
+                <span class="n">product2</span><span class="o">=</span><span class="nb">zip</span><span class="p">(</span><span class="n">product</span><span class="p">,</span><span class="n">data64</span><span class="p">)</span>
+                <span class="n">product_form</span> <span class="o">=</span> <span class="n">ProductForm</span><span class="p">()</span>
+                <span class="n">canvas</span> <span class="o">=</span> <span class="n">outfit</span><span class="o">.</span><span class="n">canvas2</span>
+
+                <span class="n">protable</span> <span class="o">=</span> <span class="n">render_to_string</span><span class="p">(</span><span class="s">&#39;outfits/dajax_product_list.html&#39;</span><span class="p">,</span>
+                <span class="p">{</span><span class="s">&#39;products&#39;</span><span class="p">:</span> <span class="n">product2</span><span class="p">,</span>
+                        <span class="s">&#39;outfits&#39;</span><span class="p">:</span> <span class="n">outfit</span><span class="p">,</span>
+                        <span class="s">&#39;canvas&#39;</span><span class="p">:</span> <span class="n">canvas</span><span class="p">,</span>
+                        <span class="s">&#39;product_form&#39;</span><span class="p">:</span><span class="n">product_form</span><span class="p">,</span>
+                        <span class="p">},</span> <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+                <span class="c">#print protable</span>
+
+                <span class="k">return</span> <span class="n">simplejson</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">&#39;protable&#39;</span><span class="p">:</span><span class="n">protable</span><span class="p">})</span>
+<span class="n">dajaxice_functions</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">dajax_save_product</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="outfit-details-with-similar-outfits">
+<h2>Outfit Details (with similar outfits)<a class="headerlink" href="#outfit-details-with-similar-outfits" title="Permalink to this headline">¶</a></h2>
+<p>The code below is what renders the page with the outfit details as well as calls the function to generate similar outfits.
+More detailed implimentation of machine learning algorithims can be viewed in the next section.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">outfit_detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This view is renders the outfit_detail template with a list of all the</span>
+<span class="sd">        products associated with that outfit&#39;s id.&quot;&quot;&quot;</span>
+
+        <span class="n">outfit</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Outfit</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+        <span class="n">product</span> <span class="o">=</span> <span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">outfit</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s">&#39;title&#39;</span><span class="p">,</span><span class="s">&#39;url&#39;</span><span class="p">,</span><span class="s">&#39;images&#39;</span><span class="p">)</span>
+        <span class="c">#comments = Comment.objects.filter(object_pk=outfit.pk).order_by(&#39;submit_date&#39;)</span>
+        <span class="c">#length = len(comments)</span>
+        <span class="c">#outfit_form = OutfitForm(instance=outfit)</span>
+        <span class="c">#outfit_form.fields[&#39;collection&#39;].queryset = Collection.objects.filter(author=request.user).order_by(&#39;-pk&#39;)</span>
+        <span class="n">user_outfits</span> <span class="o">=</span> <span class="n">Outfit</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="n">outfit</span><span class="o">.</span><span class="n">author_id</span><span class="p">)[:</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">rating_ids</span><span class="o">=</span><span class="p">[]</span>
+        <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+        <span class="n">ratings</span> <span class="o">=</span> <span class="n">RatedItem</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s">&#39;object_id&#39;</span><span class="p">,</span> <span class="s">&#39;score&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">rating</span> <span class="ow">in</span> <span class="n">ratings</span><span class="p">:</span>
+                <span class="n">rating_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rating</span><span class="p">[</span><span class="s">&#39;object_id&#39;</span><span class="p">])</span>
+                <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+
+        <span class="c">#calculate_similar_items(RatedItem.objects.all(), 4)</span>
+        <span class="n">sim</span> <span class="o">=</span> <span class="n">outfit</span><span class="o">.</span><span class="n">rating</span><span class="o">.</span><span class="n">similar_items</span><span class="p">()[:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">fetch_generic_relations</span><span class="p">()</span>
+        <span class="c">#sim = SimilarItem.objects.filter(content_type=27).filter(object_id=id)[:4].fetch_generic_relations()</span>
+
+
+        <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;outfits/outfit_detail.html&#39;</span><span class="p">,</span>
+        <span class="p">{</span><span class="s">&#39;products&#39;</span><span class="p">:</span> <span class="n">product</span><span class="p">,</span>
+                <span class="s">&#39;outfits&#39;</span><span class="p">:</span> <span class="n">outfit</span><span class="p">,</span>
+                <span class="s">&#39;user_outfits&#39;</span><span class="p">:</span> <span class="n">user_outfits</span><span class="p">,</span>
+                <span class="s">&#39;sim_outfits&#39;</span><span class="p">:</span><span class="n">sim</span><span class="p">,</span>
+                <span class="s">&#39;ids&#39;</span><span class="p">:</span><span class="n">rating_ids</span><span class="p">,</span>
+                <span class="s">&#39;ratings&#39;</span><span class="p">:</span><span class="n">ratings</span><span class="p">,</span>
+                <span class="p">},</span> <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="image-processing">
+<h2>Image Processing<a class="headerlink" href="#image-processing" title="Permalink to this headline">¶</a></h2>
+<p>The following code consists of all the code designed for skin and background removal from product images.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">cv2</span> <span class="kn">import</span> <span class="n">cv</span>
+<span class="kn">import</span> <span class="nn">Image</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">pymeanshift</span> <span class="kn">as</span> <span class="nn">pms</span>
+
+<span class="n">minimumSize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">mininumNeighbors</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="c">#imageScale = 2</span>
+<span class="n">haar_scale</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">haar_flags</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">class</span> <span class="nc">ImageProcess</span><span class="p">:</span>
+
+        <span class="c"># sourceImage: PIL format</span>
+        <span class="c"># get skin mask image</span>
+        <span class="k">def</span> <span class="nf">getSkinMask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sourceImage</span><span class="p">):</span>
+                <span class="c">#img = cv2.imread(sourceImage)</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">sourceImage</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2BGR</span><span class="p">)</span>
+                <span class="n">omin</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">89</span><span class="p">],</span> <span class="n">numpy</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+                <span class="n">omax</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">25</span><span class="p">,</span> <span class="mi">173</span><span class="p">,</span> <span class="mi">229</span><span class="p">],</span> <span class="n">numpy</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+                <span class="n">hsv</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+                <span class="n">threshed</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">hsv</span><span class="p">,</span> <span class="n">omin</span><span class="p">,</span> <span class="n">omax</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">threshed</span><span class="p">)</span>
+
+        <span class="c"># return meanshift segmented image as numpy array type</span>
+        <span class="k">def</span> <span class="nf">meanshift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">spatial_radius</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">range_radius</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">min_density</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+                <span class="p">(</span><span class="n">segmented_image</span><span class="p">,</span> <span class="n">labels_image</span><span class="p">,</span> <span class="n">number_regions</span><span class="p">)</span> <span class="o">=</span> <span class="n">pms</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">spatial_radius</span><span class="o">=</span><span class="n">spatial_radius</span><span class="p">,</span>
+                                                                                                                                          <span class="n">range_radius</span><span class="o">=</span><span class="n">range_radius</span><span class="p">,</span> <span class="n">min_density</span><span class="o">=</span><span class="n">min_density</span><span class="p">)</span>
+                <span class="c">#Image.fromarray(segmented_image).save(&#39;cache.png&#39;)</span>
+                <span class="k">return</span> <span class="n">segmented_image</span>
+
+        <span class="c"># detect face, and return face region</span>
+        <span class="k">def</span> <span class="nf">isFaceFound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">cascade</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">Load</span><span class="p">(</span><span class="s">&#39;/usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml&#39;</span><span class="p">)):</span>
+                <span class="n">CV_Image</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">LoadImageM</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">CV_LOAD_IMAGE_COLOR</span><span class="p">)</span>
+                <span class="n">PIL_Image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="s">&quot;RGB&quot;</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">GetSize</span><span class="p">(</span><span class="n">CV_Image</span><span class="p">),</span> <span class="n">CV_Image</span><span class="o">.</span><span class="n">tostring</span><span class="p">())</span>
+                <span class="n">CVImageHeader</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">CreateImageHeader</span><span class="p">(</span><span class="n">PIL_Image</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">IPL_DEPTH_8U</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+                <span class="n">cv</span><span class="o">.</span><span class="n">SetData</span><span class="p">(</span><span class="n">CVImageHeader</span><span class="p">,</span> <span class="n">PIL_Image</span><span class="o">.</span><span class="n">tostring</span><span class="p">())</span>
+                <span class="n">imageWidth</span><span class="p">,</span> <span class="n">imageHeight</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img</span><span class="p">)</span><span class="o">.</span><span class="n">size</span>
+                <span class="n">grayScaleImage</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">CreateImage</span><span class="p">((</span><span class="n">imageWidth</span><span class="p">,</span><span class="n">imageHeight</span><span class="p">),</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">cv</span><span class="o">.</span><span class="n">CvtColor</span><span class="p">(</span><span class="n">CV_Image</span><span class="p">,</span> <span class="n">grayScaleImage</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">CV_BGR2GRAY</span><span class="p">)</span>
+                <span class="n">faces</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">HaarDetectObjects</span><span class="p">(</span><span class="n">CV_Image</span><span class="p">,</span> <span class="n">cascade</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">CreateMemStorage</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">haar_scale</span><span class="p">,</span> <span class="n">mininumNeighbors</span><span class="p">,</span> <span class="n">haar_flags</span><span class="p">,</span> <span class="n">minimumSize</span><span class="p">)</span>
+                <span class="n">face_region</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">if</span> <span class="n">faces</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">),</span><span class="n">n</span><span class="p">)</span> <span class="ow">in</span> <span class="n">faces</span><span class="p">:</span>
+                                <span class="n">cvPoint1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+                                <span class="n">cvPoint2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">h</span><span class="p">))</span>
+                                <span class="n">cv</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">CV_Image</span><span class="p">,</span> <span class="n">cvPoint1</span><span class="p">,</span> <span class="n">cvPoint2</span><span class="p">,</span> <span class="n">cv</span><span class="o">.</span><span class="n">RGB</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                                <span class="n">face_region</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cvPoint1</span><span class="p">,</span> <span class="n">cvPoint2</span><span class="p">))</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="k">if</span> <span class="n">faces</span><span class="p">:</span> <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="k">else</span><span class="p">:</span> <span class="n">face_region</span> <span class="o">=</span> <span class="p">[((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))]</span>
+                <span class="c">#cv.ShowImage(&quot;CV_Image&quot;, CV_Image)</span>
+                <span class="k">return</span> <span class="n">found</span><span class="p">,</span> <span class="n">face_region</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c"># get body seed only if face is found</span>
+        <span class="k">def</span> <span class="nf">getBodySeed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face_region</span><span class="p">):</span>
+                <span class="n">face_left</span> <span class="o">=</span> <span class="n">face_region</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">face_right</span> <span class="o">=</span> <span class="n">face_region</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="c">#print face_left, face_right</span>
+                <span class="c"># approsimate body width is +/- half the face width from left/right face</span>
+                <span class="n">half_face</span> <span class="o">=</span> <span class="p">(</span><span class="n">face_right</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">face_left</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span>
+                <span class="n">body_left</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">face_left</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">half_face</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">face_right</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">half_face</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)))</span>
+                <span class="n">body_right</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">face_right</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">half_face</span><span class="p">),</span> <span class="nb">int</span><span class="p">((</span><span class="n">face_right</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">half_face</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.5</span><span class="p">))</span>
+
+                <span class="n">row_width</span> <span class="o">=</span> <span class="n">body_right</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">body_left</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">row_height</span> <span class="o">=</span> <span class="n">body_right</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">body_left</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+                <span class="n">seed</span> <span class="o">=</span> <span class="p">(</span><span class="n">row_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">row_height</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">seed</span>
+
+        <span class="k">def</span> <span class="nf">canny</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sourceImage</span><span class="p">,</span> <span class="n">noiseScale</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">aSize</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+                <span class="c">#if os.path.exists(sourceImage):</span>
+                <span class="c"># read the source image</span>
+                <span class="c">#img = cv2.imread(sourceImage)</span>
+                <span class="c"># convert to gray scale</span>
+                <span class="n">imgGrayScale</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">sourceImage</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+                <span class="c"># use gaussian blur to reduce image noise,</span>
+                <span class="c"># higher noiseScale reduce more noise/detail</span>
+                <span class="n">imgGassianBlur</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">imgGrayScale</span><span class="p">,</span> <span class="n">noiseScale</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+                <span class="n">edgeDetected</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">imgGassianBlur</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">apertureSize</span><span class="o">=</span><span class="n">aSize</span><span class="p">)</span>
+                <span class="c">#edgeDetected2 = cv2.Canny(imgGassianBlur, 0, 50, apertureSize=aSize)</span>
+                <span class="c">#kernel = numpy.ones((2,2),&#39;uint8&#39;)</span>
+                <span class="c">#cv2.dilate(edgeDetected, kernel, dst=edgeDetected2)</span>
+                <span class="c">#cv2.imwrite(&#39;edged.jpg&#39;, edgeDetected)</span>
+                <span class="c">#cv2.imwrite(&#39;edged2.jpg&#39;, edgeDetected2)</span>
+                <span class="k">return</span> <span class="n">edgeDetected</span>
+
+        <span class="c"># sourceImage: PIL format</span>
+        <span class="c"># maskImage: PIL format, postprocessed image</span>
+        <span class="c"># remove target rgba value from source image</span>
+        <span class="k">def</span> <span class="nf">removePixelByMask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sourceImage</span><span class="p">,</span> <span class="n">maskImage</span><span class="p">,</span> <span class="n">targetRGBA</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+                <span class="n">maskRGBA</span> <span class="o">=</span> <span class="n">maskImage</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+                <span class="n">maskData</span> <span class="o">=</span> <span class="n">maskRGBA</span><span class="o">.</span><span class="n">getdata</span><span class="p">()</span>
+                <span class="n">mask_data_array</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">pixel</span> <span class="ow">in</span> <span class="n">maskData</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">targetRGBA</span> <span class="o">==</span> <span class="n">pixel</span><span class="p">:</span>
+                                <span class="n">mask_data_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span> <span class="n">mask_data_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+                <span class="n">sourceRGBA</span> <span class="o">=</span> <span class="n">sourceImage</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+                <span class="n">sourceData</span> <span class="o">=</span> <span class="n">sourceRGBA</span><span class="o">.</span><span class="n">getdata</span><span class="p">()</span>
+                <span class="n">new_source_data</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">pixel</span> <span class="ow">in</span> <span class="n">sourceData</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">mask_data_array</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">new_source_data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                        <span class="k">else</span><span class="p">:</span> <span class="n">new_source_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pixel</span><span class="p">)</span>
+                        <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">sourceRGBA</span><span class="o">.</span><span class="n">putdata</span><span class="p">(</span><span class="n">new_source_data</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">sourceRGBA</span>
+
+
+        <span class="k">def</span> <span class="nf">removeBackgroundByRegion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sourceImage</span><span class="p">,</span> <span class="n">regionGrowingImage</span><span class="p">,</span> <span class="n">colorRGB</span><span class="o">=</span><span class="mi">150</span><span class="p">):</span>
+                <span class="n">regionImage</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">regionGrowingImage</span><span class="p">)</span>
+                <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">regionImage</span><span class="o">.</span><span class="n">size</span>
+                <span class="n">imgRGBA</span> <span class="o">=</span> <span class="n">regionImage</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+                <span class="n">imgData</span> <span class="o">=</span> <span class="n">imgRGBA</span><span class="o">.</span><span class="n">getdata</span><span class="p">()</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">main_array</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">imgData</span><span class="p">:</span>
+                        <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">colorRGB</span>  <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">colorRGB</span> <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">colorRGB</span><span class="p">:</span>
+                                <span class="n">main_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                                <span class="n">main_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+                <span class="n">pic</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">sourceImage</span><span class="p">)</span>
+                <span class="n">picRGBA</span> <span class="o">=</span> <span class="n">pic</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+                <span class="n">picData</span> <span class="o">=</span> <span class="n">picRGBA</span><span class="o">.</span><span class="n">getdata</span><span class="p">()</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">new_data</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">picData</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">main_array</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">new_data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                                <span class="n">new_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                        <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">picRGBA</span><span class="o">.</span><span class="n">putdata</span><span class="p">(</span><span class="n">new_data</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">picRGBA</span>
+
+        <span class="c"># sourceImage: PIL format</span>
+        <span class="c"># edgeDetectedImage: PIL format, postprocessed image</span>
+        <span class="c"># scanBy: 0 = scan by horizontal, 1 = scan by vertical</span>
+        <span class="c"># smartMode: only useful after removeBackgroundByScan run at least once.</span>
+        <span class="c">#            ex: removeBackgroundByScan(img1, img2, 1)</span>
+        <span class="c">#                removeBackgroundByScan(img1, img2, 0, smartMode=True)</span>
+        <span class="c"># colorRGB: color range is background color that distingush from edge color</span>
+        <span class="k">def</span> <span class="nf">removeBackgroundByScan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sourceImage</span><span class="p">,</span> <span class="n">edgeDetectedImage</span><span class="p">,</span> <span class="n">face_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scanBy</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">smartMode</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">colorRGB</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+                <span class="n">rotation</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="n">scanBy</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">rotation</span> <span class="o">=</span> <span class="mi">90</span>
+                <span class="n">imgRGBA</span> <span class="o">=</span> <span class="n">edgeDetectedImage</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+                <span class="n">imgDatas</span> <span class="o">=</span> <span class="n">imgRGBA</span><span class="o">.</span><span class="n">getdata</span><span class="p">()</span>
+                <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">imgRGBA</span><span class="o">.</span><span class="n">size</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">main_array</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">sub_array</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="n">pic</span> <span class="o">=</span> <span class="n">sourceImage</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+                <span class="n">picRGBA</span> <span class="o">=</span> <span class="n">pic</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">)</span>
+                <span class="n">picDatas</span> <span class="o">=</span> <span class="n">picRGBA</span><span class="o">.</span><span class="n">getdata</span><span class="p">()</span>
+
+                <span class="k">for</span> <span class="n">imgData</span> <span class="ow">in</span> <span class="n">imgDatas</span><span class="p">:</span>
+                        <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">imgData</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">colorRGB</span>  <span class="ow">and</span> <span class="n">imgData</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">colorRGB</span> <span class="ow">and</span> <span class="n">imgData</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">colorRGB</span><span class="p">:</span>
+                                <span class="n">sub_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                                <span class="n">sub_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">width</span><span class="p">:</span>
+                                <span class="k">try</span><span class="p">:</span>
+                                        <span class="n">left_index</span> <span class="o">=</span> <span class="n">sub_array</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                                        <span class="n">right_index</span> <span class="o">=</span> <span class="n">width</span> <span class="o">-</span> <span class="mi">1</span>
+                                        <span class="k">while</span> <span class="n">sub_array</span><span class="p">[</span><span class="n">right_index</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                                                <span class="n">right_index</span> <span class="o">-=</span> <span class="mi">1</span>
+                                        <span class="n">right_index</span> <span class="o">+=</span> <span class="mi">1</span>
+                                        <span class="n">left_background</span> <span class="o">=</span> <span class="n">sub_array</span><span class="p">[:</span><span class="n">left_index</span><span class="p">]</span>
+                                        <span class="n">right_background</span> <span class="o">=</span> <span class="n">sub_array</span><span class="p">[</span><span class="n">right_index</span><span class="p">:]</span>
+                                        <span class="n">mid_object</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">right_index</span> <span class="o">-</span> <span class="n">left_index</span><span class="p">)</span>
+                                        <span class="n">row</span> <span class="o">=</span> <span class="n">left_background</span> <span class="o">+</span> <span class="n">mid_object</span> <span class="o">+</span> <span class="n">right_background</span>
+                                        <span class="k">if</span> <span class="n">smartMode</span><span class="p">:</span>
+                                                <span class="k">while</span> <span class="n">left_index</span> <span class="o">&lt;</span> <span class="n">right_index</span> <span class="ow">and</span> <span class="p">(</span><span class="n">right_index</span> <span class="o">-</span> <span class="n">left_index</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">face_size</span><span class="p">:</span>
+                                                        <span class="k">if</span> <span class="n">picRGBA</span><span class="o">.</span><span class="n">getpixel</span><span class="p">((</span><span class="n">left_index</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+                                                                <span class="n">end</span> <span class="o">=</span> <span class="n">left_index</span>
+                                                                <span class="k">while</span> <span class="n">imgRGBA</span><span class="o">.</span><span class="n">getpixel</span><span class="p">((</span><span class="n">end</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">255</span><span class="p">):</span>
+                                                                        <span class="n">end</span> <span class="o">+=</span> <span class="mi">1</span>
+                                                                <span class="c">#if end &gt;= width: break</span>
+                                                                <span class="k">while</span> <span class="n">imgRGBA</span><span class="o">.</span><span class="n">getpixel</span><span class="p">((</span><span class="n">left_index</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">255</span><span class="p">):</span>
+                                                                        <span class="n">left_index</span> <span class="o">-=</span> <span class="mi">1</span>
+                                                                <span class="n">row_left</span> <span class="o">=</span> <span class="n">row</span><span class="p">[:</span><span class="n">left_index</span><span class="p">]</span>
+                                                                <span class="n">row_right</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">end</span><span class="p">:]</span>
+                                                                <span class="n">row</span> <span class="o">=</span> <span class="n">row_left</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">left_index</span><span class="p">)</span> <span class="o">+</span> <span class="n">row_right</span>
+                                                                <span class="n">left_index</span> <span class="o">=</span> <span class="n">end</span>
+                                                        <span class="k">else</span><span class="p">:</span>
+                                                                <span class="n">left_index</span> <span class="o">+=</span> <span class="mi">1</span>
+                                        <span class="n">main_array</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                                        <span class="n">main_array</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">width</span><span class="p">)</span>
+                                <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+                                <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+                                <span class="n">sub_array</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">new_data</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">picData</span> <span class="ow">in</span> <span class="n">picDatas</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">main_array</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">new_data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                                <span class="n">new_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">picData</span><span class="p">)</span>
+                        <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">picRGBA</span><span class="o">.</span><span class="n">putdata</span><span class="p">(</span><span class="n">new_data</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">picRGBA</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">rotation</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">regionGrowing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sourceImage</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cv</span><span class="o">.</span><span class="n">LoadImage</span><span class="p">(</span><span class="n">sourceImage</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cv</span><span class="o">.</span><span class="n">CV_LOAD_IMAGE_GRAYSCALE</span><span class="p">)</span>
+                <span class="n">img_size</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cv</span><span class="o">.</span><span class="n">GetSize</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+                <span class="n">region</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cv</span><span class="o">.</span><span class="n">CreateImage</span><span class="p">(</span><span class="n">img_size</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cv</span><span class="o">.</span><span class="n">IPL_DEPTH_8U</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">cv</span><span class="o">.</span><span class="n">Zero</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
+
+                <span class="n">contour</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">contour_value</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="n">region_mean</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="n">seed</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">seed</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+                <span class="n">pixel_area</span> <span class="o">=</span> <span class="n">img_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">img_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+                <span class="n">LEFT</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">RIGHT</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">TOP</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">DOWN</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">LEFT_TOP</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">RIGHT_TOP</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">LEFT_DOWN</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">RIGHT_DOWN</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="c">#orientation = [RIGHT, TOP, LEFT, DOWN]</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="p">[</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">RIGHT</span><span class="p">,</span> <span class="n">TOP</span><span class="p">,</span> <span class="n">DOWN</span><span class="p">,</span> <span class="n">LEFT_TOP</span><span class="p">,</span> <span class="n">LEFT_DOWN</span><span class="p">,</span> <span class="n">RIGHT_TOP</span><span class="p">,</span> <span class="n">RIGHT_DOWN</span><span class="p">]</span>
+                <span class="n">current_pixel</span> <span class="o">=</span> <span class="p">[</span><span class="n">seed</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">seed</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+
+                <span class="k">while</span><span class="p">(</span><span class="n">pixel_area</span> <span class="o">&gt;</span> <span class="n">size</span> <span class="ow">and</span> <span class="n">threshold</span> <span class="o">&gt;</span> <span class="n">distance</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                                <span class="n">temp_pixel</span> <span class="o">=</span> <span class="p">[</span><span class="n">current_pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">orientation</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">current_pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">orientation</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span>
+
+                                <span class="k">if</span> <span class="n">img_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">temp_pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">img_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">temp_pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                                        <span class="n">is_in_img</span> <span class="o">=</span> <span class="bp">True</span>
+                                <span class="k">else</span><span class="p">:</span>
+                                        <span class="n">is_in_img</span> <span class="o">=</span> <span class="bp">False</span>
+
+                                <span class="k">if</span> <span class="p">(</span><span class="n">is_in_img</span> <span class="ow">and</span> <span class="p">(</span><span class="n">region</span><span class="p">[</span><span class="n">temp_pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">temp_pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)):</span>
+                                        <span class="n">contour</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_pixel</span><span class="p">)</span>
+                                        <span class="n">contour_value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="n">temp_pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">temp_pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="p">)</span>
+                                        <span class="n">region</span><span class="p">[</span><span class="n">temp_pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">temp_pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">150</span>
+
+                        <span class="n">distance</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">contour_value</span><span class="p">))</span> <span class="o">-</span> <span class="n">region_mean</span><span class="p">)</span>
+
+                        <span class="n">distance_list</span> <span class="o">=</span> <span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">region_mean</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">contour_value</span> <span class="p">]</span>
+                        <span class="n">distance</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">distance_list</span><span class="p">)</span>
+                        <span class="n">index</span> <span class="o">=</span> <span class="n">distance_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">distance_list</span><span class="p">))</span>
+                        <span class="n">region</span><span class="p">[</span><span class="n">current_pixel</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">current_pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">255</span>
+                        <span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                        <span class="n">region_mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span> <span class="o">*</span> <span class="n">region_mean</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">contour_value</span><span class="p">[</span><span class="n">index</span><span class="p">]))</span> <span class="o">/</span> <span class="p">(</span><span class="n">size</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                        <span class="n">current_pixel</span> <span class="o">=</span> <span class="n">contour</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+                        <span class="k">del</span> <span class="n">contour</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+                        <span class="k">del</span> <span class="n">contour_value</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+                <span class="k">return</span> <span class="n">region</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="suggestions">
+<h2>Suggestions<a class="headerlink" href="#suggestions" title="Permalink to this headline">¶</a></h2>
+<p>The code below is all the functions used for calculation of users and similar outfits.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+<span class="kn">import</span> <span class="nn">django</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.contrib.contenttypes.generic</span> <span class="kn">import</span> <span class="n">GenericForeignKey</span>
+<span class="kn">from</span> <span class="nn">django.contrib.contenttypes.models</span> <span class="kn">import</span> <span class="n">ContentType</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">connection</span>
+
+<span class="k">def</span> <span class="nf">get_content_object_field</span><span class="p">(</span><span class="n">rating_model</span><span class="p">):</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="n">rating_model</span><span class="o">.</span><span class="n">_meta</span>
+        <span class="k">for</span> <span class="n">virtual_field</span> <span class="ow">in</span> <span class="n">opts</span><span class="o">.</span><span class="n">virtual_fields</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">virtual_field</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;content_object&#39;</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">virtual_field</span> <span class="c"># break out early</span>
+        <span class="k">return</span> <span class="n">opts</span><span class="o">.</span><span class="n">get_field</span><span class="p">(</span><span class="s">&#39;content_object&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">is_gfk</span><span class="p">(</span><span class="n">content_field</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content_field</span><span class="p">,</span> <span class="n">GenericForeignKey</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">query_has_where</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">django</span><span class="o">.</span><span class="n">VERSION</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="n">where</span><span class="o">.</span><span class="n">as_sql</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="n">qn</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">quote_name</span>
+                <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="n">where</span><span class="o">.</span><span class="n">as_sql</span><span class="p">(</span><span class="n">qn</span><span class="p">,</span> <span class="n">connection</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span>
+
+<span class="k">def</span> <span class="nf">query_as_sql</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">django</span><span class="o">.</span><span class="n">VERSION</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="n">as_sql</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="n">get_compiler</span><span class="p">(</span><span class="n">connection</span><span class="o">=</span><span class="n">connection</span><span class="p">)</span><span class="o">.</span><span class="n">as_sql</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">sim_euclidean_distance</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">factor_a</span><span class="p">,</span> <span class="n">factor_b</span><span class="p">):</span>
+        <span class="n">rating_model</span> <span class="o">=</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">model</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">factor_a</span><span class="p">,</span> <span class="n">User</span><span class="p">):</span>
+                <span class="n">filter_field</span> <span class="o">=</span> <span class="s">&#39;user_id&#39;</span>
+                <span class="n">match_on</span> <span class="o">=</span> <span class="s">&#39;hashed&#39;</span>
+                <span class="n">lookup_a</span> <span class="o">=</span> <span class="n">factor_a</span><span class="o">.</span><span class="n">pk</span>
+                <span class="n">lookup_b</span> <span class="o">=</span> <span class="n">factor_b</span><span class="o">.</span><span class="n">pk</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="n">filter_field</span> <span class="o">=</span> <span class="s">&#39;hashed&#39;</span>
+                <span class="n">match_on</span> <span class="o">=</span> <span class="s">&#39;user_id&#39;</span>
+                <span class="n">lookup_a</span> <span class="o">=</span> <span class="n">rating_model</span><span class="p">(</span><span class="n">content_object</span><span class="o">=</span><span class="n">factor_a</span><span class="p">)</span><span class="o">.</span><span class="n">generate_hash</span><span class="p">()</span>
+                <span class="n">lookup_b</span> <span class="o">=</span> <span class="n">rating_model</span><span class="p">(</span><span class="n">content_object</span><span class="o">=</span><span class="n">factor_b</span><span class="p">)</span><span class="o">.</span><span class="n">generate_hash</span><span class="p">()</span>
+
+        <span class="n">sql</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        SELECT r1.score - r2.score AS diff</span>
+<span class="s">        FROM</span>
+<span class="s">                </span><span class="si">%(ratings_table)s</span><span class="s"> AS r1</span>
+<span class="s">        INNER JOIN</span>
+<span class="s">                </span><span class="si">%(ratings_table)s</span><span class="s"> AS r2</span>
+<span class="s">        ON r1.</span><span class="si">%(match_on)s</span><span class="s"> = r2.</span><span class="si">%(match_on)s</span><span class="s"></span>
+<span class="s">        WHERE</span>
+<span class="s">                r1.</span><span class="si">%(filter_field)s</span><span class="s"> = &#39;</span><span class="si">%(lookup_a)s</span><span class="s">&#39; AND</span>
+<span class="s">                r2.</span><span class="si">%(filter_field)s</span><span class="s"> = &#39;</span><span class="si">%(lookup_b)s</span><span class="s">&#39;</span>
+<span class="s">                </span><span class="si">%(queryset_filter)s</span><span class="s"></span>
+<span class="s">        &quot;&quot;&quot;</span>
+
+        <span class="n">rating_query</span> <span class="o">=</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s">&#39;pk&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span>
+        <span class="k">if</span> <span class="n">query_has_where</span><span class="p">(</span><span class="n">rating_query</span><span class="p">):</span>
+                <span class="n">queryset_filter</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="n">q</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">query_as_sql</span><span class="p">(</span><span class="n">rating_query</span><span class="p">)</span>
+                <span class="n">rating_qs_sql</span> <span class="o">=</span> <span class="n">q</span> <span class="o">%</span> <span class="n">p</span>
+                <span class="n">queryset_filter</span> <span class="o">=</span> <span class="s">&#39; AND r1.id IN (</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="n">rating_qs_sql</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s">&#39;ratings_table&#39;</span><span class="p">:</span> <span class="n">rating_model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">db_table</span><span class="p">,</span>
+                <span class="s">&#39;filter_field&#39;</span><span class="p">:</span> <span class="n">filter_field</span><span class="p">,</span>
+                <span class="s">&#39;match_on&#39;</span><span class="p">:</span> <span class="n">match_on</span><span class="p">,</span>
+                <span class="s">&#39;lookup_a&#39;</span><span class="p">:</span> <span class="n">lookup_a</span><span class="p">,</span>
+                <span class="s">&#39;lookup_b&#39;</span><span class="p">:</span> <span class="n">lookup_b</span><span class="p">,</span>
+                <span class="s">&#39;queryset_filter&#39;</span><span class="p">:</span> <span class="n">queryset_filter</span>
+        <span class="p">}</span>
+
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span> <span class="o">%</span> <span class="n">params</span><span class="p">)</span>
+
+        <span class="n">sum_of_squares</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="n">sum_of_squares</span> <span class="o">+=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">sum_of_squares</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">sim_pearson_correlation</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">factor_a</span><span class="p">,</span> <span class="n">factor_b</span><span class="p">):</span>
+        <span class="n">rating_model</span> <span class="o">=</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">model</span>
+        <span class="n">qn</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">quote_name</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">factor_a</span><span class="p">,</span> <span class="n">User</span><span class="p">):</span>
+                <span class="n">filter_field</span> <span class="o">=</span> <span class="s">&#39;user_id&#39;</span>
+                <span class="n">match_on</span> <span class="o">=</span> <span class="s">&#39;hashed&#39;</span>
+                <span class="n">lookup_a</span> <span class="o">=</span> <span class="n">factor_a</span><span class="o">.</span><span class="n">pk</span>
+                <span class="n">lookup_b</span> <span class="o">=</span> <span class="n">factor_b</span><span class="o">.</span><span class="n">pk</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="n">filter_field</span> <span class="o">=</span> <span class="s">&#39;hashed&#39;</span>
+                <span class="n">match_on</span> <span class="o">=</span> <span class="s">&#39;user_id&#39;</span>
+                <span class="n">lookup_a</span> <span class="o">=</span> <span class="n">rating_model</span><span class="p">(</span><span class="n">content_object</span><span class="o">=</span><span class="n">factor_a</span><span class="p">)</span><span class="o">.</span><span class="n">generate_hash</span><span class="p">()</span>
+                <span class="n">lookup_b</span> <span class="o">=</span> <span class="n">rating_model</span><span class="p">(</span><span class="n">content_object</span><span class="o">=</span><span class="n">factor_b</span><span class="p">)</span><span class="o">.</span><span class="n">generate_hash</span><span class="p">()</span>
+
+        <span class="n">sql</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        SELECT</span>
+<span class="s">                SUM(r1.score) AS r1_sum,</span>
+<span class="s">                SUM(r2.score) AS r2_sum,</span>
+<span class="s">                SUM(r1.score*r1.score) AS r1_square_sum,</span>
+<span class="s">                SUM(r2.score*r2.score) AS r2_square_sum,</span>
+<span class="s">                SUM(r1.score*r2.score) AS p_sum,</span>
+<span class="s">                COUNT(r1.id) AS sample_size</span>
+<span class="s">        FROM</span>
+<span class="s">                </span><span class="si">%(ratings_table)s</span><span class="s"> AS r1</span>
+<span class="s">        INNER JOIN</span>
+<span class="s">                </span><span class="si">%(ratings_table)s</span><span class="s"> AS r2</span>
+<span class="s">        ON r1.</span><span class="si">%(match_on)s</span><span class="s"> = r2.</span><span class="si">%(match_on)s</span><span class="s"></span>
+<span class="s">        WHERE</span>
+<span class="s">                r1.</span><span class="si">%(filter_field)s</span><span class="s"> = &#39;</span><span class="si">%(lookup_a)s</span><span class="s">&#39; AND</span>
+<span class="s">                r2.</span><span class="si">%(filter_field)s</span><span class="s"> = &#39;</span><span class="si">%(lookup_b)s</span><span class="s">&#39;</span>
+<span class="s">                </span><span class="si">%(queryset_filter)s</span><span class="s"></span>
+<span class="s">        &quot;&quot;&quot;</span>
+
+        <span class="n">rating_query</span> <span class="o">=</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s">&#39;pk&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span>
+        <span class="k">if</span> <span class="n">query_has_where</span><span class="p">(</span><span class="n">rating_query</span><span class="p">):</span>
+                <span class="n">queryset_filter</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="n">q</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">query_as_sql</span><span class="p">(</span><span class="n">rating_query</span><span class="p">)</span>
+                <span class="n">rating_qs_sql</span> <span class="o">=</span> <span class="n">q</span> <span class="o">%</span> <span class="n">p</span>
+                <span class="n">queryset_filter</span> <span class="o">=</span> <span class="s">&#39; AND r1.id IN (</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="n">rating_qs_sql</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s">&#39;ratings_table&#39;</span><span class="p">:</span> <span class="n">rating_model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">db_table</span><span class="p">,</span>
+                <span class="s">&#39;filter_field&#39;</span><span class="p">:</span> <span class="n">filter_field</span><span class="p">,</span>
+                <span class="s">&#39;match_on&#39;</span><span class="p">:</span> <span class="n">match_on</span><span class="p">,</span>
+                <span class="s">&#39;lookup_a&#39;</span><span class="p">:</span> <span class="n">lookup_a</span><span class="p">,</span>
+                <span class="s">&#39;lookup_b&#39;</span><span class="p">:</span> <span class="n">lookup_b</span><span class="p">,</span>
+                <span class="s">&#39;queryset_filter&#39;</span><span class="p">:</span> <span class="n">queryset_filter</span>
+        <span class="p">}</span>
+
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span> <span class="o">%</span> <span class="n">params</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">sum1</span><span class="p">,</span> <span class="n">sum2</span><span class="p">,</span> <span class="n">sum1_sq</span><span class="p">,</span> <span class="n">sum2_sq</span><span class="p">,</span> <span class="n">psum</span><span class="p">,</span> <span class="n">sample_size</span> <span class="o">=</span> <span class="n">result</span>
+
+        <span class="k">if</span> <span class="n">sum1</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">sum2</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">sample_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">num</span> <span class="o">=</span> <span class="n">psum</span> <span class="o">-</span> <span class="p">(</span><span class="n">sum1</span> <span class="o">*</span> <span class="n">sum2</span> <span class="o">/</span> <span class="n">sample_size</span><span class="p">)</span>
+        <span class="n">den</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">sum1_sq</span> <span class="o">-</span> <span class="nb">pow</span><span class="p">(</span><span class="n">sum1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">sample_size</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sum2_sq</span> <span class="o">-</span> <span class="nb">pow</span><span class="p">(</span><span class="n">sum2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">sample_size</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">den</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="n">num</span> <span class="o">/</span> <span class="n">den</span>
+
+<span class="k">def</span> <span class="nf">top_matches</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                <span class="n">similarity</span><span class="o">=</span><span class="n">sim_pearson_correlation</span><span class="p">):</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">similarity</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">other</span><span class="p">),</span> <span class="n">other</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">other</span> <span class="ow">in</span> <span class="n">items</span> <span class="k">if</span> <span class="n">other</span> <span class="o">!=</span> <span class="n">item</span><span class="p">]</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">scores</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">recommendations</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">people</span><span class="p">,</span> <span class="n">person</span><span class="p">,</span>
+                                        <span class="n">similarity</span><span class="o">=</span><span class="n">sim_pearson_correlation</span><span class="p">):</span>
+        <span class="n">rating_model</span> <span class="o">=</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">model</span>
+
+        <span class="n">already_rated</span> <span class="o">=</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">person</span><span class="p">)</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s">&#39;hashed&#39;</span><span class="p">)</span>
+
+        <span class="n">totals</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">sim_sums</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">other</span> <span class="ow">in</span> <span class="n">people</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">other</span> <span class="o">==</span> <span class="n">person</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+                <span class="n">sim</span> <span class="o">=</span> <span class="n">similarity</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">person</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">sim</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+                <span class="c"># now, score the items person hasn&#39;t rated yet</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">other</span><span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">hashed__in</span><span class="o">=</span><span class="n">already_rated</span><span class="p">):</span>
+                        <span class="n">totals</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">content_object</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="n">totals</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">content_object</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">score</span> <span class="o">*</span> <span class="n">sim</span><span class="p">)</span>
+
+                        <span class="n">sim_sums</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">content_object</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="n">sim_sums</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">content_object</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sim</span>
+
+        <span class="n">rankings</span> <span class="o">=</span> <span class="p">[(</span><span class="n">total</span> <span class="o">/</span> <span class="n">sim_sums</span><span class="p">[</span><span class="n">pk</span><span class="p">],</span> <span class="n">pk</span><span class="p">)</span> <span class="k">for</span> <span class="n">pk</span><span class="p">,</span> <span class="n">total</span> <span class="ow">in</span> <span class="n">totals</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()]</span>
+
+        <span class="n">rankings</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">rankings</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">rankings</span>
+
+<span class="k">def</span> <span class="nf">calculate_similar_items</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="c"># get distinct items from the ratings queryset - this can be optimized</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">get_content_object_field</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_gfk</span><span class="p">(</span><span class="n">field</span><span class="p">):</span>
+                <span class="n">rated_ctypes</span> <span class="o">=</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s">&#39;content_type&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
+                <span class="n">ctypes</span> <span class="o">=</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk__in</span><span class="o">=</span><span class="n">rated_ctypes</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">ctype</span> <span class="ow">in</span> <span class="n">ctypes</span><span class="p">:</span>
+                        <span class="n">ratings_subset</span> <span class="o">=</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">content_type</span><span class="o">=</span><span class="n">ctype</span><span class="p">)</span>
+                        <span class="n">rating_ids</span> <span class="o">=</span> <span class="n">ratings_subset</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s">&#39;object_id&#39;</span><span class="p">)</span>
+                        <span class="n">queryset</span> <span class="o">=</span> <span class="n">ctype</span><span class="o">.</span><span class="n">model_class</span><span class="p">()</span><span class="o">.</span><span class="n">_default_manager</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk__in</span><span class="o">=</span><span class="n">rating_ids</span><span class="p">)</span>
+                        <span class="n">_store_top_matches</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">queryset</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="n">rated_model</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">rel</span><span class="o">.</span><span class="n">to</span>
+                <span class="n">rating_ids</span> <span class="o">=</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s">&#39;content_object__pk&#39;</span><span class="p">)</span>
+                <span class="n">queryset</span> <span class="o">=</span> <span class="n">rated_model</span><span class="o">.</span><span class="n">_default_manager</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk__in</span><span class="o">=</span><span class="n">rating_ids</span><span class="p">)</span>
+                <span class="n">_store_top_matches</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">queryset</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_store_top_matches</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">rated_queryset</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">is_gfk</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">ratings.models</span> <span class="kn">import</span> <span class="n">SimilarItem</span>
+
+        <span class="n">ctype</span> <span class="o">=</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_for_model</span><span class="p">(</span><span class="n">rated_queryset</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">rated_pks</span> <span class="o">=</span> <span class="n">rated_queryset</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s">&#39;pk&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">rated_queryset</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="n">top_matches</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">rated_queryset</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">match</span><span class="p">)</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+                        <span class="n">si</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">SimilarItem</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+                                <span class="n">content_type</span><span class="o">=</span><span class="n">ctype</span><span class="p">,</span>
+                                <span class="n">object_id</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+                                <span class="n">similar_content_type</span><span class="o">=</span><span class="n">ContentType</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_for_model</span><span class="p">(</span><span class="n">match</span><span class="p">),</span>
+                                <span class="n">similar_object_id</span><span class="o">=</span><span class="n">match</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">created</span> <span class="ow">or</span> <span class="n">si</span><span class="o">.</span><span class="n">score</span> <span class="o">!=</span> <span class="n">score</span><span class="p">:</span>
+                                <span class="n">si</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">score</span>
+                                <span class="n">si</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">recommended_items</span><span class="p">(</span><span class="n">ratings_queryset</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">ratings.models</span> <span class="kn">import</span> <span class="n">SimilarItem</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">total_sim</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">):</span>
+
+                <span class="k">for</span> <span class="n">similar_item</span> <span class="ow">in</span> <span class="n">SimilarItem</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_for_item</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">content_object</span><span class="p">):</span>
+
+                        <span class="n">actual</span> <span class="o">=</span> <span class="n">similar_item</span><span class="o">.</span><span class="n">similar_object</span>
+                        <span class="n">lookup_kwargs</span> <span class="o">=</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">lookup_kwargs</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span>
+                        <span class="n">lookup_kwargs</span><span class="p">[</span><span class="s">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
+
+                        <span class="k">if</span> <span class="n">ratings_queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">lookup_kwargs</span><span class="p">):</span>
+                                <span class="k">continue</span>
+
+                        <span class="n">scores</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="n">scores</span><span class="p">[</span><span class="n">actual</span><span class="p">]</span> <span class="o">+=</span> <span class="n">similar_item</span><span class="o">.</span><span class="n">score</span> <span class="o">*</span> <span class="n">item</span><span class="o">.</span><span class="n">score</span>
+
+                        <span class="n">total_sim</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="n">total_sim</span><span class="p">[</span><span class="n">actual</span><span class="p">]</span> <span class="o">+=</span> <span class="n">similar_item</span><span class="o">.</span><span class="n">score</span>
+
+        <span class="n">rankings</span> <span class="o">=</span> <span class="p">[(</span><span class="n">score</span><span class="o">/</span><span class="n">total_sim</span><span class="p">[</span><span class="n">item</span><span class="p">],</span> <span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">scores</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()]</span>
+
+        <span class="n">rankings</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">rankings</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">rankings</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="outfits-list">
+<h2>outfits_list<a class="headerlink" href="#outfits-list" title="Permalink to this headline">¶</a></h2>
+<p>Displays the list of outfits. It uses <em>classic</em> generic views to display the page.</p>
+<p>Outfits are filtered by the user that is currently logged in. In other words - display outfits that belong to their respective owner:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">outfit_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">outfits</span> <span class="o">=</span> <span class="n">Outfit</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">&#39;outfits/outfit_list.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;outfits&#39;</span><span class="p">:</span> <span class="n">outfits</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="outfits-detail">
+<h2>outfits_detail<a class="headerlink" href="#outfits-detail" title="Permalink to this headline">¶</a></h2>
+<p>Detailed page of the outfit includes product&#8217;s image, title, price, link to the original website and the HTML5 canvas to drag and drop products onto:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">outfit_detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="n">add_product_form</span> <span class="o">=</span> <span class="n">AddProductForm</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">add_product_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">product_form</span> <span class="o">=</span> <span class="n">ProductForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">&#39;outfits/product_add.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+                <span class="s">&#39;product_form&#39;</span><span class="p">:</span> <span class="n">product_form</span>
+            <span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&#39;invalid&#39;</span>
+            <span class="n">outfit</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Outfit</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">&#39;outfits/outfit_detail.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+                <span class="s">&#39;add_product_form&#39;</span><span class="p">:</span> <span class="n">add_product_form</span><span class="p">,</span>
+                <span class="s">&#39;outfits&#39;</span><span class="p">:</span> <span class="n">outfit</span>
+            <span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">outfit</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Outfit</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+        <span class="n">product</span> <span class="o">=</span> <span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">outfit</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+        <span class="n">canvas</span> <span class="o">=</span> <span class="n">outfit</span><span class="o">.</span><span class="n">canvas</span>
+        <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;outfits/outfit_detail.html&#39;</span><span class="p">,</span>
+        <span class="p">{</span><span class="s">&#39;products&#39;</span><span class="p">:</span> <span class="n">product</span><span class="p">,</span>
+            <span class="s">&#39;outfits&#39;</span><span class="p">:</span> <span class="n">outfit</span><span class="p">,</span>
+            <span class="s">&#39;canvas&#39;</span><span class="p">:</span> <span class="n">canvas</span>
+            <span class="p">},</span> <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="outfits-create">
+<h2>outfits_create<a class="headerlink" href="#outfits-create" title="Permalink to this headline">¶</a></h2>
+<p>Creates an empty outfit. On GET, the user will see a form with a
+textfield and a submit button. When the button is clicked, the form is
+validated against the database. First we try to check for any object
+belonging to that user with the outfit name sepecified. If no Exceptions
+occur the outfit create page is reloaded and a message that &#8220;Nmae is
+already being used&#8221; is displayed to the user. The exception of
+MultipleObjectsReturned should never be raised but if it does we do the
+same thing. Only if the ObjectDoesNotExist exception is raised should
+the outfit be created with the specified name. Then the method save(commit=False)
+has to be passed in order to save the User ID who created that outfit. That way
+each outfit is associated only to the user who created it. Finally,
+on success it redirects a user back to the list of outfits. Also this
+view can recieve a post from the javascript Modal &#8220;outfit_list&#8221; page:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">outfit_create</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="n">outfit_form</span> <span class="o">=</span> <span class="n">OutfitForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">outfit_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">name2</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+            <span class="n">AllOutfits</span> <span class="o">=</span> <span class="n">Outfit</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">AllOutfits</span> <span class="o">=</span> <span class="n">AllOutfits</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name2</span><span class="p">)</span>
+                <span class="n">outfit_form</span> <span class="o">=</span> <span class="n">OutfitForm</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">&#39;outfits/outfit_create.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;outfit_form&#39;</span><span class="p">:</span> <span class="n">outfit_form</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;name is already used&#39;</span><span class="p">})</span>
+            <span class="k">except</span> <span class="n">MultipleObjectsReturned</span><span class="p">:</span>
+                <span class="n">outfit_form</span> <span class="o">=</span> <span class="n">OutfitForm</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">&#39;outfits/outfit_create.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;outfit_form&#39;</span><span class="p">:</span> <span class="n">outfit_form</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;name is already used&#39;</span><span class="p">})</span>
+            <span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+                <span class="n">outfit</span> <span class="o">=</span> <span class="n">outfit_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="n">outfit</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+                <span class="n">outfit</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="nb">id</span> <span class="o">=</span> <span class="n">outfit</span><span class="o">.</span><span class="n">id</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">outfit_detail</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">outfit_form</span> <span class="o">=</span> <span class="n">OutfitForm</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">&#39;outfits/outfit_create.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;outfit_form&#39;</span><span class="p">:</span> <span class="n">outfit_form</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="product-delete">
+<h2>product_delete<a class="headerlink" href="#product-delete" title="Permalink to this headline">¶</a></h2>
+<p>Passes the otufit id of product and the product id to the delet_object() Generic View. The object is then deleted and post_delete_redirect to oufit_detail page:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">product_delete</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">delete_object</span><span class="p">(</span><span class="n">request</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">Product</span><span class="p">,</span>
+        <span class="n">object_id</span><span class="o">=</span><span class="n">pid</span><span class="p">,</span>
+        <span class="n">template_name</span><span class="o">=</span><span class="s">&#39;outfits/product_delete.html&#39;</span><span class="p">,</span>
+        <span class="n">template_object_name</span><span class="o">=</span><span class="s">&#39;products&#39;</span><span class="p">,</span>
+        <span class="n">post_delete_redirect</span><span class="o">=</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;outfit_detail&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="nb">id</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="product-update">
+<h2>product_update<a class="headerlink" href="#product-update" title="Permalink to this headline">¶</a></h2>
+<p>Retrieve the product specified by the outfit id and product id using
+get_object_or_404. Then send the product url, title and product to the
+template. These values will be in the ProductForm The use can make changes
+and submit. On POST the view saves the POSTed values to the corisponding
+product object. Then it will redirect back to the outfit_details page:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">product_update</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>
+    <span class="n">product</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Product</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">pid</span><span class="p">)</span>
+    <span class="n">url</span><span class="o">=</span><span class="n">product</span><span class="o">.</span><span class="n">url</span>
+    <span class="n">title</span><span class="o">=</span><span class="n">product</span><span class="o">.</span><span class="n">title</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">product_form</span> <span class="o">=</span> <span class="n">ProductForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">product</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">product_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">product</span> <span class="o">=</span> <span class="n">product_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">outfit_detail</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">product_form</span> <span class="o">=</span> <span class="n">ProductForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">product</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">&#39;outfits/product_update.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s">&#39;product_form&#39;</span><span class="p">:</span> <span class="n">product_form</span><span class="p">,</span> <span class="s">&#39;url&#39;</span><span class="p">:</span><span class="n">url</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">:</span><span class="n">title</span><span class="p">,</span> <span class="s">&#39;p&#39;</span><span class="p">:</span><span class="n">product</span> <span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="product-add">
+<h2>product_add<a class="headerlink" href="#product-add" title="Permalink to this headline">¶</a></h2>
+<p>If this view is called withoput a POST then render the AddProductForm on the
+product_add template. Ususlay this view will be called with a POST by a submited
+form from a javascript Modal Reveal on the outfit_detail page. The view then checks
+that the POST is a URL. if it is, it is opened using urllib2.urlopen(url).read().
+Then it passed to BeautifulSoup so we can begin to scrape and extract data. The
+first thing we extract is the page &#8220;Title&#8221; by looking for the title tag. Next we
+search for sever formats of displaying a price, most important is the &#8220;$&#8221; sign.
+If no price is found we display &#8220;Enter a Price&#8221; in the ProductForm instead.
+Next we search for all &lt;img&gt; tags. we then extract the &#8220;src&#8221; attribute of each one
+and save it to a list. We then use ImageParser() to read only a few bits at a time
+from each image header until the image dimensions are determined. Once we determine
+the demensions we stop reading the rest of the file. We then use the dimensions to
+check the conditions if the width and hight must me greater than 200px and the
+ratio of h/w and w/h must me less than 3. This is done to minimize the amount
+of irrelevant images displayed to the user. Each image that meets these requirements
+is added to the BigImg list. Then the Title, Price, and BigImg list is saved in a
+session and is redirected to the product_confirm view to render the next page:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">product_add</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="n">add_product_form</span> <span class="o">=</span> <span class="n">AddProductForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">add_product_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">add_product_form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span>
+            <span class="n">webpage</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">webpage</span><span class="p">)</span>
+
+            <span class="n">title</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">string</span>
+            <span class="n">priceRE1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;(\$\d*\.\d{2})&#39;</span><span class="p">)</span>
+            <span class="n">priceRE2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;(\$\d*\,\d{3})&#39;</span><span class="p">)</span>
+            <span class="n">priceRE3</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;(\$\d*\,\d{3}\.\d{2})&#39;</span><span class="p">)</span>
+            <span class="n">priceRE4</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;(\$\s\d*\.\d{2})&#39;</span><span class="p">)</span>
+            <span class="n">priceRE5</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;(\$\s\d*\,\d{3}\.\d{2})&#39;</span><span class="p">)</span>
+
+            <span class="n">findPatPrice</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">priceRE1</span><span class="p">,</span> <span class="n">webpage</span><span class="p">)</span>
+            <span class="n">findPatPrice</span> <span class="o">+=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">priceRE2</span><span class="p">,</span> <span class="n">webpage</span><span class="p">)</span>
+            <span class="n">findPatPrice</span> <span class="o">+=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">priceRE3</span><span class="p">,</span> <span class="n">webpage</span><span class="p">)</span>
+            <span class="n">findPatPrice</span> <span class="o">+=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">priceRE4</span><span class="p">,</span> <span class="n">webpage</span><span class="p">)</span>
+            <span class="n">findPatPrice</span> <span class="o">+=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">priceRE5</span><span class="p">,</span> <span class="n">webpage</span><span class="p">)</span>
+
+            <span class="n">p</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">findPatPrice</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">price</span> <span class="o">=</span> <span class="n">findPatPrice</span><span class="p">[</span><span class="n">p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">price</span> <span class="o">=</span> <span class="s">&quot;Enter Product Price:&quot;</span>
+
+            <span class="n">allImg</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s">&#39;img&#39;</span><span class="p">)</span><span class="c">#,{&#39;src&#39; : re.compile(r&#39;(jpe?g)|(jp?g)|(png)|(tif)&#39;)})</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">allImg</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">image_list</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">link2</span> <span class="ow">in</span> <span class="n">allImg</span><span class="p">:</span>
+                <span class="n">image_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">link2</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;src&#39;</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">BigImg</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+            <span class="c">#y=len(image_list)</span>
+            <span class="n">formlist</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;GIF&quot;</span><span class="p">,</span><span class="s">&quot;BMP&quot;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">img2</span> <span class="ow">in</span> <span class="n">image_list</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">img_file</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">img2</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">img_file</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;http://&#39;</span> <span class="o">+</span> <span class="n">img2</span><span class="p">)</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="n">img_file</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;http://www.gorell.com/images/colors-white-icon.jpg&#39;</span><span class="p">)</span>
+<span class="c">###################### Try reading only file header ####################</span>
+                <span class="c">#im = cStringIO.StringIO(img_file.read())</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="n">ImageFile</span><span class="o">.</span><span class="n">Parser</span><span class="p">()</span>
+                    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="n">img_file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+                            <span class="k">break</span>
+                        <span class="n">p</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">image</span><span class="p">:</span>
+                            <span class="c"># im_format=p.image.format</span>
+                            <span class="c"># if im_format in formlist:</span>
+                                <span class="c"># break</span>
+                            <span class="c"># else:</span>
+                            <span class="k">print</span> <span class="s">&#39;i am in if p.image&#39;</span>
+                            <span class="n">w</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="n">h</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">w</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">and</span> <span class="mi">200</span><span class="o">&lt;</span> <span class="n">h</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="n">w</span><span class="o">+</span><span class="n">w</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">h</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="ow">and</span> <span class="mi">200</span><span class="o">&lt;</span> <span class="n">w</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">h</span><span class="o">+</span><span class="n">h</span><span class="o">+</span><span class="n">h</span><span class="p">)):</span>
+                                <span class="k">print</span> <span class="s">&#39;i am in if w&gt;200 and 200&lt;h&#39;</span>
+                            <span class="c"># if (w &gt; 200) and (h &gt; 200):</span>
+                                <span class="c"># print p.image.size</span>
+                                <span class="c"># ratio1 = w / h</span>
+                                <span class="c"># ratio2 = h / w</span>
+                                <span class="c"># if(ratio1 &lt; 3.0 and ratio2 &lt; 3.0):</span>
+                                    <span class="c"># BigImg[i] = img2</span>
+                                    <span class="c"># i = i + 1</span>
+
+                                <span class="n">BigImg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">img2</span>
+                                <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                            <span class="k">break</span>
+                    <span class="n">img_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c">########################################################################</span>
+                <span class="c"># im = cStringIO.StringIO(img_file.read())</span>
+                <span class="c"># try:</span>
+                    <span class="c"># image = Image.open(im)</span>
+                <span class="k">except</span><span class="p">:</span><span class="k">pass</span>
+                    <span class="c"># img_file = urllib2.urlopen(&#39;http://www.gorell.com/images/colors-white-icon.jpg&#39;)</span>
+                    <span class="c"># im = cStringIO.StringIO(img_file.read())</span>
+                    <span class="c"># image = Image.open(im)</span>
+                    <span class="c"># w = image.size[0]</span>
+                    <span class="c"># h = image.size[1]</span>
+                    <span class="c"># ratio1 = w / h</span>
+                    <span class="c"># ratio2 = h / w</span>
+
+            <span class="n">image_list</span> <span class="o">=</span> <span class="n">BigImg</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">i</span><span class="p">]</span>
+
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s">&#39;product&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+                <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+                <span class="s">&#39;price&#39;</span><span class="p">:</span> <span class="n">price</span><span class="p">,</span>
+                <span class="s">&#39;images&#39;</span><span class="p">:</span> <span class="n">image_list</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">product_confirm</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">add_product_form</span> <span class="o">=</span> <span class="n">AddProductForm</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">&#39;outfits/product_add.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s">&#39;add_product_form&#39;</span><span class="p">:</span> <span class="n">add_product_form</span>
+        <span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="product-confirm">
+<h2>product_confirm<a class="headerlink" href="#product-confirm" title="Permalink to this headline">¶</a></h2>
+<p>The form starts out with a data stored by the session from the previous
+View - product_add. The session data contains all required information:
+title, price, url and images list. Notice images are not passed into the
+product_form when product_form loads, instead they are rendered manually
+in the product_confirm.html template. The reason for creating a form with
+scraped data is to let the user verify that price and name are indeed
+correct. On POST (user selected an image) the form is submitted to the
+save_product_redirect view with the selected image data:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">product_confirm</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="n">product</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;product&#39;</span><span class="p">)</span>
+    <span class="n">image_list</span> <span class="o">=</span> <span class="n">product</span><span class="p">[</span><span class="s">&#39;images&#39;</span><span class="p">]</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">product</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">product</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">product</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span>
+
+    <span class="n">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;$&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&#39;outfits/product_confirm.html&#39;</span><span class="p">,</span>
+        <span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+        <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+        <span class="s">&#39;url&#39;</span><span class="p">:</span><span class="n">url</span><span class="p">,</span>
+        <span class="s">&#39;price&#39;</span><span class="p">:</span> <span class="n">price</span><span class="p">,</span>
+        <span class="s">&#39;image_list&#39;</span><span class="p">:</span> <span class="n">image_list</span><span class="p">},</span> <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="save-product">
+<h2>save_product<a class="headerlink" href="#save-product" title="Permalink to this headline">¶</a></h2>
+<p>On POST (user selected an image) the form is saved right away after assigning an
+outfit.id. The image processing and saving is done last. We run a background
+removal algorithm that reads the first byte pixel of the slected image, assumes
+that the color of that pixel is the background color and removes all pixels with
+that color within a certain threshold. Then the requests library gives the content
+method to store binary data of an image in memory. The filename is exactly the
+same as the original image filename. And finally it is saved into the database by
+calling save method on images field of the Product model and passing both filename
+and file as arguments. Then the page is redirected to the outfit_detail page:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">save_product_redirect</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="nb">id</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s">&#39;sel_image&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">:</span>
+        <span class="n">image</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s">&#39;sel_image&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s">&#39;price&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">:</span>
+        <span class="n">price</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s">&#39;title&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">:</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s">&#39;id&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">:</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s">&#39;url&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">:</span>
+        <span class="n">url</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span>
+
+
+    <span class="c">#if request.method == &#39;POST&#39;:</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;$&#39;</span><span class="p">)</span>
+
+    <span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Product</span><span class="p">(</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="p">,</span>
+            <span class="n">price</span> <span class="o">=</span> <span class="n">price</span><span class="p">,</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">url</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c">#if product_form.is_valid():</span>
+    <span class="c">#p = product.save(commit=False)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">outfit_id</span> <span class="o">=</span> <span class="nb">id</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
+
+    <span class="n">img_temp</span> <span class="o">=</span> <span class="n">NamedTemporaryFile</span><span class="p">()</span>
+    <span class="n">img_temp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">img_temp</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">File</span><span class="p">(</span><span class="n">img_temp</span><span class="p">),</span> <span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="c">##################  remove image background ################</span>
+    <span class="n">entry</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">images</span>
+    <span class="n">img_temp2</span> <span class="o">=</span> <span class="n">NamedTemporaryFile</span><span class="p">()</span>
+    <span class="n">img_temp2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">removeBG</span><span class="o">.</span><span class="n">removeBG</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
+    <span class="n">img_temp2</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">File</span><span class="p">(</span><span class="n">img_temp2</span><span class="p">),</span> <span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c">#############################################################</span>
+
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">outfit_detail</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+    <span class="c"># else:</span>
+        <span class="c"># product_form = ProductForm({</span>
+            <span class="c"># &#39;title&#39;: title,</span>
+            <span class="c"># &#39;price&#39;: price,</span>
+            <span class="c"># &#39;url&#39;: image,</span>
+        <span class="c"># })</span>
+        <span class="c"># return render(request, &quot;outfits/product_confirm.html&quot;, {</span>
+            <span class="c"># &#39;product_form&#39;: product_form,</span>
+            <span class="c"># &#39;images&#39;: image,</span>
+        <span class="c"># })</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="outfit-update">
+<h2>outfit_update<a class="headerlink" href="#outfit-update" title="Permalink to this headline">¶</a></h2>
+<p>Functions the same as the product_update view:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">outfit_update</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="n">outfit</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Outfit</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">outfit_form</span> <span class="o">=</span> <span class="n">OutfitForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">outfit</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">outfit_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">outfit</span> <span class="o">=</span> <span class="n">outfit_form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">outfit</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">outfit_detail</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">outfit_form</span> <span class="o">=</span> <span class="n">OutfitForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">outfit</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">&#39;outfits/outfit_update.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s">&#39;outfit_form&#39;</span><span class="p">:</span> <span class="n">outfit_form</span>
+    <span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="outfit-delete">
+<h2>outfit_delete<a class="headerlink" href="#outfit-delete" title="Permalink to this headline">¶</a></h2>
+<p>Functions the same as the product_delete view</p>
+<blockquote>
+<div><p>&#64;login_required
+def outfit_delete(request, id):</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>return delete_object(request,</dt>
+<dd>model=Outfit,
+object_id=id,
+template_name=&#8217;outfits/outfit_delete.html&#8217;,
+template_object_name=&#8217;outfit&#8217;,
+post_delete_redirect=reverse(&#8220;outfit_list&#8221;)</dd>
+</dl>
+<p>)</p>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="outfit-savecanvas">
+<h2>outfit_saveCanvas<a class="headerlink" href="#outfit-savecanvas" title="Permalink to this headline">¶</a></h2>
+<p>This view is called on submission of JSON canvas data and image datauri (which are
+both generated byt javascript on the page) from the outfit_detail page. The JSON
+data is the canvas configuration at the time of submission. The image dataURI is
+a snapshot of the canvas formated as a png. The function checks if the POSTed
+values are valid. The canvas JSON is saved in the Outfit.canvas field. Then we need
+to save the snapshot dataURI to a thumbnail to be viewed on the outfit_list page. To
+do this we run some functions to convert from a dataURI in base64 to a saved png file.
+This file is then saved using same method we used to save the product image via an
+ImageField() in Outfit.thumb. We also required to overwrite the previous thumbnail
+file if it existed. To do this we overwrite the object save() function to check if
+the filename exists, the file should be deleted then the new file should be writen.
+This new save() function can be seen in the Outfit model. Once all the saving has
+completed we redirect back to the outfit_detail page:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">outfit_saveCanvas</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="n">outfit</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Outfit</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s">&#39;canvas&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">:</span>
+            <span class="n">canvas</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s">&#39;canvas&#39;</span><span class="p">]</span>
+            <span class="n">datauri</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s">&#39;thumb&#39;</span><span class="p">]</span>
+            <span class="n">outfit</span><span class="o">.</span><span class="n">canvas</span> <span class="o">=</span> <span class="n">canvas</span>
+            <span class="c">#outfit.save()</span>
+            <span class="n">user</span><span class="o">=</span><span class="n">outfit</span><span class="o">.</span><span class="n">author</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">outfit</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">outfit</span><span class="o">.</span><span class="n">thumb1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="s">&quot;0&quot;</span><span class="p">:</span>
+                <span class="n">outfit</span><span class="o">.</span><span class="n">thumb1</span> <span class="o">=</span> <span class="s">&quot;1&quot;</span>
+            <span class="k">elif</span> <span class="n">e</span> <span class="o">==</span> <span class="s">&quot;1&quot;</span><span class="p">:</span>
+                <span class="n">outfit</span><span class="o">.</span><span class="n">thumb1</span> <span class="o">=</span> <span class="s">&quot;0&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">outfit</span><span class="o">.</span><span class="n">thumb1</span> <span class="o">=</span> <span class="s">&quot;0&quot;</span>
+<span class="c">###########original thumbnail attempt################################################3</span>
+            <span class="c">#thumbimg = &quot;static/&quot; + str(outfit.thumb)</span>
+
+            <span class="c"># Create a Python file object using open()</span>
+            <span class="c">#thumb2 = open(filename, &#39;wb&#39;)</span>
+            <span class="c">#thumb = File(thumb2)</span>
+<span class="c">##################################################################################3####</span>
+
+            <span class="n">filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;.png&quot;</span>
+            <span class="n">imgstr</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">r&#39;base64,(.*)&#39;</span><span class="p">,</span> <span class="n">datauri</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">img_temp</span> <span class="o">=</span> <span class="n">NamedTemporaryFile</span><span class="p">()</span>
+            <span class="n">img_temp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">imgstr</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;base64&#39;</span><span class="p">))</span>
+            <span class="n">img_temp</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+<span class="c">########tried to make model for thumbnail so when i delete model object the image will be deleted also############</span>
+            <span class="c">#pics = get_object_or_404(OutfitThumb, name=filename)</span>
+            <span class="c"># try:</span>
+                <span class="c"># print &quot;deleted&quot;</span>
+                <span class="c"># pics = get_object_or_404(OutfitThumb, name=filename)</span>
+                <span class="c"># pics.delete()</span>
+            <span class="c"># except: pass</span>
+
+            <span class="c"># pics = OutfitThumb(name=filename,)</span>
+            <span class="c"># pics.outfit_id = id</span>
+            <span class="c"># pics.save()</span>
+<span class="c">##################################################################################################################</span>
+            <span class="k">print</span> <span class="n">outfit</span><span class="o">.</span><span class="n">thumb1</span>
+            <span class="c">#filename = urlparse(image).path.split(&#39;/&#39;)[-1]</span>
+            <span class="n">outfit</span><span class="o">.</span><span class="n">thumb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">File</span><span class="p">(</span><span class="n">img_temp</span><span class="p">),</span> <span class="n">save</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">outfit_detail</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#product-add-with-image-processing">Product Add with Image Processing</a></li>
+<li><a class="reference internal" href="#outfit-details-with-similar-outfits">Outfit Details (with similar outfits)</a></li>
+<li><a class="reference internal" href="#image-processing">Image Processing</a></li>
+<li><a class="reference internal" href="#suggestions">Suggestions</a></li>
+<li><a class="reference internal" href="#outfits-list">outfits_list</a></li>
+<li><a class="reference internal" href="#outfits-detail">outfits_detail</a></li>
+<li><a class="reference internal" href="#outfits-create">outfits_create</a></li>
+<li><a class="reference internal" href="#product-delete">product_delete</a></li>
+<li><a class="reference internal" href="#product-update">product_update</a></li>
+<li><a class="reference internal" href="#product-add">product_add</a></li>
+<li><a class="reference internal" href="#product-confirm">product_confirm</a></li>
+<li><a class="reference internal" href="#save-product">save_product</a></li>
+<li><a class="reference internal" href="#outfit-update">outfit_update</a></li>
+<li><a class="reference internal" href="#outfit-delete">outfit_delete</a></li>
+<li><a class="reference internal" href="#outfit-savecanvas">outfit_saveCanvas</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="architecture.html"
+                        title="previous chapter">Architecture</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="functions.html"
+                        title="next chapter">Functions Documentation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="functions.html" title="Functions Documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="architecture.html" title="Architecture"
+             >previous</a> |</li>
+        <li><a href="index.html">Parallel-Text 1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Emdad Ahmed, Mitchell Verter, Kevin Chan, Liron Shimrony &amp; Jonathan Shimrony.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

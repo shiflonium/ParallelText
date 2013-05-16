@@ -3,11 +3,11 @@ var imgDir = "../static/home/";
 var imgNum = 0;
 
 imgArray = new Array();
-imgArray[imgNum++] = new imageItem(imgDir + "slide_04.png");
-imgArray[imgNum++] = new imageItem(imgDir + "slide_02.png");
-imgArray[imgNum++] = new imageItem(imgDir + "slide_03.png");
-imgArray[imgNum++] = new imageItem(imgDir + "slide_04.png");
-imgArray[imgNum++] = new imageItem(imgDir + "slide_05.png");
+imgArray[imgNum++] = new imageItem(imgDir + "image1.png");
+imgArray[imgNum++] = new imageItem(imgDir + "image2.png");
+imgArray[imgNum++] = new imageItem(imgDir + "image3.png");
+imgArray[imgNum++] = new imageItem(imgDir + "image4.png");
+imgArray[imgNum++] = new imageItem(imgDir + "image5.png");
 
 var totalimg = imgArray.length;
 

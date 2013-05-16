@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Structure &mdash; Parallel-Text 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Parallel-Text 1.0.1 documentation" href="index.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Installation and Getting Started" href="installation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation and Getting Started"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Parallel-Text 1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="structure">
+<span id="architecture"></span><h1>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h1>
+<p>This page will briefly describe the architecture behind the Parallel-Text Project. In addition for paragraph on Hosting I will briefly describe why we chose that particular company over the competitors.</p>
+<div class="section" id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
+<p>Parallel-Text is hosted entirely on Heroku. Heroku used to be Ruby on Rails platform exclusively. Recently, they have added support for Python/Django, node.js, Java and many other languages and frameworks.</p>
+<p>We chose Heroku because of how simple it is to deploy the application. Parallel-Text was up and running on the cloud in a matter of minutes. Although, initially there were some issures regarding the deployment; but we were able to fix it successfully.</p>
+<p>Google App Engine was out of the picture because it does not have a support for SQL database. There are workarounds by using <tt class="docutils literal"><span class="pre">django-nonrel</span></tt> but we thought it was too much of a hassle, especially hosting companies like Heroku lets you deploy your Django applications with almost zero modifications.</p>
+<p>One gotcha we run into is the fact that Heroku uses <em>Git</em> for deployment process, whereas our project uses <em>Mercurial</em> version control system. This involves an extra-step of initializing a git directory in order to deploy the project to Heroku.</p>
+</div>
+<div class="section" id="visitng-our-site">
+<h2>Visitng our site<a class="headerlink" href="#visitng-our-site" title="Permalink to this headline">¶</a></h2>
+<p>If you dont want to see our site, just visit the following link:</p>
+<div class="highlight-python"><pre>http://parallel-text.herokuapp.com/</pre>
+</div>
+<p>Sign up to the and your account will be activated. Once your account is created you can enjoy our full site with ability of reading two versions of a text in parallel.</p>
+<p>This account has already been created for you:</p>
+<div class="highlight-python"><pre>Username: blah
+Password: blah</pre>
+</div>
+</div>
+<div class="section" id="django-and-packages">
+<h2>Django and Packages<a class="headerlink" href="#django-and-packages" title="Permalink to this headline">¶</a></h2>
+<p>Django==1.5.1
+argparse==1.2.1
+beautifulsoup4==4.1.3
+distribute==0.6.34
+dj-database-url==0.2.1
+gunicorn==0.17.2
+logilab-astng==0.24.3
+logilab-common==0.59.1
+psycopg2==2.5
+wsgiref==0.1.2</p>
+<p>Prallel-Text is built on top of Django 1.5.1.</p>
+<p>In addition to the django packages provided by the Pinax we have used the following libraries and python packages:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Django==1.5.1</li>
+<li>argparse==1.2.1</li>
+<li>beautifulsoup4==4.1.3</li>
+<li>distribute==0.6.34</li>
+<li>dj-database-url==0.2.1</li>
+<li>gunicorn==0.17.2</li>
+<li>logilab-astng==0.24.3</li>
+<li>logilab-common==0.59.1</li>
+<li>psycopg2==2.5</li>
+<li>wsgiref==0.1.2</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="database-configuration">
+<h2>Database Configuration<a class="headerlink" href="#database-configuration" title="Permalink to this headline">¶</a></h2>
+<p>In development we use SQLite database. It&#8217;s extremely easy to setup and use. SQLite provides a fairly simple database storage as a file.</p>
+<p>In production we use PostgreSQL mainly because Heroku enforces it. It replaces your existing Django database settings with the PostgreSQL settings provided by Heroku upon deployment of the project.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Structure</a><ul>
+<li><a class="reference internal" href="#deployment">Deployment</a></li>
+<li><a class="reference internal" href="#visitng-our-site">Visitng our site</a></li>
+<li><a class="reference internal" href="#django-and-packages">Django and Packages</a></li>
+<li><a class="reference internal" href="#database-configuration">Database Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="previous chapter">Installation and Getting Started</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">API</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/architecture.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api.html" title="API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation and Getting Started"
+             >previous</a> |</li>
+        <li><a href="index.html">Parallel-Text 1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Emdad Ahmed, Mitchell Verter, Kevin Chan, Liron Shimrony &amp; Jonathan Shimrony.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

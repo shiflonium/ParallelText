@@ -2,7 +2,7 @@
 
     {% autoescape off %}
     {% block bodycontent %}
-        <h3 style="color:DarkMagenta;">{{book_header}}: Select Chapter and Language</h3>   
+        <h3 style="color:DarkMagenta;text-align:center">{{book_header}}: Select Chapter and Language</h3>   
 	<div>
 		<form method='post' action="", name = "lang_form">
 				{% csrf_token %}
