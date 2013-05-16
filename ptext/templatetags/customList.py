@@ -1,5 +1,7 @@
-''' This class gives the ability to iterate
-    a dictionary in django template'''
+''' 
+This class gives the ability to iterate
+a dictionary in django template
+'''
 from django.template import Library
 
 register = Library()
