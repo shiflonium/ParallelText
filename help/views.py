@@ -4,7 +4,7 @@ This renders the help page
 from django.shortcuts import render
 from django.contrib.auth.models import User
 
-def index(request):
+def viewhelp(request):
     """
     this method is responsible for drawing the help page
     """

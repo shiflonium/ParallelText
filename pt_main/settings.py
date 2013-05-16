@@ -155,8 +155,7 @@ INSTALLED_APPS = (
     'dajax',
     'dajaxice',
     'dictionary',
-    
-
+    'help',
 )
 
 #Dajaxice Installation
