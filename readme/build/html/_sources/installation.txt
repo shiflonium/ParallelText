@@ -11,100 +11,93 @@ This guide will walk you through the installation process of Parallel-Text Proje
 Installation
 ============
 
-Visit the Bitbucket.com  site:
+Step 1: Visit the www.bitbucket.com  site:
 
 .. figure:: visitBB.png
 	:align: center
 
-You can sign up: 
+Step 2: You can sign up: 
 
 .. figure:: signin.png
 	:align: center
 
-Once you have create one, search Parallel-Text on the search bar.
+Step 3: Once you have create one, search Parallel-Text on the search bar.
 
 .. figure:: searchBar.png
 	:align: center
 	
-After that you have to visit our master repo:
+Step 4: After that you have to visit our master repo:
 
 .. figure:: visitMasterRepo.png
 	:align: center
 
-This time you have to fork the master repo:
+Step 5: This time you have to fork the master repo:
 
 .. figure:: forkingTheMaster.png
 	:align: center	
 	
-Forking the repo: 
+Step 6: Forking the repo: 
 
 .. figure:: forking.png
 	:align: center
 	
-Cloning the repo:
+Step 7: Cloning the repo:
 
 .. figure:: clone.png
 	:align: center
 
-Cloning the repo to the local machine:
+Step 8: Cloning the repo to the local machine:
 
 .. figure:: colning on the local machine.png
 	:align: center
 
-Installing Pip:
+Step 9: Installing Pip:
 
 .. figure:: pipInstall.png
 	:align: center
 
 
-Open the terminal and navigate to parallelText directory:
+Step 10: Open the terminal and navigate to parallelText directory:
 
 Change the directory to the parallelText directory:
 
 .. figure:: cdToParallelText.png
 	:align: center
 
-Once you there please type the the following::
+Step 11: Once you there please type the the following::
 
   > virtualenv .
 
-This will instantiate the virtual environment in the current directory. Now that we have a virtual environment, let's activate it::
+Step 12: This will instantiate the virtual environment in the current directory. Now that we have a virtual environment, let's activate it::
   
   > source bin/activate
 
-Next naviate to the ``parallelText/requirements`` directory and execute the following command to install project dependencies inside the current virtual environment::
+Step 13: Next naviate to the ``parallelText/requirements`` directory and execute the following command to install project dependencies inside the current virtual environment::
 
   > pip install -r requirements.txt
 
+Step 14: Now you are ready to run the django server and start using the application. *But first you must navigate back to the project root folder*::
 
-Run the local Server:
+  > python manage.py runserver
 	
 .. figure:: runServer.png
 	:align: center
 
-Visit the localhost: 
+Step 15: Visit the localhost: 
 
-.. figure:: runserverOnTheServer.png
-	:align: center	
-
-
-Now you are ready to run the django server and start using the application. *But first you must navigate back to the project root folder*::
-
-  > python manage.py runserver
+Open any browser and type http://127.0.0.1:8000/
 
 Congratulations! That was pretty simple, wasn't it? In the next paragraph you can see the project structure in a tree-style format.
 
-	
-Done! Now you can start implementing additional stuff to the project. 
-
+Done! Now you can start implementing additional stuff to the project.
 
 .. _project-tree-structure
 Project tree structure
 ======================
 
-Our project uses the starter-app project template provided by the Pinax 0.9a2. Below is the tree diagram of the folder structure of EZStyler::
+Our project uses structure looked like this::
 
-  .
+  
   ├── acceptanceTest
   │   ├── deleteaccount.py
   │   ├── dictionary.py
@@ -300,10 +293,6 @@ Our project uses the starter-app project template provided by the Pinax 0.9a2. B
       └── profiles
 
 All django applications are stored in the apps folder. Note that none of the applications use app-specific templates or static files. Templates, javascript, css, and images are located in the project-level ``templates`` and ``static`` directories respectively.
-
-Fixtures folder contains initial configuration data in the JSON format. One example of such config data is the *Site's name*. When you run ``python manage.py syncdb``, Django uses a JSON file from the ``fixtures`` directory to pre-configure the database with initial values.
-
-Media folder contains dynamically-generated images of products and outfits.
 
 Static folder is pretty self-explanatory. It contains project-wide stylesheets, javascripts and images, e.g. site logo. 
 

@@ -24,8 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Parallel-Text 1.0.1 documentation" href="index.html" />
-    <link rel="next" title="API" href="api.html" />
-    <link rel="prev" title="Installation and Getting Started" href="installation.html" /> 
+    <link rel="prev" title="User Documentation" href="documentation.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,10 +34,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="api.html" title="API"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="installation.html" title="Installation and Getting Started"
+          <a href="documentation.html" title="User Documentation"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">Parallel-Text 1.0.1 documentation</a> &raquo;</li> 
       </ul>
@@ -56,8 +52,6 @@
 <h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
 <p>Parallel-Text is hosted entirely on Heroku. Heroku used to be Ruby on Rails platform exclusively. Recently, they have added support for Python/Django, node.js, Java and many other languages and frameworks.</p>
 <p>We chose Heroku because of how simple it is to deploy the application. Parallel-Text was up and running on the cloud in a matter of minutes. Although, initially there were some issures regarding the deployment; but we were able to fix it successfully.</p>
-<p>Google App Engine was out of the picture because it does not have a support for SQL database. There are workarounds by using <tt class="docutils literal"><span class="pre">django-nonrel</span></tt> but we thought it was too much of a hassle, especially hosting companies like Heroku lets you deploy your Django applications with almost zero modifications.</p>
-<p>One gotcha we run into is the fact that Heroku uses <em>Git</em> for deployment process, whereas our project uses <em>Mercurial</em> version control system. This involves an extra-step of initializing a git directory in order to deploy the project to Heroku.</p>
 </div>
 <div class="section" id="visitng-our-site">
 <h2>Visitng our site<a class="headerlink" href="#visitng-our-site" title="Permalink to this headline">¶</a></h2>
@@ -66,22 +60,12 @@
 </div>
 <p>Sign up to the and your account will be activated. Once your account is created you can enjoy our full site with ability of reading two versions of a text in parallel.</p>
 <p>This account has already been created for you:</p>
-<div class="highlight-python"><pre>Username: blah
-Password: blah</pre>
+<div class="highlight-python"><pre>Username: testuser
+Password: testuser</pre>
 </div>
 </div>
 <div class="section" id="django-and-packages">
 <h2>Django and Packages<a class="headerlink" href="#django-and-packages" title="Permalink to this headline">¶</a></h2>
-<p>Django==1.5.1
-argparse==1.2.1
-beautifulsoup4==4.1.3
-distribute==0.6.34
-dj-database-url==0.2.1
-gunicorn==0.17.2
-logilab-astng==0.24.3
-logilab-common==0.59.1
-psycopg2==2.5
-wsgiref==0.1.2</p>
 <p>Prallel-Text is built on top of Django 1.5.1.</p>
 <p>In addition to the django packages provided by the Pinax we have used the following libraries and python packages:</p>
 <blockquote>
@@ -124,11 +108,8 @@ wsgiref==0.1.2</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="installation.html"
-                        title="previous chapter">Installation and Getting Started</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="api.html"
-                        title="next chapter">API</a></p>
+  <p class="topless"><a href="documentation.html"
+                        title="previous chapter">User Documentation</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/architecture.txt"
@@ -158,10 +139,7 @@ wsgiref==0.1.2</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="api.html" title="API"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="installation.html" title="Installation and Getting Started"
+          <a href="documentation.html" title="User Documentation"
              >previous</a> |</li>
         <li><a href="index.html">Parallel-Text 1.0.1 documentation</a> &raquo;</li> 
       </ul>
