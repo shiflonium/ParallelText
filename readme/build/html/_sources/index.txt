@@ -18,11 +18,11 @@ Product Owner: **Emdad Ahmed**
 
 Scrum Master: **Mitchell Verter**
 
-Lead Developer: **Kevin Chan**
+Lead Programmer: **Kevin Chan**
 
-Senior Developer: **Liron Shimrony**
+Senior Programmer: **Liron Shimrony**
 
-Junior Developer: **Jonathan Shimrony**
+Chief Programmer: **Jonathan Shimrony**
 
 Heroku Website
 ============
@@ -39,13 +39,9 @@ Documentations
 .. toctree::
    :maxdepth: 2
 
-
    installation.rst
+   documentation.rst
    architecture.rst	 
-   pythonunittests
-	 
-   functions.rst
-   code
 
 Software Requirements
 =================
@@ -64,6 +60,5 @@ Software Requirements
 Sources of Text
 =================
 
-* `Django <https://www.djangoproject.com/>`_
-* `Django <https://www.djangoproject.com/>`_
-* `Django <https://www.djangoproject.com/>`_
+* `The Holy Quran <http://www.qurandownload.com//>`_
+* `Bible Genesis <http://wikisource.org/wiki/Main_Page>`_

@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Parallel-Text 1.0.1 documentation" href="index.html" />
-    <link rel="next" title="Structure" href="architecture.html" />
+    <link rel="next" title="User Documentation" href="documentation.html" />
     <link rel="prev" title="Welcome to Parallel-Text’s documentation!" href="index.html" /> 
   </head>
   <body>
@@ -35,10 +35,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="architecture.html" title="Structure"
+          <a href="documentation.html" title="User Documentation"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to Parallel-Text’s documentation!"
@@ -57,75 +54,71 @@
 <p>This guide will walk you through the installation process of Parallel-Text Project.</p>
 <div class="section" id="id1">
 <h2>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>Visit the Bitbucket.com  site:</p>
+<p>Step 1: Visit the www.bitbucket.com  site:</p>
 <div class="figure align-center">
 <img alt="_images/visitBB.png" src="_images/visitBB.png" />
 </div>
-<p>You can sign up:</p>
+<p>Step 2: You can sign up:</p>
 <div class="figure align-center">
 <img alt="_images/signin.png" src="_images/signin.png" />
 </div>
-<p>Once you have create one, search Parallel-Text on the search bar.</p>
+<p>Step 3: Once you have create one, search Parallel-Text on the search bar.</p>
 <div class="figure align-center">
 <img alt="_images/searchBar.png" src="_images/searchBar.png" />
 </div>
-<p>After that you have to visit our master repo:</p>
+<p>Step 4: After that you have to visit our master repo:</p>
 <div class="figure align-center">
 <img alt="_images/visitMasterRepo.png" src="_images/visitMasterRepo.png" />
 </div>
-<p>This time you have to fork the master repo:</p>
+<p>Step 5: This time you have to fork the master repo:</p>
 <div class="figure align-center">
 <img alt="_images/forkingTheMaster.png" src="_images/forkingTheMaster.png" />
 </div>
-<p>Forking the repo:</p>
+<p>Step 6: Forking the repo:</p>
 <div class="figure align-center">
 <img alt="_images/forking.png" src="_images/forking.png" />
 </div>
-<p>Cloning the repo:</p>
+<p>Step 7: Cloning the repo:</p>
 <div class="figure align-center">
 <img alt="_images/clone.png" src="_images/clone.png" />
 </div>
-<p>Cloning the repo to the local machine:</p>
+<p>Step 8: Cloning the repo to the local machine:</p>
 <div class="figure align-center">
 <img alt="colningonthelocalmachine.png" src="colningonthelocalmachine.png" />
 </div>
-<p>Installing Pip:</p>
+<p>Step 9: Installing Pip:</p>
 <div class="figure align-center">
 <img alt="_images/pipInstall.png" src="_images/pipInstall.png" />
 </div>
-<p>Open the terminal and navigate to parallelText directory:</p>
+<p>Step 10: Open the terminal and navigate to parallelText directory:</p>
 <p>Change the directory to the parallelText directory:</p>
 <div class="figure align-center">
 <img alt="_images/cdToParallelText.png" src="_images/cdToParallelText.png" />
 </div>
-<p>Once you there please type the the following:</p>
+<p>Step 11: Once you there please type the the following:</p>
 <div class="highlight-python"><pre>&gt; virtualenv .</pre>
 </div>
-<p>This will instantiate the virtual environment in the current directory. Now that we have a virtual environment, let&#8217;s activate it:</p>
+<p>Step 12: This will instantiate the virtual environment in the current directory. Now that we have a virtual environment, let&#8217;s activate it:</p>
 <div class="highlight-python"><pre>&gt; source bin/activate</pre>
 </div>
-<p>Next naviate to the <tt class="docutils literal"><span class="pre">parallelText/requirements</span></tt> directory and execute the following command to install project dependencies inside the current virtual environment:</p>
+<p>Step 13: Next naviate to the <tt class="docutils literal"><span class="pre">parallelText/requirements</span></tt> directory and execute the following command to install project dependencies inside the current virtual environment:</p>
 <div class="highlight-python"><pre>&gt; pip install -r requirements.txt</pre>
 </div>
-<p>Run the local Server:</p>
+<p>Step 14: Now you are ready to run the django server and start using the application. <em>But first you must navigate back to the project root folder</em>:</p>
+<div class="highlight-python"><pre>&gt; python manage.py runserver</pre>
+</div>
 <div class="figure align-center">
 <img alt="_images/runServer.png" src="_images/runServer.png" />
 </div>
-<p>Visit the localhost:</p>
-<div class="figure align-center">
-<img alt="_images/runserverOnTheServer.png" src="_images/runserverOnTheServer.png" />
-</div>
-<p>Now you are ready to run the django server and start using the application. <em>But first you must navigate back to the project root folder</em>:</p>
-<div class="highlight-python"><pre>&gt; python manage.py runserver</pre>
-</div>
+<p>Step 15: Visit the localhost:</p>
+<p>Open any browser and type <a class="reference external" href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a></p>
 <p>Congratulations! That was pretty simple, wasn&#8217;t it? In the next paragraph you can see the project structure in a tree-style format.</p>
 <p>Done! Now you can start implementing additional stuff to the project.</p>
 </div>
 <div class="section" id="project-tree-structure">
 <h2>Project tree structure<a class="headerlink" href="#project-tree-structure" title="Permalink to this headline">¶</a></h2>
-<p>Our project uses the starter-app project template provided by the Pinax 0.9a2. Below is the tree diagram of the folder structure of EZStyler:</p>
-<div class="highlight-python"><pre>.
-├── acceptanceTest
+<p>Our project uses structure looked like this:</p>
+<div class="highlight-python"><pre>├── acceptanceTest
 │   ├── deleteaccount.py
 │   ├── dictionary.py
 │   ├── ......
@@ -320,8 +313,6 @@
     └── profiles</pre>
 </div>
 <p>All django applications are stored in the apps folder. Note that none of the applications use app-specific templates or static files. Templates, javascript, css, and images are located in the project-level <tt class="docutils literal"><span class="pre">templates</span></tt> and <tt class="docutils literal"><span class="pre">static</span></tt> directories respectively.</p>
-<p>Fixtures folder contains initial configuration data in the JSON format. One example of such config data is the <em>Site&#8217;s name</em>. When you run <tt class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">syncdb</span></tt>, Django uses a JSON file from the <tt class="docutils literal"><span class="pre">fixtures</span></tt> directory to pre-configure the database with initial values.</p>
-<p>Media folder contains dynamically-generated images of products and outfits.</p>
 <p>Static folder is pretty self-explanatory. It contains project-wide stylesheets, javascripts and images, e.g. site logo.</p>
 <p>Last but not least, templates folder contains Django templates. Global templates are located at the root of the <tt class="docutils literal"><span class="pre">templates</span></tt> folder, while app-specific templates are located in the their respective folder inside the <tt class="docutils literal"><span class="pre">templates</span></tt> directory.</p>
 </div>
@@ -346,8 +337,8 @@
   <p class="topless"><a href="index.html"
                         title="previous chapter">Welcome to Parallel-Text&#8217;s documentation!</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="architecture.html"
-                        title="next chapter">Structure</a></p>
+  <p class="topless"><a href="documentation.html"
+                        title="next chapter">User Documentation</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/installation.txt"
@@ -377,10 +368,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="architecture.html" title="Structure"
+          <a href="documentation.html" title="User Documentation"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to Parallel-Text’s documentation!"
