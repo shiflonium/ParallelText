@@ -7,13 +7,12 @@ C: 20,0: Line too long (120/80)
 C: 23,0: Line too long (101/80)
 C: 27,0: Line too long (115/80)
 C:127,0: Line too long (88/80)
-C:179,0: Operator not preceded by a space
+C:178,0: Operator not preceded by a space
 DEBUG=True
      ^
 ************* Module urls
-C: 41,0: Line too long (101/80)
-C: 42,0: Line too long (99/80)
-F:  9,0: Unable to import 'dajaxice.core'
+C: 42,0: Line too long (101/80)
+C: 43,0: Line too long (99/80)
 C: 14,0: Invalid name "urlpatterns" for type constant (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
 ************* Module wsgi
 C: 29,0: Invalid name "application" for type constant (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
@@ -22,82 +21,6 @@ C: 29,0: Invalid name "application" for type constant (should match (([A-Z_][A-Z
 Report
 ======
 67 statements analysed.
-
-Statistics by type
-------------------
-
-+---------+-------+-----------+-----------+------------+---------+
-|type     |number |old number |difference |%documented |%badname |
-+=========+=======+===========+===========+============+=========+
-|module   |9      |9          |=          |100.00      |0.00     |
-+---------+-------+-----------+-----------+------------+---------+
-|class    |1      |1          |=          |100.00      |0.00     |
-+---------+-------+-----------+-----------+------------+---------+
-|method   |2      |2          |=          |100.00      |50.00    |
-+---------+-------+-----------+-----------+------------+---------+
-|function |1      |1          |=          |100.00      |0.00     |
-+---------+-------+-----------+-----------+------------+---------+
-
-
-
-Raw metrics
------------
-
-+----------+-------+------+---------+-----------+
-|type      |number |%     |previous |difference |
-+==========+=======+======+=========+===========+
-|code      |109    |31.41 |109      |=          |
-+----------+-------+------+---------+-----------+
-|docstring |125    |36.02 |125      |=          |
-+----------+-------+------+---------+-----------+
-|comment   |84     |24.21 |84       |=          |
-+----------+-------+------+---------+-----------+
-|empty     |29     |8.36  |29       |=          |
-+----------+-------+------+---------+-----------+
-
-
-
-External dependencies
----------------------
-::
-
-    django 
-      \-conf 
-      | \-settings (urls)
-      | \-urls 
-      |   \-include (urls)
-      |   \-patterns (urls)
-      |   \-url (urls)
-      \-contrib 
-      | \-admin (urls)
-      | \-auth 
-      |   \-models 
-      |     \-User (views)
-      \-core 
-      | \-management 
-      | | \-execute_from_command_line (manage)
-      | \-wsgi 
-      |   \-get_wsgi_application (wsgi)
-      \-shortcuts 
-      | \-render (views)
-      \-test 
-        \-client 
-          \-RequestFactory (tests)
-
-
-
-Duplication
------------
-
-+-------------------------+------+---------+-----------+
-|                         |now   |previous |difference |
-+=========================+======+=========+===========+
-|nb duplicated lines      |0     |0        |=          |
-+-------------------------+------+---------+-----------+
-|percent duplicated lines |0.000 |0.000    |=          |
-+-------------------------+------+---------+-----------+
-
-
 
 Messages by category
 --------------------
@@ -126,9 +49,9 @@ Messages
 +-----------+------------+
 |C0103      |3           |
 +-----------+------------+
-|F0401      |2           |
-+-----------+------------+
 |R0904      |1           |
++-----------+------------+
+|F0401      |1           |
 +-----------+------------+
 |C0322      |1           |
 +-----------+------------+
@@ -138,4 +61,84 @@ Messages
 Global evaluation
 -----------------
 Your code has been rated at 8.36/10 (previous run: 8.36/10)
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |=          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |9      |9          |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |1      |1          |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |2      |2          |=          |100.00      |50.00    |
++---------+-------+-----------+-----------+------------+---------+
+|function |1      |1          |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |110    |31.70 |110      |=          |
++----------+-------+------+---------+-----------+
+|docstring |126    |36.31 |126      |=          |
++----------+-------+------+---------+-----------+
+|comment   |83     |23.92 |83       |=          |
++----------+-------+------+---------+-----------+
+|empty     |28     |8.07  |28       |=          |
++----------+-------+------+---------+-----------+
+
+
+
+External dependencies
+---------------------
+::
+
+    dajaxice 
+      \-core 
+        \-dajaxice_autodiscover (urls)
+        \-dajaxice_config (urls)
+    django 
+      \-conf 
+      | \-settings (urls)
+      | \-urls 
+      |   \-include (urls)
+      |   \-patterns (urls)
+      |   \-url (urls)
+      \-contrib 
+      | \-admin (urls)
+      | \-auth 
+      |   \-models 
+      |     \-User (views)
+      \-core 
+      | \-management 
+      | | \-execute_from_command_line (manage)
+      | \-wsgi 
+      |   \-get_wsgi_application (wsgi)
+      \-shortcuts 
+      | \-render (views)
+      \-test 
+        \-client 
+          \-RequestFactory (tests)
+
+
 

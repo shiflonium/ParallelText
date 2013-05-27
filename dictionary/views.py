@@ -5,7 +5,7 @@ This renders the user's dictionary pages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from languages.models import Languages
+#from languages.models import Languages
 from dictionary.forms import DictLangForm
 from languages.models import UserDictionary
 from ptext.views import CustomDict
@@ -15,7 +15,6 @@ def viewdict(request):
     """
     This show all words the user has saved in their dictionary.
     """
-    import pdb; pdb.set_trace()
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/login/')
     else:
@@ -29,15 +28,17 @@ def viewdict(request):
         original_list = list()
         
         #Create definition id's list
-        for i in range (0,len(user_dictionary_list)):
+        for i in range (0, len(user_dictionary_list)):
             definitions_list.append(user_dictionary_list[i].definitionID)
 
         #Create translation list
-        for i in range (0,len(definitions_list)):
-            original_list.append(Translations.objects.get(definitionID=definitions_list[i]).original)
-            translation_list.append(Translations.objects.get(definitionID=definitions_list[i]).definition)
+        for i in range (0, len(definitions_list)):
+            original_list.append(Translations.objects.get(
+                definitionID=definitions_list[i]).original)
+            translation_list.append(Translations.objects.get(
+                definitionID=definitions_list[i]).definition)
 
-        words = CustomDict(original_list,translation_list)
+        words = CustomDict(original_list, translation_list)
 
 
         return render(request, 'dictionary/dictionary.html', {'words':words,
